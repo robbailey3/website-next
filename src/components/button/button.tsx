@@ -8,7 +8,25 @@ type ButtonProps = {
 
 const Button = (props: ButtonProps) => {
 	const { variant = 'primary', onClick, children } = props;
-	return <button onClick={onClick}></button>;
+
+	const getButtonClass = (): string => {
+		switch (variant) {
+			case 'primary':
+				return 'button--primary';
+			case 'secondary':
+				return 'button--secondary';
+			case 'tertiary':
+				return 'button--tertiary';
+			default:
+				return 'button--primary';
+		}
+	};
+
+	return (
+		<button onClick={onClick} className={getButtonClass()}>
+			{children}
+		</button>
+	);
 };
 
 export default Button;
