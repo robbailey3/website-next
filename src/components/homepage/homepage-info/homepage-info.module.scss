@@ -1,0 +1,16 @@
+@import '@/styles/partials/colours';
+
+.info {
+	background-color: $lightGrey;
+	color: $fontDark;
+	padding: 4rem 0;
+}
+.left {
+	padding: 4rem 2rem;
+}
+.right {
+	img {
+		margin: auto;
+		display: block;
+	}
+}

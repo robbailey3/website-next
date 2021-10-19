@@ -1,11 +1,16 @@
 @import './partials/reset';
 @import './partials/typography';
 @import './partials/accessibility';
+@import './partials/colours';
 
-html, body {
-	background-color: #121215;
-	color: #fafafa;
+html,
+body {
+	background-color: $background;
+	color: $fontMain;
 	a {
-		color: #fafafa;
+		color: $fontMain;
+	}
+	#main-content {
+		margin-top: 56px;
 	}
 }

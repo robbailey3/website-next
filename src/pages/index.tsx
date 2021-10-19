@@ -1,24 +1,18 @@
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
+import HomepageBanner from '@/components/homepage/homepage-banner/homepage-banner';
+import HomepageInfo from '@/components/homepage/homepage-info/homepage-info';
+import HomepageTech from '@/components/homepage/homepage-tech/homepage-tech';
 import type { NextPage } from 'next';
 import React from 'react';
 
 const Home: NextPage = () => {
 	return (
-		<FlexContainer>
-			<FlexItem options={{ grow: 1 }} className="flex-item">
-				<h1>Hello One</h1>
-			</FlexItem>
-			<FlexItem options={{ grow: 3 }} className="flex-item">
-				<h1>Hello Two</h1>
-			</FlexItem>
-			<FlexItem options={{ grow: 1 }} className="flex-item">
-				<h1>3</h1>
-			</FlexItem>
-			<FlexItem options={{ grow: 2 }} className="flex-item">
-				<h1>4</h1>
-			</FlexItem>
-		</FlexContainer>
+		<>
+			<HomepageBanner />
+			<HomepageInfo />
+			<HomepageTech />
+		</>
 	);
 };
 

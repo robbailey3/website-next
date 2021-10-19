@@ -1,0 +1,19 @@
+@import '@/styles/partials/colours';
+
+.banner {
+	height: calc(100vh - 56px);
+}
+
+.left,
+.right {
+	text-align: center;
+}
+
+.right img {
+	margin: auto;
+	display: block;
+}
+
+.sub_heading {
+	color: $accentBlue;
+}
