@@ -7,21 +7,20 @@ import clsx from 'clsx';
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	const [currentWindowSize, setCurrentWindowSize] = useState(0);
+
 	useEffect(() => {
 		let windowResizeSubscription: Subscription;
 		if (typeof window !== 'undefined') {
+			setCurrentWindowSize(window.innerWidth);
 			windowResizeSubscription = fromEvent(window, 'resize')
 				.pipe(
 					throttleTime(500),
 					map(($event: Event) => ($event.target as Window).innerWidth || 0)
 				)
 				.subscribe({
-					next: $event => {
-						if ($event < 768) {
-							setIsOpen(false);
-						} else {
-							setIsOpen(true);
-						}
+					next: windowSize => {
+						setCurrentWindowSize(windowSize);
 					}
 				});
 		}
@@ -32,8 +31,15 @@ const Navigation = () => {
 		};
 	});
 
+	const toggleNavigation = () => {
+		setIsOpen(!isOpen);
+	};
+
+	const isMobileDevice = () => currentWindowSize < 768;
+
 	return (
-		<nav className={clsx(styles.navigation, { [styles.navigation__open]: isOpen })}>
+		<nav className={clsx(styles.navigation, { [styles.navigation__open]: isOpen || !isMobileDevice() })}>
+			{isMobileDevice() && <button onClick={toggleNavigation}>Toggle Navigation</button>}
 			<ul>
 				<li>
 					<Link href="/">

@@ -1,19 +1,49 @@
+@import '@/styles/partials/layout';
+
 .navigation {
 	margin-left: auto;
+	position: relative;
+	ul {
+		display: none;
+		@include breakpoint(md){
+			display: flex;
+		}
+	}
 	&__open {
 		display: block;
-	}
-	ul {
-		display: flex;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		li {
-			display: inline-block;
-			a {
+		ul {
+			list-style: none;
+			display: block;
+			padding: 0;
+			margin: 0;
+			position: absolute;
+			background: lighten(#121215, 10%);
+			right: 1rem;
+			top: calc(100% + 1rem);
+			width: 50vw;
+			text-align: center;
+			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+			border-radius: 1rem;
+			li {
 				display: block;
-				padding: 1rem;
-				text-decoration: none;
+				a {
+					display: block;
+					padding: 1rem;
+					text-decoration: none;
+				}
+			}
+			@include breakpoint(md) {
+				display: flex;
+				position: relative;
+				top: 0;
+				right: 0;
+				background: transparent;
+				box-shadow: none;
+				text-align: right;
+				justify-content: flex-end;
+				li {
+					display: inline-block;
+				}
 			}
 		}
 	}
