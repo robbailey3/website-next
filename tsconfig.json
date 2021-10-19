@@ -15,11 +15,11 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/components/*": ["components/*"],
-			"@/services/*": ["services/*"],
-			"@/types/*": ["types/*"]
+			"@/components/*": ["src/components/*"],
+			"@/services/*": ["src/services/*"],
+			"@/types/*": ["src/types/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_document.js"],
 	"exclude": ["node_modules"]
 }
