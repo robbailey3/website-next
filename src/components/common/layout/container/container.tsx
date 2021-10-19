@@ -1,3 +1,5 @@
+import styles from './container.module.scss';
+
 type ContainerProps = {
 	children: React.ReactNode;
 	className?: string;
@@ -6,7 +8,7 @@ type ContainerProps = {
 const Container = (props: ContainerProps) => {
 	const { children, className } = props;
 	return (
-		<div className={['container', className].join(' ')}>
+		<div className={[styles.container, className].join(' ')}>
 			{children}
 		</div>
 	)

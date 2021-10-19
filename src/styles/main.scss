@@ -1,0 +1,11 @@
+@import './partials/reset';
+@import './partials/typography';
+@import './partials/accessibility';
+
+html, body {
+	background-color: #121215;
+	color: #fafafa;
+	a {
+		color: #fafafa;
+	}
+}
