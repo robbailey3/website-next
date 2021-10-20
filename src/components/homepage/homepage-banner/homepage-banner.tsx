@@ -9,14 +9,12 @@ const HomepageBanner = () => {
 			options={{ align: 'center', wrap: 'wrap' }}
 		>
 			<FlexItem className={styles.left} options={{ basis: '50%' }}>
-				<h1 className={styles.heading}>Lorem ipsum dolor sit</h1>
-				<h2 className={styles.sub_heading}>Blah blah</h2>
+				<h1 className={styles.heading} data-cy="homepage-banner-title">Rob Bailey</h1>
+				<h2 className={styles.sub_heading} data-cy="homepage-banner-subtitle">Software Engineer</h2>
 			</FlexItem>
 			<FlexItem className={styles.right} options={{ basis: '50%' }}>
-				<img
-					src="https://via.placeholder.com/300x300"
-					alt="placeholder"
-				/>
+		<p>Hi there!</p>
+		<p>I make things with code.</p>
 			</FlexItem>
 		</FlexContainer>
 	);

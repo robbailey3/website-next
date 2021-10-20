@@ -3,14 +3,20 @@
 .info {
 	background-color: $lightGrey;
 	color: $fontDark;
-	padding: 4rem 0;
 }
 .left {
 	padding: 4rem 2rem;
 }
 .right {
+	display: flex;
+	justify-items: flex-end;
 	img {
 		margin: auto;
 		display: block;
 	}
+}
+
+.image_container {
+	display: flex;
+	margin-left: auto;
 }
