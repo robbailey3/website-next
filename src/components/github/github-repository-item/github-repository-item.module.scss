@@ -1,0 +1,19 @@
+.repo {
+	height: 100%;
+	width: 100%;
+	background: #4d4b4b;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	&__info {
+		flex: 1;
+	}
+	&__name {
+		font-size: 1.3rem;
+	}
+	&__language {
+		font-size: 1.1rem;
+		color: #828282;
+	}
+}

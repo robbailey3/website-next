@@ -16,12 +16,15 @@ const Navigation = () => {
 			windowResizeSubscription = fromEvent(window, 'resize')
 				.pipe(
 					throttleTime(500),
-					map(($event: Event) => ($event.target as Window).innerWidth || 0)
+					map(
+						($event: Event) =>
+							($event.target as Window).innerWidth || 0
+					)
 				)
 				.subscribe({
-					next: windowSize => {
+					next: (windowSize) => {
 						setCurrentWindowSize(windowSize);
-					}
+					},
 				});
 		}
 		return () => {
@@ -38,8 +41,14 @@ const Navigation = () => {
 	const isMobileDevice = () => currentWindowSize < 768;
 
 	return (
-		<nav className={clsx(styles.navigation, { [styles.navigation__open]: isOpen || !isMobileDevice() })}>
-			{isMobileDevice() && <button onClick={toggleNavigation}>Toggle Navigation</button>}
+		<nav
+			className={clsx(styles.navigation, {
+				[styles.navigation__open]: isOpen || !isMobileDevice(),
+			})}
+		>
+			{isMobileDevice() && (
+				<button onClick={toggleNavigation}>Toggle Navigation</button>
+			)}
 			<ul>
 				<li>
 					<Link href="/">
@@ -49,6 +58,11 @@ const Navigation = () => {
 				<li>
 					<Link href="/">
 						<a>About</a>
+					</Link>
+				</li>
+				<li>
+					<Link href="/github">
+						<a>GitHub</a>
 					</Link>
 				</li>
 				<li>

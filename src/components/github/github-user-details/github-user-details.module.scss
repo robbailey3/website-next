@@ -1,0 +1,15 @@
+@import '@/styles/partials/colours';
+
+.user_details {
+	text-align: center;
+	background-color: lighten($background, 10%);
+}
+.avatar {
+	border-radius: 50%;
+	border: 3px solid $accentBlue;
+	display: inline-block;
+	width: 250px;
+	margin: 2rem auto 0;
+	overflow: hidden;
+	background: lighten($background, 5%);
+}
