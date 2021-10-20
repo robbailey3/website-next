@@ -9,48 +9,19 @@ const HomepageTech = () => {
 	return (
 		<section className={styles.section}>
 			<Container>
-				<FlexContainer>
+				<FlexContainer options={{ justify: 'space-around' }}>
 					<FlexItem className={styles.tech_item}>
-						<Image
-							src="/react-logo.svg"
-							alt="React Logo"
-							width={100}
-							height={100}
-						/>
+						<Image src="/react-logo.svg" alt="React Logo" width={100} height={100} />
 					</FlexItem>
 					<FlexItem className={styles.tech_item}>
-						<Image
-							src="/golang-logo.svg"
-							alt="React Logo"
-							width={100}
-							height={100}
-						/>
+						<Image src="/golang-logo.svg" alt="React Logo" width={100} height={100} />
 					</FlexItem>
 					<FlexItem className={styles.tech_item}>
-						<Image
-							src="/typescript-logo.svg"
-							alt="React Logo"
-							width={100}
-							height={100}
-						/>
+						<Image src="/typescript-logo.svg" alt="React Logo" width={100} height={100} />
 					</FlexItem>
 					<FlexItem className={styles.tech_item}>
-						<Image
-							src="/csharp-logo.svg"
-							alt="React Logo"
-							width={100}
-							height={100}
-						/>
+						<Image src="/csharp-logo.svg" alt="React Logo" width={100} height={100} />
 					</FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
-					<FlexItem className={styles.tech_item}></FlexItem>
 				</FlexContainer>
 			</Container>
 		</section>
