@@ -11,6 +11,9 @@ type GithubUserItemProps = {
 const GithubUserItem = (props: GithubUserItemProps) => {
 	const { icon, text } = props;
 
+	if (!icon || !text) {
+		return null;
+	}
 	return (
 		<div className={styles.item}>
 			<FontAwesomeIcon icon={icon} className={styles.icon} />

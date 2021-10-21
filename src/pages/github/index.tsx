@@ -13,7 +13,7 @@ const GitHubPage = () => {
 
 	useEffect(() => {
 		const fetchRepos = async () => {
-			let result = await githubService.GetUserRepositories(username);
+			let result = await githubService.GetUserRepositories(username, { per_page: 25 });
 			setRepos(result);
 		};
 		const fetchUser = async () => {

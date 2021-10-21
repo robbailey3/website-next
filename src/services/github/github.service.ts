@@ -3,10 +3,10 @@ import { GetUserRepositoriesResponse } from './responses/GetUserRepositoriesResp
 import { GetUserResponse } from './responses/GetUserResponse';
 
 type GetUserRepositoriesOptions = {
-	sort: 'created' | 'updated' | 'pushed' | 'full_name';
-	order: 'asc' | 'desc';
-	page: number;
-	per_page: number;
+	sort?: 'created' | 'updated' | 'pushed' | 'full_name';
+	order?: 'asc' | 'desc';
+	page?: number;
+	per_page?: number;
 };
 
 class GitHubService {
