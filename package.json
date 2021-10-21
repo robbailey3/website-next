@@ -12,7 +12,8 @@
 		"cypress": "cypress open",
 		"cypress:headless": "cypress run",
 		"e2e": "start-server-and-test start http://localhost:3000 cypress",
-		"e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
+		"e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -39,6 +40,7 @@
 		"eslint": "8.0.1",
 		"eslint-config-next": "11.1.2",
 		"eslint-plugin-jsx-a11y": "^6.4.1",
+		"husky": "^7.0.4",
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^27.3.0",
 		"react-test-renderer": "^17.0.2",
