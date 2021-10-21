@@ -1,12 +1,12 @@
 @import '@/styles/partials/colours';
 
 .repos {
-	background-color: lighten($background, 20%);
-	overflow: auto;
-	h2 {
-		text-align: center;
-	}
+  background-color: lighten($background, 2%);
+  overflow: auto;
+  h2 {
+    text-align: center;
+  }
 }
 .repo_item {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }

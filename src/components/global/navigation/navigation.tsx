@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from './navigation.module.scss';
-import { fromEvent, map, Subscription, throttleTime } from 'rxjs';
+import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
 import clsx from 'clsx';
 
 const Navigation = () => {
@@ -15,7 +15,7 @@ const Navigation = () => {
       setCurrentWindowSize(window.innerWidth);
       windowResizeSubscription = fromEvent(window, 'resize')
         .pipe(
-          throttleTime(500),
+          debounceTime(500),
           map(($event: Event) => ($event.target as Window).innerWidth || 0)
         )
         .subscribe({
@@ -44,7 +44,12 @@ const Navigation = () => {
       })}
     >
       {isMobileDevice() && (
-        <button onClick={toggleNavigation}>Toggle Navigation</button>
+        <button onClick={toggleNavigation} className={styles.button}>
+          <p className="sr-only">Toggle Navigation</p>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       )}
       <ul>
         <li>
@@ -68,7 +73,7 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Link href="/">
+          <Link href="/cv">
             <a>CV</a>
           </Link>
         </li>
