@@ -12,7 +12,7 @@ module.exports = {
 		'^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
 		'^.+\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
 	},
-	testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+	testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/cypress/'],
 	testEnvironment: 'jsdom',
 	transform: {
 		'^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
