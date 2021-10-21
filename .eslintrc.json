@@ -1,4 +1,8 @@
 {
-	"extends": ["plugin:jsx-a11y/recommended", "next/core-web-vitals"],
-	"rules": { "jsx-a11y/anchor-is-valid": [0] }
+  "extends": [
+    "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "rules": { "jsx-a11y/anchor-is-valid": [0] }
 }
