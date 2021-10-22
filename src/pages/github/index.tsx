@@ -15,6 +15,7 @@ const GitHubPage = () => {
     const fetchRepos = async () => {
       let result = await githubService.GetUserRepositories(username, {
         per_page: 25,
+        sort: 'pushed',
       });
       setRepos(result);
     };
