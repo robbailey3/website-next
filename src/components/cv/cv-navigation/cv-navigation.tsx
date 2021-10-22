@@ -1,5 +1,5 @@
 import { CVPanel } from '@/data/cv-panel';
-import clsx from 'clsx';
+import { motion, Variants } from 'framer-motion';
 import styles from './cv-navigation.module.scss';
 
 type CVNavigationProps = {
@@ -10,50 +10,71 @@ type CVNavigationProps = {
 const CVNavigation = (props: CVNavigationProps) => {
   const { activePanel, handlePanelChange } = props;
 
+  const variants: Variants = {
+    active: {
+      opacity: 1,
+      color: '#fff',
+    },
+    inactive: {
+      opacity: 0.65,
+      color: '#c57b57',
+    },
+    hover: {
+      scale: 1.1,
+    },
+  };
+
   return (
     <aside className={styles.nav}>
-      <h2>Navigation</h2>
       <nav>
         <ul>
           <li>
-            <button
+            <motion.button
+              animate={activePanel === CVPanel.PROFILE ? 'active' : 'inactive'}
+              whileHover="hover"
+              variants={variants}
               onClick={() => handlePanelChange(CVPanel.PROFILE)}
-              className={clsx(styles.btn, {
-                [styles.btn__active]: activePanel === CVPanel.PROFILE,
-              })}
+              className={styles.btn}
             >
               Profile
-            </button>
+            </motion.button>
           </li>
           <li>
-            <button
+            <motion.button
+              animate={
+                activePanel === CVPanel.EXPERIENCE ? 'active' : 'inactive'
+              }
+              whileHover="hover"
+              variants={variants}
               onClick={() => handlePanelChange(CVPanel.EXPERIENCE)}
-              className={clsx(styles.btn, {
-                [styles.btn__active]: activePanel === CVPanel.EXPERIENCE,
-              })}
+              className={styles.btn}
             >
               Experience
-            </button>
+            </motion.button>
           </li>
           <li>
-            <button
+            <motion.button
+              animate={
+                activePanel === CVPanel.EDUCATION ? 'active' : 'inactive'
+              }
+              whileHover="hover"
+              variants={variants}
               onClick={() => handlePanelChange(CVPanel.EDUCATION)}
-              className={clsx(styles.btn, {
-                [styles.btn__active]: activePanel === CVPanel.EDUCATION,
-              })}
+              className={styles.btn}
             >
               Education
-            </button>
+            </motion.button>
           </li>
           <li>
-            <button
+            <motion.button
+              animate={activePanel === CVPanel.SKILLS ? 'active' : 'inactive'}
+              whileHover="hover"
+              variants={variants}
               onClick={() => handlePanelChange(CVPanel.SKILLS)}
-              className={clsx(styles.btn, {
-                [styles.btn__active]: activePanel === CVPanel.SKILLS,
-              })}
+              className={styles.btn}
             >
               Skills
-            </button>
+            </motion.button>
           </li>
         </ul>
       </nav>
