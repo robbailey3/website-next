@@ -16,8 +16,10 @@ const CVPage = () => {
   return (
     <>
       <Container>
-        <FlexContainer>
-          <FlexItem options={{ grow: 0, shrink: 0, basis: '25vw' }}>
+        <FlexContainer options={{ wrap: 'wrap' }}>
+          <FlexItem
+            options={{ grow: 0, shrink: 0, basis: 'clamp(300px, 15vw, 500px)' }}
+          >
             <CVNavigation
               activePanel={activePanel}
               handlePanelChange={handlePanelChange}
