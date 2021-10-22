@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { CVPanel } from 'src/data/cv-panel';
+import { CVPanel } from '@/data/cv-panel';
+import clsx from 'clsx';
+import styles from './cv-navigation.module.scss';
 
 type CVNavigationProps = {
   activePanel: string;
@@ -10,30 +11,52 @@ const CVNavigation = (props: CVNavigationProps) => {
   const { activePanel, handlePanelChange } = props;
 
   return (
-    <aside>
+    <aside className={styles.nav}>
       <h2>Navigation</h2>
-      <ul>
-        <li>
-          <button onClick={() => handlePanelChange(CVPanel.PROFILE)}>
-            Profile
-          </button>
-        </li>
-        <li>
-          <button onClick={() => handlePanelChange(CVPanel.EXPERIENCE)}>
-            Experience
-          </button>
-        </li>
-        <li>
-          <button onClick={() => handlePanelChange(CVPanel.EDUCATION)}>
-            Education
-          </button>
-        </li>
-        <li>
-          <button onClick={() => handlePanelChange(CVPanel.SKILLS)}>
-            Skills
-          </button>
-        </li>
-      </ul>
+      <nav>
+        <ul>
+          <li>
+            <button
+              onClick={() => handlePanelChange(CVPanel.PROFILE)}
+              className={clsx(styles.btn, {
+                [styles.btn__active]: activePanel === CVPanel.PROFILE,
+              })}
+            >
+              Profile
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handlePanelChange(CVPanel.EXPERIENCE)}
+              className={clsx(styles.btn, {
+                [styles.btn__active]: activePanel === CVPanel.EXPERIENCE,
+              })}
+            >
+              Experience
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handlePanelChange(CVPanel.EDUCATION)}
+              className={clsx(styles.btn, {
+                [styles.btn__active]: activePanel === CVPanel.EDUCATION,
+              })}
+            >
+              Education
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => handlePanelChange(CVPanel.SKILLS)}
+              className={clsx(styles.btn, {
+                [styles.btn__active]: activePanel === CVPanel.SKILLS,
+              })}
+            >
+              Skills
+            </button>
+          </li>
+        </ul>
+      </nav>
     </aside>
   );
 };
