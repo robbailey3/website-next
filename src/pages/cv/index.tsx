@@ -16,7 +16,7 @@ const CVPage = () => {
   return (
     <>
       <Container>
-        <FlexContainer options={{ wrap: 'wrap' }}>
+        <FlexContainer>
           <FlexItem
             options={{ grow: 0, shrink: 0, basis: 'clamp(300px, 15vw, 500px)' }}
           >
@@ -25,7 +25,7 @@ const CVPage = () => {
               handlePanelChange={handlePanelChange}
             />
           </FlexItem>
-          <FlexItem options={{ grow: 1 }}>
+          <FlexItem options={{ grow: 1, shrink: 1 }}>
             <h1>
               {activePanel.substring(0, 1).toUpperCase() +
                 activePanel.substring(1)}
