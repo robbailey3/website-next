@@ -32,7 +32,7 @@ const CVExperienceItem = (props: CVExperienceItemProps) => {
         </span>
       </div>
       <p>{experience.summary}</p>
-      <h4></h4>
+      <h4 className={styles.highlights__title}>Highlights</h4>
       <ul>
         {experience.highlights.map((highlight, i) => (
           <li key={`${experience.jobTitle}_hightlight_${i}`}>{highlight}</li>
