@@ -1,4 +1,6 @@
+import Chip from '@/components/common/chip/chip';
 import { CVExperience } from '@/data/cv/cv';
+import React from 'react';
 import { DateTime } from 'src/utils/dateTime';
 import styles from './cv-experience-item.module.scss';
 
@@ -17,7 +19,7 @@ const CVExperienceItem = (props: CVExperienceItemProps) => {
   };
 
   return (
-    <div>
+    <div className={styles.item}>
       <h3 className={styles.heading}>
         <span className={styles.heading__job_title}>{experience.jobTitle}</span>
         <span className={styles.heading__separator}>{'//'}</span>
@@ -30,11 +32,17 @@ const CVExperienceItem = (props: CVExperienceItemProps) => {
         </span>
       </div>
       <p>{experience.summary}</p>
+      <h4></h4>
       <ul>
         {experience.highlights.map((highlight, i) => (
           <li key={`${experience.jobTitle}_hightlight_${i}`}>{highlight}</li>
         ))}
       </ul>
+      <div className={styles.keywords}>
+        {experience.keywords.map((keyword, i) => (
+          <Chip key={`${experience.jobTitle}_keyword_${i}`}>{keyword}</Chip>
+        ))}
+      </div>
     </div>
   );
 };
