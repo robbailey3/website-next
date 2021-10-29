@@ -1,0 +1,29 @@
+@import '@/styles/partials/colours';
+
+.chip {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  user-select: none;
+  border-radius: 1rem;
+
+  &__primary {
+    background-color: $accentBlue;
+    color: #212121;
+  }
+
+  &__secondary {
+  }
+  &__success {
+  }
+  &__danger {
+  }
+  &__warning {
+  }
+  &__info {
+  }
+  &__light {
+  }
+  &__dark {
+  }
+}
