@@ -1,5 +1,6 @@
 import GithubRepositories from '@/components/github/github-repositories/github-repositories';
 import GithubUserDetails from '@/components/github/github-user-details/github-user-details';
+import PageMeta from '@/components/page-meta/page-meta';
 import githubService from '@/services/github/github.service';
 import { GetUserRepositoriesResponse } from '@/services/github/responses/GetUserRepositoriesResponse';
 import { GetUserResponse } from '@/services/github/responses/GetUserResponse';
@@ -31,10 +32,16 @@ const GitHubPage = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="github-page">
-      <GithubUserDetails user={user} />
-      <GithubRepositories repos={repos} />
-    </div>
+    <>
+      <PageMeta
+        title="GitHub Profile: Rob Bailey"
+        description="The GitHub profile of Rob Bailey displaying information on repositories etc."
+      />
+      <div className="github-page">
+        <GithubUserDetails user={user} />
+        <GithubRepositories repos={repos} />
+      </div>
+    </>
   );
 };
 
