@@ -1,0 +1,61 @@
+@import '@/styles/partials/colours';
+
+.footer {
+  background-color: lighten($background, 2%);
+  box-shadow: inset 0 2px 12px rgba(#000, 0.85);
+  padding: 3rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+.content {
+  padding: 0 2rem;
+}
+.nav {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: block;
+      a {
+        display: block;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+.social {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        margin-right: 1rem;
+        font-size: 2rem;
+        transition: 0.3s;
+        border: 1px solid transparent;
+        padding: 0.5rem;
+        line-height: 1;
+        &:hover,
+        &:focus {
+          color: $accentBlue;
+          border-color: $accentBlue;
+        }
+      }
+    }
+  }
+}
+
+.attribution {
+  color: $accentBlue;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
