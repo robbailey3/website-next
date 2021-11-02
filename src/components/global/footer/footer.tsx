@@ -16,119 +16,64 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <Container className={styles.content}>
-        <FlexContainer
-          options={{ align: 'center', justify: 'space-around', wrap: 'wrap' }}
-        >
-          <FlexItem
-            options={{
-              grow: 0,
-              shrink: 0,
-              basis: 'clamp(200px, 33.33%, 600px)',
-            }}
-          >
-            <div className={styles.nav}>
-              <nav>
-                <ul>
-                  <li>
-                    <Link href="/">
-                      <a>Home</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/about">
-                      <a>About</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/github">
-                      <a>GitHub</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/projects">
-                      <a>Projects</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/cv">
-                      <a>CV</a>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </FlexItem>
-          <FlexItem
-            options={{
-              grow: 0,
-              shrink: 0,
-              basis: 'clamp(300px, 33.33%, 600px)',
-            }}
-          >
-            <div className={styles.social}>
-              <ul>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/robbailey3/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="sr-only">LinkedIn</span>
-                    <FontAwesomeIcon icon={faLinkedinIn}></FontAwesomeIcon>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/robbailey3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="sr-only">GitHub</span>
-                    <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://twitter.com/rob_bailey3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="sr-only">Twitter</span>
-                    <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://stackoverflow.com/users/7959497/rob-bailey"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="sr-only">StackOverflow</span>
-                    <FontAwesomeIcon icon={faStackOverflow}></FontAwesomeIcon>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </FlexItem>
-          <FlexItem
-            options={{
-              grow: 0,
-              shrink: 0,
-              basis: 'clamp(300px, 33.33%, 600px)',
-            }}
-          >
-            <div className={styles.about}>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dolorem sit maiores, ut assumenda explicabo eos eligendi vel
-                eius nostrum perspiciatis voluptatem rem alias? Alias doloremque
-                maxime iste a non odio?
-              </p>
-            </div>
-          </FlexItem>
-        </FlexContainer>
+        <div className={styles.social}>
+          <ul>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/robbailey3/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">LinkedIn</span>
+                <FontAwesomeIcon icon={faLinkedinIn}></FontAwesomeIcon>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/robbailey3"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">GitHub</span>
+                <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/rob_bailey3"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">Twitter</span>
+                <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://stackoverflow.com/users/7959497/rob-bailey"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">StackOverflow</span>
+                <FontAwesomeIcon icon={faStackOverflow}></FontAwesomeIcon>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className={styles.about}>
+          <h4>Get In Touch</h4>
+          <p>
+            I’m not currently looking for any new opportunities. If you have a
+            question or just want to say say hello, please get in touch.
+          </p>
+          <div className={styles.cta_container}>
+            <a href="mailto: robbailey3@gmail.com" className={styles.cta}>
+              Say Hello
+            </a>
+          </div>
+        </div>
         <div className={styles.attribution}>
-          <p className="monospace">Designed and built by Rob Bailey</p>
+          <p className="monospace">Built by Rob Bailey</p>
         </div>
       </Container>
     </footer>
