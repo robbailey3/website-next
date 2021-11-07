@@ -14,9 +14,9 @@ import styles from './footer.module.scss';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} data-cy="footer">
       <Container className={styles.content}>
-        <div className={styles.social}>
+        <div className={styles.social} data-cy="footerSocialMenu">
           <ul>
             <li>
               <a
@@ -60,19 +60,19 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className={styles.about}>
-          <h4>Get In Touch</h4>
+        <div className={styles.about} data-cy="footerGetInTouch">
+          <h4>Get in touch</h4>
           <p>
             I’m not currently looking for any new opportunities. If you have a
             question or just want to say say hello, please get in touch.
           </p>
           <div className={styles.cta_container}>
-            <a href="mailto: robbailey3@gmail.com" className={styles.cta}>
+            <a href="mailto:rob.bailey3@gmail.com" className={styles.cta}>
               Say Hello
             </a>
           </div>
         </div>
-        <div className={styles.attribution}>
+        <div className={styles.attribution} data-cy="footerAttribution">
           <p className="monospace">Built by Rob Bailey</p>
         </div>
       </Container>
