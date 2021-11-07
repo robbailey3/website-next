@@ -30,7 +30,14 @@ const GithubRepositories = (props: GithubRepositoriesProps) => {
           }}
         >
           {repos.map((repo, i) => (
-            <FlexItem key={repo.id} options={{ basis: 'calc(50% - 1rem)' }}>
+            <FlexItem
+              key={repo.id}
+              options={{
+                basis: 'clamp(320px, 50%, 1000px)',
+                grow: 1,
+                shrink: 0,
+              }}
+            >
               <motion.div
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
