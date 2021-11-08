@@ -9,7 +9,7 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
     'iphone-8',
   ] as Cypress.ViewportPreset[];
   mobileViewports.forEach((viewport) => {
-    describe(`[${viewport}]`, () => {
+    describe(`[VIEWPORT]: ${viewport}`, () => {
       before(() => {
         cy.visit('/');
       });
@@ -32,7 +32,46 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
       });
 
       it('should apply the class "navigation__open" when the toggle button is clicked', () => {
-        cy.get('[data-cy=navigationToggle]').click();
+        cy.get('[data-cy=navigation]').then((el) => {
+          const classListLength = el.get(0).classList.length;
+          cy.get('[data-cy=navigationToggle]')
+            .click()
+            .then(() => {
+              assert.equal(classListLength + 1, el.get(0).classList.length);
+            });
+        });
+      });
+    });
+  });
+
+  describe(
+    '[VIEWPORT]: desktop',
+    {
+      viewportWidth: Cypress.config('viewportWidth'),
+      viewportHeight: Cypress.config('viewportHeight'),
+    },
+    () => {
+      it('should not display the navbar toggle button', () => {
+        cy.get('[data-cy=navigationToggle]').should('not.exist');
+      });
+    }
+  );
+
+  describe('[SECTION]: Navigation Links', () => {
+    it('should contain links to the different pages', () => {
+      cy.get('[data-cy=navigation]').within(() => {
+        cy.get('a').should('have.length', 5);
+        cy.get('a').should('contain', 'Home').and('have.attr', 'href', '/');
+        cy.get('a')
+          .should('contain', 'About')
+          .and('have.attr', 'href', '/about');
+        cy.get('a')
+          .should('contain', 'GitHub')
+          .and('have.attr', 'href', '/github');
+        cy.get('a')
+          .should('contain', 'Projects')
+          .and('have.attr', 'href', '/projects');
+        cy.get('a').should('contain', 'CV').and('have.attr', 'href', '/cv');
       });
     });
   });

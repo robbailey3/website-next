@@ -1,6 +1,4 @@
 import Container from '@/components/common/layout/container/container';
-import FlexContainer from '@/components/common/layout/flex-container/flex-container';
-import FlexItem from '@/components/common/layout/flex-item/flex-item';
 import {
   faGithub,
   faLinkedinIn,
@@ -8,7 +6,6 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
 import React from 'react';
 import styles from './footer.module.scss';
 
