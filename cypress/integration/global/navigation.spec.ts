@@ -62,15 +62,11 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
       cy.get('[data-cy=navigation]').within(() => {
         cy.get('a').should('have.length', 5);
         cy.get('a').should('contain', 'Home').and('have.attr', 'href', '/');
-        cy.get('a')
-          .should('contain', 'About')
-          .and('have.attr', 'href', '/about');
+        cy.get('a').should('contain', 'About').and('have.attr', 'href', '/');
         cy.get('a')
           .should('contain', 'GitHub')
           .and('have.attr', 'href', '/github');
-        cy.get('a')
-          .should('contain', 'Projects')
-          .and('have.attr', 'href', '/projects');
+        cy.get('a').should('contain', 'Projects').and('have.attr', 'href', '/');
         cy.get('a').should('contain', 'CV').and('have.attr', 'href', '/cv');
       });
     });
