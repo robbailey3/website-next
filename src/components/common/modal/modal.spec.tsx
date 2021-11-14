@@ -28,4 +28,24 @@ describe('[COMPONENT]: Modal', () => {
     });
     expect(wrapper.find('h2').text()).toBe('Test title');
   });
+
+  it('should call the "onClose" prop method when the backdrop is clicked', () => {
+    const onClose = jest.fn();
+    const wrapper = createWrapper({
+      state: 'open',
+      onClose,
+    });
+    wrapper.find(`.${styles.modal__backdrop}`).simulate('click');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('should call the "onClose" prop method when the close button is clicked', () => {
+    const onClose = jest.fn();
+    const wrapper = createWrapper({
+      state: 'open',
+      onClose,
+    });
+    wrapper.find(`.${styles.modal__close}`).simulate('click');
+    expect(onClose).toHaveBeenCalled();
+  });
 });
