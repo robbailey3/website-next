@@ -39,7 +39,6 @@ const KeyboardShortcut = () => {
     keypressSubscription = fromEvent(document, 'keydown').subscribe({
       next: ($event: Event) => {
         const key = ($event as KeyboardEvent).key;
-        console.log({ $event });
         keyBindings[key]?.action();
       },
     });
