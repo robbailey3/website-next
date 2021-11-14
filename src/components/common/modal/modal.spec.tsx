@@ -48,4 +48,22 @@ describe('[COMPONENT]: Modal', () => {
     wrapper.find(`.${styles.modal__close}`).simulate('click');
     expect(onClose).toHaveBeenCalled();
   });
+
+  it('should render any children in the dialog', () => {
+    const wrapper = createWrapper({
+      state: 'open',
+      children: <div>Test Content</div>,
+    });
+    expect(wrapper.find(`.${styles.modal__content}`).text()).toBe(
+      'Test Content'
+    );
+  });
+
+  it('should apply any classes passed in the className prop to the root element', () => {
+    const wrapper = createWrapper({
+      state: 'open',
+      className: 'test-class',
+    });
+    expect(wrapper.find(`.${styles.modal}`).hasClass('test-class')).toBe(true);
+  });
 });

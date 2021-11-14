@@ -31,7 +31,7 @@ const Modal = (props: ModalProps) => {
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </button>
           </header>
-          <div>{children}</div>
+          <div className={styles.modal__content}>{children}</div>
         </dialog>
       </div>
     </>
