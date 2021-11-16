@@ -48,7 +48,7 @@ export interface CVEducation {
 export interface CVSkill {
   name: string;
 }
-export interface CVSkillCategories {
+export interface CVSkillGroup {
   title: string;
   skills: CVSkill[];
 }
@@ -57,7 +57,7 @@ export interface CVModel {
   profile: CVProfile;
   experience: CVExperience[];
   education: CVEducation[];
-  skills: CVSkillCategories[];
+  skills: CVSkillGroup[];
 }
 
 export const CV: CVModel = {
