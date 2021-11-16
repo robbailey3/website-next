@@ -1,0 +1,66 @@
+@import '@/styles/partials/colours';
+
+.footer {
+  background-color: lighten($background, 2%);
+  box-shadow: inset 0 2px 12px rgba(#000, 0.85);
+  padding: 3rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+.content {
+  padding: 0 2rem;
+}
+.social {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        margin-right: 1rem;
+        font-size: 2rem;
+        transition: 0.3s;
+        padding: 0.5rem;
+        line-height: 1;
+        &:hover,
+        &:focus {
+          color: $accentBlue;
+        }
+      }
+    }
+  }
+}
+.about {
+  max-width: 500px;
+  margin: 3rem auto;
+  line-height: 2;
+  h4 {
+    font-size: 2.5rem;
+    color: $accentBlue;
+    margin: 0;
+  }
+}
+
+.cta_container {
+  .cta {
+    border: 2px solid $accentBlue;
+    text-decoration: none;
+    color: $accentBlue;
+    padding: 0.5rem 2rem;
+    display: inline-block;
+    transition: 0.3s;
+    &:hover,
+    &:focus {
+      background-color: $accentBlue;
+      color: $fontDark;
+    }
+  }
+}
+
+.attribution {
+  color: $accentBlue;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}

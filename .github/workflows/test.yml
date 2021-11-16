@@ -1,0 +1,50 @@
+name: Run tests ⚙
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+
+      - name: Install
+        run: |
+          npm install
+
+      - name: Lint
+        run: |
+          npm run lint
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+
+      - name: Install
+        run: |
+          npm install
+
+      - name: Unit Test
+        run: |
+          npm run test
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+
+      - name: Install
+        run: |
+          npm install
+
+      - name: e2e Test
+        run: |
+          npm run e2e:headless

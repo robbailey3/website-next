@@ -1,0 +1,12 @@
+@import '@/styles/partials/colours';
+
+.keyboardShortcut {
+  margin: 0.5rem 0;
+  &__key {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: lighten($background, 10%);
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+}
