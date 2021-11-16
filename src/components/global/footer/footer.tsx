@@ -61,10 +61,10 @@ const Footer = () => {
           </ul>
         </div>
         <div className={styles.about} data-cy="footerGetInTouch">
-          <h4>Get in touch</h4>
+          <h4>Contact Me</h4>
           <p>
-            I’m not currently looking for any new opportunities. If you have a
-            question or just want to say say hello, please get in touch.
+            If you have any questions or just want to say hello, please get in
+            touch.
           </p>
           <div className={styles.cta_container}>
             <a href="mailto:rob.bailey3@gmail.com" className={styles.cta}>
@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.attribution} data-cy="footerAttribution">
-          <p className="monospace">Built by Rob Bailey</p>
+          <p className="monospace">Made by Rob Bailey</p>
         </div>
       </Container>
     </footer>
