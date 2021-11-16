@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.attribution} data-cy="footerAttribution">
-          <p className="monospace">Made by Rob Bailey</p>
+          <p className="monospace">Created by Rob Bailey</p>
         </div>
       </Container>
     </footer>

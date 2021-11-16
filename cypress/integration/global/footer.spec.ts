@@ -28,12 +28,12 @@ describe('[GLOBAL COMPONENT]: Footer', () => {
     });
   });
 
-  describe('[SECTION]: Get in touch', () => {
-    it('should contain a header saying "Get in touch"', () => {
+  describe('[SECTION]: Contact', () => {
+    it('should contain a header saying "Contact Me"', () => {
       cy.get('[data-cy=footerGetInTouch]')
         .find('h4')
         .should('be.visible')
-        .and('contain', 'Get in touch');
+        .and('contain', 'Contact Me');
     });
     it('should have a button to send me an email', () => {
       cy.get('[data-cy=footerGetInTouch]')
@@ -48,7 +48,7 @@ describe('[GLOBAL COMPONENT]: Footer', () => {
       cy.get('[data-cy=footerAttribution]')
         .find('p')
         .should('be.visible')
-        .and('contain', 'Built by Rob Bailey');
+        .and('contain', 'Created by Rob Bailey');
     });
   });
 });
