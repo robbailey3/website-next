@@ -3,11 +3,14 @@ import Link from 'next/link';
 import styles from './navigation.module.scss';
 import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
 import clsx from 'clsx';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [currentWindowSize, setCurrentWindowSize] = useState(0);
+
+  const auth = useUser();
 
   useEffect(() => {
     let windowResizeSubscription: Subscription;
@@ -82,6 +85,15 @@ const Navigation = () => {
             <a>CV</a>
           </Link>
         </li>
+        {auth.user ? (
+          <li>
+            <a href="/api/auth/logout">Logout</a>
+          </li>
+        ) : (
+          <li>
+            <a href="/api/auth/login">Login</a>
+          </li>
+        )}
       </ul>
     </nav>
   );
