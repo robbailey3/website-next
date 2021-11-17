@@ -3,6 +3,7 @@ import FlexContainer from '@/components/common/layout/flex-container/flex-contai
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
 import CVContentPanel from '@/components/cv/cv-content-panel/cv-content-panel';
 import CVNavigation from '@/components/cv/cv-navigation/cv-navigation';
+import Head from 'next/head';
 import React, { useState } from 'react';
 import { CVPanel } from 'src/data/cv-panel';
 
@@ -15,6 +16,13 @@ const CVPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Rob Bailey: Software Engineer</title>
+        <meta
+          name="description"
+          content="The portfolio site of Nottingham based Software Engineer Rob Bailey"
+        />
+      </Head>
       <Container>
         <FlexContainer>
           <FlexItem
