@@ -39,12 +39,17 @@ const Navigation = () => {
 
   return (
     <nav
+      data-cy="navigation"
       className={clsx(styles.navigation, {
         [styles.navigation__open]: isOpen || !isMobileDevice(),
       })}
     >
       {isMobileDevice() && (
-        <button onClick={toggleNavigation} className={styles.button}>
+        <button
+          onClick={toggleNavigation}
+          className={styles.button}
+          data-cy="navigationToggle"
+        >
           <p className="sr-only">Toggle Navigation</p>
           <span></span>
           <span></span>
@@ -58,7 +63,7 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Link href="/">
+          <Link href="/about">
             <a>About</a>
           </Link>
         </li>
@@ -67,11 +72,11 @@ const Navigation = () => {
             <a>GitHub</a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/">
             <a>Projects</a>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/cv">
             <a>CV</a>
