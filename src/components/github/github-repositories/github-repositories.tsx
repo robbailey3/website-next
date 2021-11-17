@@ -26,15 +26,16 @@ const GithubRepositories = (props: GithubRepositoriesProps) => {
         <FlexContainer
           options={{
             wrap: 'wrap',
-            justify: 'space-around',
+            justify: 'flex-start',
           }}
         >
           {repos.map((repo, i) => (
             <FlexItem
               key={repo.id}
+              className={styles.repo}
               options={{
                 basis: 'clamp(320px, 50%, 1000px)',
-                grow: 1,
+                grow: 0,
                 shrink: 0,
               }}
             >
