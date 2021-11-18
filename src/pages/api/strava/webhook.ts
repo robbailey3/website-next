@@ -2,11 +2,11 @@ import { WebhookRequest } from '@/services/strava/requests/WebhookRequest';
 import stravaService from '@/services/strava/strava.service';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const Handler = (req: NextApiRequest, res: NextApiResponse) => {
+const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const webhookBody: WebhookRequest = req.body;
     if (webhookBody.object_type === 'activity') {
-      stravaService.getActivityAndInsertIntoDatabase(
+      await stravaService.getActivityAndInsertIntoDatabase(
         webhookBody.object_id.toString()
       );
     }
