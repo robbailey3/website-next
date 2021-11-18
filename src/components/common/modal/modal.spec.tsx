@@ -14,11 +14,11 @@ describe('[COMPONENT]: Modal', () => {
     expect(wrapper.find(`.${styles.modal__backdrop}`)).toHaveLength(1);
   });
 
-  it('should apply the "open" attribute to the HTML Dialog element when the state is "open"', () => {
+  it('should render nothing when the state is "closed"', () => {
     const wrapper = createWrapper({
-      state: 'open',
+      state: 'closed',
     });
-    expect(wrapper.find(`.${styles.modal__dialog}`).prop('open')).toBe(true);
+    expect(wrapper.html()).toEqual(null);
   });
 
   it('should render the title in a H2 element in the modal', () => {
