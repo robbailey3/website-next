@@ -3,13 +3,21 @@ import Link from 'next/link';
 import styles from './navigation.module.scss';
 import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter();
+
   const [currentWindowSize, setCurrentWindowSize] = useState(0);
 
+  const handleRouteChangeComplete = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
     let windowResizeSubscription: Subscription;
     if (typeof window !== 'undefined') {
       setCurrentWindowSize(window.innerWidth);
@@ -28,6 +36,7 @@ const Navigation = () => {
       if (windowResizeSubscription) {
         windowResizeSubscription.unsubscribe();
       }
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
     };
   }, []);
 
