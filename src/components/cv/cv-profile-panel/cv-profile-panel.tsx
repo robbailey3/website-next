@@ -19,7 +19,7 @@ const CVProfilePanel = () => {
         </p>
       </div>
       <p>{profile.profile}</p>
-      <FlexContainer>
+      <FlexContainer options={{ wrap: 'wrap' }}>
         {profile.socialMedia.map((social, i) => (
           <motion.div
             className={styles.social__link}

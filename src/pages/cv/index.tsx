@@ -24,7 +24,7 @@ const CVPage = () => {
         />
       </Head>
       <Container>
-        <FlexContainer>
+        <FlexContainer options={{ wrap: 'wrap' }}>
           <FlexItem
             options={{ grow: 0, shrink: 0, basis: 'clamp(300px, 15vw, 500px)' }}
           >
@@ -34,11 +34,13 @@ const CVPage = () => {
             />
           </FlexItem>
           <FlexItem options={{ grow: 1, shrink: 1 }}>
-            <h1>
-              {activePanel.substring(0, 1).toUpperCase() +
-                activePanel.substring(1)}
-            </h1>
-            <CVContentPanel activePanel={activePanel} />
+            <div style={{ padding: '1rem' }}>
+              <h1>
+                {activePanel.substring(0, 1).toUpperCase() +
+                  activePanel.substring(1)}
+              </h1>
+              <CVContentPanel activePanel={activePanel} />
+            </div>
           </FlexItem>
         </FlexContainer>
       </Container>
