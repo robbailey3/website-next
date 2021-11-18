@@ -6,7 +6,9 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const webhookBody: WebhookRequest = req.body;
     if (webhookBody.object_type === 'activity') {
-      await stravaService.getActivity(webhookBody.object_id.toString());
+      await stravaService.getActivityAndInsertIntoDatabase(
+        webhookBody.object_id.toString()
+      );
     }
     return res.send('EVENT_RECEIVED');
   }
