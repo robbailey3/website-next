@@ -18,13 +18,14 @@ type ModalProps = {
 const Modal = (props: ModalProps) => {
   const { children, title, state, onClose, className } = props;
 
+  if (state !== 'open') {
+    return null;
+  }
   return (
     <>
       <div className={clsx(styles.modal, className)}>
-        {state === 'open' && (
-          <div className={styles.modal__backdrop} onClick={onClose}></div>
-        )}
-        <dialog open={state === 'open'} className={styles.modal__dialog}>
+        <div className={styles.modal__backdrop} onClick={onClose}></div>
+        <div className={styles.modal__dialog} role="dialog">
           <header>
             <h2>{title}</h2>
             <button className={styles.modal__close} onClick={onClose}>
@@ -32,7 +33,7 @@ const Modal = (props: ModalProps) => {
             </button>
           </header>
           <div className={styles.modal__content}>{children}</div>
-        </dialog>
+        </div>
       </div>
     </>
   );
