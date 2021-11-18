@@ -34,7 +34,9 @@ class StravaService {
       })
     ).data;
 
-    this.saveLatestRefreshToken(response.refresh_token);
+    console.log({ response });
+
+    await this.saveLatestRefreshToken(response.refresh_token);
     this.createHttpClient(response.access_token);
   }
 
@@ -44,12 +46,14 @@ class StravaService {
     const activity = (
       await this.http.get<GetActivityResponse>(`/activities/${activityId}`)
     ).data;
+    console.log({ activity });
     const activityCollection =
       databaseService.getCollection('strava_activities');
     await activityCollection.insertOne(activity);
   }
 
   public async getRefreshToken() {
+    console.log('Getting refresh token');
     const refreshTokenCollection = databaseService.getCollection(
       'strava_refreshTokens'
     );
@@ -58,17 +62,20 @@ class StravaService {
     );
     if (document) {
       this.refreshTokenDocument = document;
+      console.log('Got refresh token', { document });
     }
   }
 
-  private saveLatestRefreshToken(refreshToken: string) {
+  private async saveLatestRefreshToken(refreshToken: string) {
+    console.log('Saving latest refresh token', refreshToken);
     const refreshTokenCollection = databaseService.getCollection(
       'strava_refreshTokens'
     );
-    refreshTokenCollection.replaceOne(
+    await refreshTokenCollection.replaceOne(
       { _id: this.refreshTokenDocument!._id },
       { _id: this.refreshTokenDocument!._id, refreshToken }
     );
+    console.log('Saved latest refresh token');
   }
 
   private createHttpClient(accessToken: string) {

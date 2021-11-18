@@ -5,6 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const webhookBody: WebhookRequest = req.body;
+    console.log({ requestBody: req.body });
     if (webhookBody.object_type === 'activity') {
       await stravaService.getActivityAndInsertIntoDatabase(
         webhookBody.object_id.toString()
