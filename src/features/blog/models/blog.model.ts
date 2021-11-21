@@ -1,8 +1,9 @@
 import { IsEmpty, IsNotEmpty, IsString, validate } from 'class-validator';
+import { ObjectId, Document } from 'mongodb';
 
-export class BlogModel {
+export class BlogModel implements Document {
   @IsEmpty()
-  public _id!: string;
+  public _id!: ObjectId;
 
   @IsString()
   @IsNotEmpty()

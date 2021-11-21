@@ -2,15 +2,16 @@ import 'reflect-metadata';
 
 import blogController from '@/features/blog/controllers/blog.controller';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { withDatabase } from '@/services/database/database.service';
 
-const Handler = (req: NextApiRequest, res: NextApiResponse) => {
+const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    return blogController.getBlogPosts(req, res);
+    return await blogController.getBlogPosts(req, res);
   }
   if (req.method === 'POST') {
-    return blogController.createBlogPost(req, res);
+    return await blogController.createBlogPost(req, res);
   }
   return res.status(405).send(`Method ${req.method} not allowed`);
 };
 
-export default Handler;
+export default withDatabase(Handler);
