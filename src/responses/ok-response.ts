@@ -1,4 +1,4 @@
-import { HttpStatus } from 'src/enums/HttpStatus';
+import { HttpStatus } from '@/enums/HttpStatus';
 import { HttpResponse } from './http-response';
 
 export class OkResponse extends HttpResponse {

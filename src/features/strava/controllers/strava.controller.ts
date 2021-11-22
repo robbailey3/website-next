@@ -1,7 +1,7 @@
 import stravaService from '@/features/strava/services/strava.service';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { OkResponse } from 'src/responses/ok-response';
+import { OkResponse } from '@/responses/ok-response';
 import { WebhookRequest } from '../requests/WebhookRequest';
 
 class StravaController {

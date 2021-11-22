@@ -7,6 +7,11 @@ module.exports = {
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/services/(.*)$': '<rootDir>/src/services/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@/responses/(.*)$': '<rootDir>/src/responses/$1',
+    '^@/exceptions/(.*)$': '<rootDir>/src/exceptions/$1',
+    '^@/features/(.*)$': '<rootDir>/src/features/$1',
+    '^@/enums/(.*)$': '<rootDir>/src/enums/$1',
     '^@/types/(.*)$': '<rootDir>/types/$1',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',

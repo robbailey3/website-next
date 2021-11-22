@@ -1,7 +1,7 @@
 import { CV } from '@/data/cv/cv';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { CVExperience } from 'src/data/cv/cv';
+import { CVExperience } from '@/data/cv/cv';
 import CVExperienceItem from '../cv-experience-item/cv-experience-item';
 
 const CVExperiencePanel = () => {

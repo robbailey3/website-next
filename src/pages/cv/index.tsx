@@ -5,7 +5,7 @@ import CVContentPanel from '@/components/cv/cv-content-panel/cv-content-panel';
 import CVNavigation from '@/components/cv/cv-navigation/cv-navigation';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { CVPanel } from 'src/data/cv-panel';
+import { CVPanel } from '@/data/cv-panel';
 
 const CVPage = () => {
   const [activePanel, setActivePanel] = useState<CVPanel>(CVPanel.PROFILE);

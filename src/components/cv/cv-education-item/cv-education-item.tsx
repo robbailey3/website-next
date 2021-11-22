@@ -1,6 +1,6 @@
 import { CVEducation } from '@/data/cv/cv';
 import React from 'react';
-import { DateTime } from 'src/utils/dateTime';
+import { DateTime } from '@/utils/dateTime';
 import styles from './cv-education-item.module.scss';
 
 type CVEducationItemProps = {
