@@ -1,5 +1,7 @@
-import stravaService from '@/services/strava/strava.service';
+import stravaService from '@/features/strava/services/strava.service';
+import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { OkResponse } from 'src/responses/ok-response';
 import { WebhookRequest } from '../requests/WebhookRequest';
 
 class StravaController {
@@ -28,6 +30,11 @@ class StravaController {
       );
     }
     return res.send('EVENT_RECEIVED');
+  }
+
+  public async getActivities(req: NextApiRequest, res: NextApiResponse) {
+    const activities = await this.service.getActivities();
+    return new OkResponse(activities).toResponse(res);
   }
 }
 

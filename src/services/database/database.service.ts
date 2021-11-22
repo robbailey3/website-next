@@ -6,7 +6,6 @@ class DatabaseService {
 
   public async connect(): Promise<void> {
     const url = `${process.env.DB_PROTOCOL}${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-    console.log(`Connecting to ${url}`);
     this.client = await MongoClient.connect(url);
     return;
   }
