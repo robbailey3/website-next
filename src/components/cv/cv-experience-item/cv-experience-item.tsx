@@ -1,7 +1,7 @@
 import Chip from '@/components/common/chip/chip';
 import { CVExperience } from '@/data/cv/cv';
 import React from 'react';
-import { DateTime } from 'src/utils/dateTime';
+import { DateTime } from '@/utils/dateTime';
 import styles from './cv-experience-item.module.scss';
 
 type CVExperienceItemProps = {

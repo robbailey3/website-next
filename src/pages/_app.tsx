@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import '../styles/main.scss';
 import type { AppProps } from 'next/app';
 import React from 'react';

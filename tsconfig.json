@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,8 +18,13 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
+      "@/features/*": ["src/features/*"],
       "@/services/*": ["src/services/*"],
       "@/types/*": ["src/types/*"],
+      "@/responses/*": ["src/responses/*"],
+      "@/exceptions/*": ["src/exceptions/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/enums/*": ["src/enums/*"],
       "@/styles/*": ["src/styles/*"],
       "@/data/*": ["src/data/*"]
     }
