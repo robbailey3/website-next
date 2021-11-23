@@ -60,7 +60,7 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
   describe('[SECTION]: Navigation Links', () => {
     it('should contain links to the different pages', () => {
       cy.get('[data-cy=navigation]').within(() => {
-        cy.get('a').should('have.length', 4);
+        cy.get('a').should('have.length', 5);
         cy.get('a')
           .eq(0)
           .should('contain', 'Home')
