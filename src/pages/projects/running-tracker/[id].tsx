@@ -14,9 +14,7 @@ type RunActivityPageProps = {
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   await databaseService.connect();
-  console.log({ id });
   const run = await stravaService.getActivityById(id as string);
-  console.log(run);
   return {
     props: { run: JSON.parse(JSON.stringify(run)) },
   };

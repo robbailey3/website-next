@@ -76,13 +76,13 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
           .should('contain', 'GitHub')
           .and('have.attr', 'href', '/github');
 
-        // cy.get('a')
-        //   .eq(3)
-        //   .should('contain', 'Projects')
-        //   .and('have.attr', 'href', '/');
-
         cy.get('a')
           .eq(3)
+          .should('contain', 'Projects')
+          .and('have.attr', 'href', '/');
+
+        cy.get('a')
+          .eq(4)
           .should('contain', 'CV')
           .and('have.attr', 'href', '/cv');
       });

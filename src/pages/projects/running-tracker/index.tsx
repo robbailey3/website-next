@@ -1,4 +1,5 @@
 import Container from '@/components/common/layout/container/container';
+import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import ActivityList from '@/features/strava/components/activity-list/activity-list';
 import { GetActivityResponse } from '@/features/strava/responses/GetActivityResponse';
 import stravaService from '@/features/strava/services/strava.service';
@@ -24,7 +25,9 @@ const RunningTrackerPage = (props: RunningTrackerPageProps) => {
   const { runs } = props;
   return (
     <Container>
-      <ActivityList runs={runs} />
+      <FlexContainer>
+        <ActivityList runs={runs} />
+      </FlexContainer>
     </Container>
   );
 };

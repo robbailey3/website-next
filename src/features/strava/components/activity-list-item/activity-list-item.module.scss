@@ -1,0 +1,34 @@
+@import '@/styles/partials/colours';
+
+.container {
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.link {
+  text-decoration: none;
+}
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.detail {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: $copper;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.detail_label {
+  font-size: 0.8rem;
+  color: #111;
+}
+.detail_value {
+  font-size: 1.2rem;
+  color: #333;
+}
