@@ -1,4 +1,7 @@
+import { ObjectId } from 'mongodb';
+
 export interface GetActivityResponse {
+  _id: ObjectId;
   resource_state: number;
   athlete: Athlete;
   name: string;

@@ -81,11 +81,11 @@ const Navigation = () => {
             <a>GitHub</a>
           </Link>
         </li>
-        {/* <li>
-          <Link href="/">
+        <li>
+          <Link href="/projects">
             <a>Projects</a>
           </Link>
-        </li> */}
+        </li>
         <li>
           <Link href="/cv">
             <a>CV</a>

@@ -1,4 +1,5 @@
 import axios, { Axios } from 'axios';
+import { ObjectId } from 'mongodb';
 import databaseService from '../../../services/database/database.service';
 import { AuthTokenResponse } from '../responses/AuthTokenResponse';
 import { GetActivityResponse } from '../responses/GetActivityResponse';
@@ -53,8 +54,16 @@ class StravaService {
 
   public async getActivities(): Promise<GetActivityResponse[]> {
     const collection = databaseService.getCollection('strava_activities');
-    const activities = await collection.find<GetActivityResponse>({}).toArray();
+    const activities = await collection
+      .find<GetActivityResponse>({}, { sort: { start_date: -1 } })
+      .toArray();
     return activities;
+  }
+
+  public async getActivityById(id: string) {
+    const collection = databaseService.getCollection('strava_activities');
+    const _id = ObjectId.createFromHexString(id);
+    return await collection.findOne<GetActivityResponse>({ _id });
   }
 
   public async getRefreshToken() {
