@@ -79,7 +79,7 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
         cy.get('a')
           .eq(3)
           .should('contain', 'Projects')
-          .and('have.attr', 'href', '/');
+          .and('have.attr', 'href', '/projects');
 
         cy.get('a')
           .eq(4)
