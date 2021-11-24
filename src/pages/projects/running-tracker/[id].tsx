@@ -1,6 +1,6 @@
 import Container from '@/components/common/layout/container/container';
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
-import RunMap from '@/features/strava/components/run-map/run-map';
+import ActivityDetail from '@/features/strava/components/activity-detail/activity-detail';
 import { GetActivityResponse } from '@/features/strava/responses/GetActivityResponse';
 import stravaService from '@/features/strava/services/strava.service';
 import databaseService from '@/services/database/database.service';
@@ -27,14 +27,7 @@ const RunActivityPage = (props: RunActivityPageProps) => {
     return <Container>Loading...</Container>;
   }
 
-  return (
-    <Container>
-      <h1>{run.name}</h1>
-      <FlexContainer>
-        <RunMap polyline={run.map.polyline} width={768} height={500}></RunMap>
-      </FlexContainer>
-    </Container>
-  );
+  return <ActivityDetail run={run}></ActivityDetail>;
 };
 
 export default RunActivityPage;
