@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { FocusEvent, useState } from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
 import ActivityListItem from '../activity-list-item/activity-list-item';
+import ActivityListSort, {
+  ActivityListSortDirection,
+} from '../activity-list-sort/activity-list-sort';
 import styles from './activity-list.module.scss';
 
 type ActivityListProps = {
@@ -9,6 +12,40 @@ type ActivityListProps = {
 
 const ActivityList = (props: ActivityListProps) => {
   const { runs } = props;
+
+  const [runState, setRunState] = useState<GetActivityResponse[]>(runs);
+
+  const [sortOption, setSortOption] =
+    useState<keyof GetActivityResponse>('start_date');
+
+  const [sortDirection, setSortDirection] =
+    useState<ActivityListSortDirection>('desc');
+
+  const handleSort = ($event: FocusEvent<HTMLSelectElement>) => {
+    setSortOption($event.target.value as keyof GetActivityResponse);
+    sortRuns();
+  };
+
+  const handleSortDirectionChange = ($event: FocusEvent<HTMLSelectElement>) => {
+    setSortDirection($event.target.value as ActivityListSortDirection);
+    sortRuns();
+  };
+
+  const sortRuns = () => {
+    setRunState(
+      runs.sort((a, b) => {
+        console.log(`Sorting by ${sortOption} ${sortDirection}`);
+        if (!a[sortOption] || !b[sortOption]) {
+          return 0;
+        }
+        if (sortDirection === 'desc') {
+          return (a[sortOption] as any)! - (b[sortOption] as any)!;
+        }
+        return (b[sortOption] as any)! - (a[sortOption] as any)!;
+      })
+    );
+  };
+
   return (
     <div className={styles.container}>
       <h1>
@@ -21,7 +58,13 @@ const ActivityList = (props: ActivityListProps) => {
         I&apos;m certainly not the best runner in the world but it&apos;s given
         me some interesting data to play with.
       </p>
-      {runs.map((run) => (
+      <ActivityListSort
+        handleSortChange={handleSort}
+        value={sortOption}
+        handleSortDirectionChange={handleSortDirectionChange}
+        direction={sortDirection}
+      />
+      {runState.map((run) => (
         <ActivityListItem run={run} key={run._id} />
       ))}
     </div>
