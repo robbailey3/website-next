@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styles from './navigation.module.scss';
 import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,39 +50,53 @@ const Navigation = () => {
       {isMobileDevice() && (
         <button
           onClick={toggleNavigation}
-          className={styles.button}
+          className="relative py-4 px-2"
           data-cy="navigationToggle"
         >
           <p className="sr-only">Toggle Navigation</p>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className="h-0.5 w-8 bg-accent-50 relative block mt-0.5"></span>
+          <span className="h-0.5 w-8 bg-accent-50 relative block mt-2"></span>
+          <span className="h-0.5 w-8 bg-accent-50 relative block mt-2"></span>
         </button>
       )}
-      <ul>
-        <li>
+      <ul
+        className={clsx('md:flex list-none', {
+          'block absolute right-0 top-full w-full text-center shadow-lg rounded backdrop-filter backdrop-blur bg-background-300 bg-opacity-95':
+            isOpen,
+          hidden: !isOpen,
+        })}
+      >
+        <li className="block">
           <Link href="/">
-            <a>Home</a>
+            <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+              Home
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/about">
-            <a>About</a>
+            <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+              About
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/github">
-            <a>GitHub</a>
+            <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+              GitHub
+            </a>
           </Link>
         </li>
         {/* <li>
           <Link href="/">
-            <a>Projects</a>
+            <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">Projects</a>
           </Link>
         </li> */}
         <li>
           <Link href="/cv">
-            <a>CV</a>
+            <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+              CV
+            </a>
           </Link>
         </li>
       </ul>

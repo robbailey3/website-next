@@ -7,16 +7,19 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import styles from './footer.module.scss';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer} data-cy="footer">
-      <Container className={styles.content}>
-        <div className={styles.social} data-cy="footerSocialMenu">
+    <footer
+      className="bg-background-300 shadow-inner py-12 text-center"
+      data-cy="footer"
+    >
+      <Container className="px-8">
+        <div data-cy="footerSocialMenu">
           <ul>
-            <li>
+            <li className="inline-block">
               <a
+                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
                 href="https://www.linkedin.com/in/robbailey3/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -25,8 +28,9 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faLinkedinIn}></FontAwesomeIcon>
               </a>
             </li>
-            <li>
+            <li className="inline-block">
               <a
+                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
                 href="https://github.com/robbailey3"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -35,8 +39,9 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
               </a>
             </li>
-            <li>
+            <li className="inline-block">
               <a
+                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
                 href="https://twitter.com/rob_bailey3"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -45,8 +50,9 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
               </a>
             </li>
-            <li>
+            <li className="inline-block">
               <a
+                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
                 href="https://stackoverflow.com/users/7959497/rob-bailey"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -57,19 +63,22 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className={styles.about} data-cy="footerGetInTouch">
-          <h4>Contact Me</h4>
+        <div className="max-w-lg my-12 mx-auto" data-cy="footerGetInTouch">
+          <h4 className="text-accent">Contact Me</h4>
           <p>
             If you have any questions or just want to say hello, please get in
             touch.
           </p>
-          <div className={styles.cta_container}>
-            <a href="mailto:rob.bailey3@gmail.com" className={styles.cta}>
+          <div>
+            <a className="border-2 border-accent py-2 px-8 duration-300 inline-block hover:bg-accent hover:text-font-dark focus:bg-accent focus:text-font-dark">
               Say Hello
             </a>
           </div>
         </div>
-        <div className={styles.attribution} data-cy="footerAttribution">
+        <div
+          className="text-accent text-sm opacity-80"
+          data-cy="footerAttribution"
+        >
           <p className="monospace">Created by Rob Bailey</p>
         </div>
       </Container>

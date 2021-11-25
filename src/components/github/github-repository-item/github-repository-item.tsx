@@ -49,40 +49,42 @@ const GithubRepositoryItem = (props: GithubRepositoryItemProps) => {
   };
 
   return (
-    <Card className={styles.repo}>
-      <div className={styles.repo__info}>
-        <div className={styles.repo__name}>
-          <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+    <Card className="h-full w-full flex flex-col p-4">
+      <div className="flex-grow">
+        <div className="text-xl mb-4">
+          <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="no-underline"
+          >
             {repo.name}
           </a>
         </div>
-        {repo.description && (
-          <div className={styles.repo__description}>{repo.description}</div>
-        )}
+        {repo.description && <div className="mb-4">{repo.description}</div>}
       </div>
-      <FlexContainer options={{ align: 'center' }}>
-        <FlexItem options={{ grow: 1 }}>
-          <div className={styles.repo__language}>
+      <FlexContainer className="items-center">
+        <FlexItem className="flex-grow">
+          <div className="text-lg text-font-light">
             {getLanguageIcon() && getLanguageIcon() !== null && (
               <Image
                 src={getLanguageIcon() as string}
                 alt={repo.language || ''}
                 width={25}
                 height={25}
-                className={styles.repo__language__icon}
               />
             )}
-            <span className={styles.repo__language__span}>{repo.language}</span>
+            <span className="mx-2">{repo.language}</span>
           </div>
         </FlexItem>
         <FlexItem>
-          <div className={styles.repo_info_item}>
+          <div className="mx-2">
             <FontAwesomeIcon icon={faCodeBranch} />
             <span>{repo.forks}</span>
           </div>
         </FlexItem>
         <FlexItem>
-          <div className={styles.repo_info_item}>
+          <div className="mx-2">
             <span>{repo.size}kB</span>
           </div>
         </FlexItem>
