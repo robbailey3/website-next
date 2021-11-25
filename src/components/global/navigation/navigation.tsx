@@ -47,12 +47,7 @@ const Navigation = () => {
   const isMobileDevice = () => currentWindowSize < 768;
 
   return (
-    <nav
-      data-cy="navigation"
-      className={clsx(styles.navigation, {
-        [styles.navigation__open]: isOpen || !isMobileDevice(),
-      })}
-    >
+    <nav data-cy="navigation" className="ml-auto">
       {isMobileDevice() && (
         <button
           onClick={toggleNavigation}
