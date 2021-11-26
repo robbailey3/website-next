@@ -2,7 +2,6 @@ import Modal from '@/components/common/modal/modal';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect, useMemo, useState } from 'react';
 import { fromEvent, Subscription } from 'rxjs';
-import styles from './keyboard-shortcut.module.scss';
 
 interface KeyBinding {
   description: string;
@@ -61,10 +60,10 @@ const KeyboardShortcut = () => {
       onClose={closeHelpModal}
     >
       {Object.keys(keyBindings).map((key) => (
-        <div key={key} className={styles.keyboardShortcut}>
-          <span className={styles.keyboardShortcut__key}>{key}</span>
-          <span className={styles.keyboardShortcut__description}>
-            {keyBindings[key].description}
+        <div key={key} className="my-2 flex justify-between items-center">
+          <span>{keyBindings[key].description}</span>
+          <span className="p-2 rounded bg-background-300 inline-block mr-2">
+            {key}
           </span>
         </div>
       ))}

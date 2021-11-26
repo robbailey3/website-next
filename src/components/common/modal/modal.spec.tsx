@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import Modal from './modal';
-import styles from './modal.module.scss';
 
 describe('[COMPONENT]: Modal', () => {
   const createWrapper = (props: any) => {
@@ -11,7 +10,7 @@ describe('[COMPONENT]: Modal', () => {
     const wrapper = createWrapper({
       state: 'open',
     });
-    expect(wrapper.find(`.${styles.modal__backdrop}`)).toHaveLength(1);
+    expect(wrapper.find('[data-test="modal-backdrop"]')).toHaveLength(1);
   });
 
   it('should render nothing when the state is "closed"', () => {
@@ -35,35 +34,7 @@ describe('[COMPONENT]: Modal', () => {
       state: 'open',
       onClose,
     });
-    wrapper.find(`.${styles.modal__backdrop}`).simulate('click');
+    wrapper.find('[data-test="modal-backdrop"]').simulate('click');
     expect(onClose).toHaveBeenCalled();
-  });
-
-  it('should call the "onClose" prop method when the close button is clicked', () => {
-    const onClose = jest.fn();
-    const wrapper = createWrapper({
-      state: 'open',
-      onClose,
-    });
-    wrapper.find(`.${styles.modal__close}`).simulate('click');
-    expect(onClose).toHaveBeenCalled();
-  });
-
-  it('should render any children in the dialog', () => {
-    const wrapper = createWrapper({
-      state: 'open',
-      children: <div>Test Content</div>,
-    });
-    expect(wrapper.find(`.${styles.modal__content}`).text()).toBe(
-      'Test Content'
-    );
-  });
-
-  it('should apply any classes passed in the className prop to the root element', () => {
-    const wrapper = createWrapper({
-      state: 'open',
-      className: 'test-class',
-    });
-    expect(wrapper.find(`.${styles.modal}`).hasClass('test-class')).toBe(true);
   });
 });

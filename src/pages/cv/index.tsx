@@ -24,16 +24,14 @@ const CVPage = () => {
         />
       </Head>
       <Container>
-        <FlexContainer options={{ wrap: 'wrap' }}>
-          <FlexItem
-            options={{ grow: 0, shrink: 0, basis: 'clamp(300px, 15vw, 500px)' }}
-          >
+        <FlexContainer className="flex-wrap">
+          <FlexItem className="w-full lg:w-1/4">
             <CVNavigation
               activePanel={activePanel}
               handlePanelChange={handlePanelChange}
             />
           </FlexItem>
-          <FlexItem options={{ grow: 1, shrink: 1 }}>
+          <FlexItem className="w-full lg:w-3/4">
             <div style={{ padding: '1rem' }}>
               <h1>
                 {activePanel.substring(0, 1).toUpperCase() +

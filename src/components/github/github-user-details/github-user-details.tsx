@@ -12,7 +12,6 @@ import Image from 'next/image';
 import React from 'react';
 import { DateTime } from '@/utils/dateTime';
 import GithubUserItem from '../github-user-item/github-user-item';
-import styles from './github-user-details.module.scss';
 
 type GithubUserDetailsProps = {
   user: GetUserResponse;
@@ -22,9 +21,12 @@ const GithubUserDetails = (props: GithubUserDetailsProps) => {
   const { user } = props;
 
   return (
-    <section data-cy="github-user-details" className={styles.user_details}>
-      <Container>
-        <div className={styles.avatar}>
+    <section
+      data-cy="github-user-details"
+      className="text-center bg-background-400"
+    >
+      <Container className="inline-block">
+        <div className="rounded-full border-2 border-accent w-48 block mt-8 mx-auto overflow-hidden">
           <Image
             src={user.avatar_url}
             alt={user.login}
@@ -32,9 +34,9 @@ const GithubUserDetails = (props: GithubUserDetailsProps) => {
             height={250}
           />
         </div>
-        <h2 className={styles.user_name}>{user.name}</h2>
-        <p className={styles.user_bio}>{user.bio}</p>
-        <FlexContainer options={{ wrap: 'wrap', justify: 'center' }}>
+        <h2>{user.name}</h2>
+        <p>{user.bio}</p>
+        <FlexContainer className="flex-wrap justify-center">
           <FlexItem>
             <GithubUserItem icon={faBriefcase} text={user.company} />
           </FlexItem>

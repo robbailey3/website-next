@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styles from './navigation.module.scss';
 import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
+import NavigationButton from './navigation-button/navigation-button';
+import NavigationLink from './navigation-link/navigation-link';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,50 +48,22 @@ const Navigation = () => {
   const isMobileDevice = () => currentWindowSize < 768;
 
   return (
-    <nav
-      data-cy="navigation"
-      className={clsx(styles.navigation, {
-        [styles.navigation__open]: isOpen || !isMobileDevice(),
-      })}
-    >
+    <nav data-cy="navigation" className="ml-auto">
       {isMobileDevice() && (
-        <button
-          onClick={toggleNavigation}
-          className={styles.button}
-          data-cy="navigationToggle"
-        >
-          <p className="sr-only">Toggle Navigation</p>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <NavigationButton onClick={toggleNavigation} isOpen={isOpen} />
       )}
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/github">
-            <a>GitHub</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/projects">
-            <a>Projects</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/cv">
-            <a>CV</a>
-          </Link>
-        </li>
+      <ul
+        className={clsx('md:flex list-none', {
+          'block absolute right-0 top-full w-full text-center shadow-lg rounded backdrop-filter backdrop-blur bg-background-300 bg-opacity-95':
+            isOpen,
+          hidden: !isOpen,
+        })}
+      >
+        <NavigationLink href="/">Home</NavigationLink>
+        <NavigationLink href="/about">About</NavigationLink>
+        <NavigationLink href="/github">GitHub</NavigationLink>
+        <NavigationLink href="/projects">Projects</NavigationLink>
+        <NavigationLink href="/cv">CV</NavigationLink>
       </ul>
     </nav>
   );

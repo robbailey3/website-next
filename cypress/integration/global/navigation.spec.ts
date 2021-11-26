@@ -23,24 +23,6 @@ describe('[GLOBAL COMPONENT]: Navigation', () => {
       it('should display the navbar toggle button', () => {
         cy.get('[data-cy=navigationToggle]').should('be.visible');
       });
-
-      it('should not have the class "navigation__open"', () => {
-        cy.get('[data-cy=navigation]').should(
-          'not.have.class',
-          'navigation__open'
-        );
-      });
-
-      it('should apply the class "navigation__open" when the toggle button is clicked', () => {
-        cy.get('[data-cy=navigation]').then((el) => {
-          const classListLength = el.get(0).classList.length;
-          cy.get('[data-cy=navigationToggle]')
-            .click()
-            .then(() => {
-              assert.equal(classListLength + 1, el.get(0).classList.length);
-            });
-        });
-      });
     });
   });
 
