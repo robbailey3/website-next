@@ -22,6 +22,7 @@ const Modal = (props: ModalProps) => {
     <>
       <div className={className}>
         <div
+          data-test="modal-backdrop"
           className="bg-background-100 bg-opacity-20 fixed top-0 left-0 w-full h-full backdrop-filter backdrop-blur-sm backdrop-grayscale z-30"
           onClick={onClose}
         ></div>
