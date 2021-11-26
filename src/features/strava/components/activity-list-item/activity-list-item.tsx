@@ -3,7 +3,6 @@ import { DateTime } from '@/utils/dateTime';
 import Link from 'next/link';
 import React from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
-import styles from './activity-list-item.module.scss';
 
 type ActivityListItemProps = {
   run: GetActivityResponse;
@@ -24,31 +23,27 @@ const ActivityListItem = (props: ActivityListItemProps) => {
   };
 
   return (
-    <Card className={styles.container}>
-      <div className={styles.inner_wrapper}>
+    <Card>
+      <div>
         <Link href={`/projects/running-tracker/${run._id}`}>
-          <a className={styles.link}>
-            <h2 className={styles.title}>{run.name}</h2>
+          <a>
+            <h2>{run.name}</h2>
           </a>
         </Link>
-        <div className={styles.date}>
+        <div>
           {DateTime.format(new Date(run.start_date), 'en-GB', {
             dateStyle: 'medium',
             timeStyle: 'short',
           })}
         </div>
-        <div className={styles.details}>
-          <div className={styles.detail}>
-            <div className={styles.detail_label}>Distance</div>
-            <div className={styles.detail_value}>
-              {convertMetersToMiles(run.distance)} miles
-            </div>
+        <div>
+          <div>
+            <div>Distance</div>
+            <div>{convertMetersToMiles(run.distance)} miles</div>
           </div>
-          <div className={styles.detail}>
-            <div className={styles.detail_label}>Time</div>
-            <div className={styles.detail_value}>
-              {convertSecondsToTime(run.moving_time)}
-            </div>
+          <div>
+            <div>Time</div>
+            <div>{convertSecondsToTime(run.moving_time)}</div>
           </div>
         </div>
       </div>

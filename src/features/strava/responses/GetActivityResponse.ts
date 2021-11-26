@@ -184,6 +184,7 @@ export interface Trend {
 }
 
 export interface Splits {
+  name: string;
   distance: number;
   elapsed_time: number;
   elevation_difference: number;

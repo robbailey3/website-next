@@ -5,7 +5,6 @@ import { DateTime } from '@/utils/dateTime';
 import React from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
 import RunMap from '../run-map/run-map';
-import styles from './activity-detail.module.scss';
 
 type ActivityDetailProps = {
   run: GetActivityResponse;
@@ -32,65 +31,52 @@ const ActivityDetail = (props: ActivityDetailProps) => {
 
   return (
     <Container>
-      <h1 className={styles.title}>{run.name}</h1>
-      <div className={styles.date}>
+      <h1>{run.name}</h1>
+      <div>
         {DateTime.format(new Date(run.start_date_local), 'en-GB', {
           dateStyle: 'medium',
           timeStyle: 'medium',
         })}
       </div>
-      <FlexContainer
-        className={styles.basics}
-        options={{ wrap: 'wrap', align: 'center', justify: 'space-around' }}
-      >
-        <FlexItem className={styles.basics_item}>
-          <div className={styles.label}>Distance</div>
-          <div className={styles.value}>
-            {convertMetersToMiles(run.distance)} miles
-          </div>
+      <FlexContainer className="flex-wrap items-center justify-around">
+        <FlexItem>
+          <div>Distance</div>
+          <div>{convertMetersToMiles(run.distance)} miles</div>
         </FlexItem>
-        <FlexItem className={styles.basics_item}>
-          <div className={styles.label}>Moving Time</div>
-          <div className={styles.value}>
-            {convertSecondsToTime(run.moving_time)}
-          </div>
+        <FlexItem>
+          <div>Moving Time</div>
+          <div>{convertSecondsToTime(run.moving_time)}</div>
         </FlexItem>
-        <FlexItem className={styles.basics_item}>
-          <div className={styles.label}>Pace</div>
-          <div className={styles.value}>
+        <FlexItem>
+          <div>Pace</div>
+          <div>
             {convertMetersPerSecondToMinutesPerMile(run.average_speed)}m/s
           </div>
         </FlexItem>
       </FlexContainer>
-      <section className={styles.segments}>
-        <h2 className={styles.segments_title}>Segments</h2>
-        <ul className={styles.segments_list}>
+      <section>
+        <h2>Segments</h2>
+        <ul>
           {run.segment_efforts.map((segment) => (
-            <li key={segment.id} className={styles.segments_list_item}>
-              <div className={styles.segments_list_item_name}>
-                {segment.name}
-              </div>
-              <div className={styles.segments_list_item_distance}>
-                {convertMetersToMiles(segment.distance)} miles
-              </div>
+            <li key={segment.id}>
+              <div>{segment.name}</div>
+              <div>{convertMetersToMiles(segment.distance)} miles</div>
             </li>
           ))}
         </ul>
       </section>
-      <section className={styles.splits}>
-        <h2 className={styles.splits_title}>Splits</h2>
-        <ul className={styles.splits_list}>
+      <section>
+        <h2>Splits</h2>
+        <ul>
           {run.splits_standard.map((split) => (
-            <li key={split.moving_time} className={styles.splits_list_item}>
-              <div className={styles.splits_list_item_name}>{split.name}</div>
-              <div className={styles.splits_list_item_distance}>
-                {convertMetersToMiles(split.distance)} miles
-              </div>
+            <li key={split.moving_time}>
+              <div>{split.name}</div>
+              <div>{convertMetersToMiles(split.distance)} miles</div>
             </li>
           ))}
         </ul>
       </section>
-      <section className={styles.map}>
+      <section>
         <RunMap polyline={run.map.polyline} width={768} height={400}></RunMap>
       </section>
       <section>

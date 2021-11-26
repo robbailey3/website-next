@@ -4,7 +4,6 @@ import ActivityListItem from '../activity-list-item/activity-list-item';
 import ActivityListSort, {
   ActivityListSortDirection,
 } from '../activity-list-sort/activity-list-sort';
-import styles from './activity-list.module.scss';
 
 type ActivityListProps = {
   runs: GetActivityResponse[];
@@ -47,7 +46,7 @@ const ActivityList = (props: ActivityListProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <h1>
         <span role="img" aria-label="Running Emoji">
           🏃
