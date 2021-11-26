@@ -1,19 +1,18 @@
 import Container from '@/components/common/layout/container/container';
 import React from 'react';
 import Navigation from '../navigation/navigation';
-import styles from './header.module.scss';
 
 const Header = () => {
-	return (
-		<header className={styles.header}>
-			<a href="#main-content" id="skip-to-content">
-				Skip to Content
-			</a>
-			<Container className={styles.header__container}>
-				<Navigation></Navigation>
-			</Container>
-		</header>
-	);
+  return (
+    <header className="fixed top-0 left-0 w-full bg-background-400 z-50">
+      <a href="#main-content" id="skip-to-content">
+        Skip to Content
+      </a>
+      <Container className="flex">
+        <Navigation></Navigation>
+      </Container>
+    </header>
+  );
 };
 
 export default Header;

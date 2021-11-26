@@ -1,6 +1,5 @@
 import { CVSkillGroup } from '@/data/cv/cv';
 import { motion } from 'framer-motion';
-import styles from './cv-skill-category.module.scss';
 
 type CvSkillCategoryProps = {
   category: CVSkillGroup;
@@ -10,18 +9,15 @@ const CvSkillCategory = (props: CvSkillCategoryProps) => {
   const { category } = props;
 
   return (
-    <div className={styles.category}>
-      <h3 className={styles.category__title}>{category.title}</h3>
-      <ul className={styles.category__list}>
+    <div className="mb-8">
+      <h3 className="mb-8 text-2xl">{category.title}</h3>
+      <ul>
         {category.skills.map((skill, index) => (
-          <li
-            key={`${category.title}_${index}`}
-            className={styles.category__list_item}
-          >
+          <li key={`${category.title}_${index}`}>
             <motion.span
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
             >
               {skill.name}
             </motion.span>

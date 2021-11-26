@@ -13,7 +13,7 @@ const AboutPage = () => {
         />
       </Head>
       <Container>
-        <div style={{ padding: '3rem 0' }}>
+        <div className="py-12">
           <p>Coming Soon!</p>
         </div>
       </Container>

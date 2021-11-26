@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import styles from './card.module.scss';
 
 type CardProps = {
   className?: string;
@@ -9,7 +8,11 @@ type CardProps = {
 const Card = (props: CardProps) => {
   const { className, children } = props;
 
-  return <div className={clsx(styles.card, className)}>{children}</div>;
+  return (
+    <div className={clsx('rounded bg-background-400 shadow', className)}>
+      {children}
+    </div>
+  );
 };
 
 export default Card;
