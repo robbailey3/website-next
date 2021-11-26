@@ -70,7 +70,10 @@ const Footer = () => {
             touch.
           </p>
           <div>
-            <a className="border-2 border-accent py-2 px-8 duration-300 inline-block  cursor-pointer my-8 hover:bg-accent hover:text-font-dark focus:bg-accent focus:text-font-dark">
+            <a
+              className="border-2 border-accent py-2 px-8 duration-300 inline-block  cursor-pointer my-8 hover:bg-accent hover:text-font-dark focus:bg-accent focus:text-font-dark"
+              href="mailto: rob.bailey3@gmail.com"
+            >
               Say Hello
             </a>
           </div>
