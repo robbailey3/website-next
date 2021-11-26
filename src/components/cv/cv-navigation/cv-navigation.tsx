@@ -1,6 +1,5 @@
 import { CVPanel } from '@/data/cv-panel';
 import { motion, Variants } from 'framer-motion';
-import styles from './cv-navigation.module.scss';
 
 type CVNavigationProps = {
   activePanel: string;
@@ -25,16 +24,16 @@ const CVNavigation = (props: CVNavigationProps) => {
   };
 
   return (
-    <aside className={styles.nav}>
+    <aside className="p-4 pt-16 md:sticky top-0 left-0">
       <nav>
-        <ul>
+        <ul className="border-l border-tertiary">
           <li>
             <motion.button
               animate={activePanel === CVPanel.PROFILE ? 'active' : 'inactive'}
               whileHover="hover"
               variants={variants}
               onClick={() => handlePanelChange(CVPanel.PROFILE)}
-              className={styles.btn}
+              className="p-4"
             >
               Profile
             </motion.button>
@@ -47,7 +46,7 @@ const CVNavigation = (props: CVNavigationProps) => {
               whileHover="hover"
               variants={variants}
               onClick={() => handlePanelChange(CVPanel.EXPERIENCE)}
-              className={styles.btn}
+              className="p-4"
             >
               Experience
             </motion.button>
@@ -60,7 +59,7 @@ const CVNavigation = (props: CVNavigationProps) => {
               whileHover="hover"
               variants={variants}
               onClick={() => handlePanelChange(CVPanel.EDUCATION)}
-              className={styles.btn}
+              className="p-4"
             >
               Education
             </motion.button>
@@ -71,7 +70,7 @@ const CVNavigation = (props: CVNavigationProps) => {
               whileHover="hover"
               variants={variants}
               onClick={() => handlePanelChange(CVPanel.SKILLS)}
-              className={styles.btn}
+              className="p-4"
             >
               Skills
             </motion.button>

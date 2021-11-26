@@ -1,7 +1,7 @@
 import axios, { Axios } from 'axios';
-import databaseService from '../database/database.service';
-import { AuthTokenResponse } from './responses/AuthTokenResponse';
-import { GetActivityResponse } from './responses/GetActivityResponse';
+import databaseService from '../../../services/database/database.service';
+import { AuthTokenResponse } from '../responses/AuthTokenResponse';
+import { GetActivityResponse } from '../responses/GetActivityResponse';
 
 type RefreshTokenDocument = {
   refreshToken: string;
@@ -49,6 +49,12 @@ class StravaService {
     await activityCollection.findOneAndReplace({ id: activity.id }, activity, {
       upsert: true,
     });
+  }
+
+  public async getActivities(): Promise<GetActivityResponse[]> {
+    const collection = databaseService.getCollection('strava_activities');
+    const activities = await collection.find<GetActivityResponse>({}).toArray();
+    return activities;
   }
 
   public async getRefreshToken() {

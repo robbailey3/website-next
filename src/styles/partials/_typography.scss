@@ -37,3 +37,14 @@ h6 {
 .monospace {
   font-family: 'Source Code Pro', monospace;
 }
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+}

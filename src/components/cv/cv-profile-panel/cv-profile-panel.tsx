@@ -3,32 +3,31 @@ import { CV } from '@/data/cv/cv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'framer-motion';
 import React from 'react';
-import styles from './cv-profile-panel.module.scss';
 
 const CVProfilePanel = () => {
   const { profile } = CV;
 
   return (
-    <section className={styles.profile}>
-      <h2 className={styles.name}>
+    <section>
+      <h2>
         {profile.firstName} {profile.lastName}
       </h2>
-      <div className={styles.location}>
+      <div>
         <p>
           {profile.location.city}, {profile.location.country}
         </p>
       </div>
       <p>{profile.profile}</p>
-      <FlexContainer options={{ wrap: 'wrap' }}>
+      <FlexContainer className="flex-wrap">
         {profile.socialMedia.map((social, i) => (
           <motion.div
-            className={styles.social__link}
+            className="mr-4"
             key={social.name}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: i * 0.2 }}
           >
-            <FontAwesomeIcon icon={social.icon} />
+            <FontAwesomeIcon icon={social.icon} className="mr-2" />
             <a
               href={social.url.toString()}
               target="_blank"
