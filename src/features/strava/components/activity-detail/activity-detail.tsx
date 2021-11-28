@@ -4,6 +4,8 @@ import FlexItem from '@/components/common/layout/flex-item/flex-item';
 import { DateTime } from '@/utils/dateTime';
 import React from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
+import ActivitySegments from '../activity-segments/activity-segments';
+import ActivitySplits from '../activity-splits/activity-splits';
 import RunMap from '../run-map/run-map';
 
 type ActivityDetailProps = {
@@ -38,7 +40,7 @@ const ActivityDetail = (props: ActivityDetailProps) => {
           timeStyle: 'medium',
         })}
       </div>
-      <FlexContainer className="flex-wrap items-center justify-around">
+      <FlexContainer className="flex-wrap items-center justify-between text-xl">
         <FlexItem>
           <div>Distance</div>
           <div>{convertMetersToMiles(run.distance)} miles</div>
@@ -54,27 +56,16 @@ const ActivityDetail = (props: ActivityDetailProps) => {
           </div>
         </FlexItem>
       </FlexContainer>
+      <section></section>
       <section>
-        <h2>Segments</h2>
-        <ul>
-          {run.segment_efforts.map((segment) => (
-            <li key={segment.id}>
-              <div>{segment.name}</div>
-              <div>{convertMetersToMiles(segment.distance)} miles</div>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section>
-        <h2>Splits</h2>
-        <ul>
-          {run.splits_standard.map((split) => (
-            <li key={split.moving_time}>
-              <div>{split.name}</div>
-              <div>{convertMetersToMiles(split.distance)} miles</div>
-            </li>
-          ))}
-        </ul>
+        <FlexContainer className="gap-4">
+          <FlexItem className="w-full md:w-1/2">
+            <ActivitySplits splits={run.splits_standard} />
+          </FlexItem>
+          <FlexItem className="w-full md:w-1/2">
+            <ActivitySegments segments={run.segment_efforts} />
+          </FlexItem>
+        </FlexContainer>
       </section>
       <section>
         <RunMap polyline={run.map.polyline} width={768} height={400}></RunMap>

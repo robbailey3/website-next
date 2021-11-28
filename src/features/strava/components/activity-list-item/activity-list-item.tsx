@@ -23,7 +23,7 @@ const ActivityListItem = (props: ActivityListItemProps) => {
   };
 
   return (
-    <Card>
+    <Card className="p-4 mb-4">
       <div>
         <Link href={`/projects/running-tracker/${run._id}`}>
           <a>

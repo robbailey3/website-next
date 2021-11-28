@@ -1,33 +1,18 @@
-.sr-only {
-	border: 0;
-	clip: rect(1px, 1px, 1px, 1px);
-	-webkit-clip-path: inset(50%);
-	clip-path: inset(50%);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	white-space: nowrap;
-}
-
 #skip-to-content {
-	@extend .sr-only;
-	&:focus {
-		position: fixed;
-		top: 1rem;
-		left: 1rem;
-		width: auto;
-		height: auto;
-		z-index: 50;
-		padding: 1rem;
-		background: #fff;
-		border: 1px solid #000;
-		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-		text-align: center;
-		border-radius: 0.25rem;
-		clip: auto;
-		clip-path: none;
-	}
+  &:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: auto;
+    height: auto;
+    z-index: 50;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #000;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border-radius: 0.25rem;
+    clip: auto;
+    clip-path: none;
+  }
 }

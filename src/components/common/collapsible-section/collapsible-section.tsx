@@ -1,12 +1,18 @@
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { KeyboardEvent } from 'react';
 
 type CollapsibleSectionProps = {
   title: string;
+  className?: string;
+  titleClassName?: string;
   children: JSX.Element | JSX.Element[];
 };
 
 const CollapsibleSection = (props: CollapsibleSectionProps) => {
-  const { title, children } = props;
+  const { title, children, className, titleClassName } = props;
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggleOpen = () => {
@@ -20,26 +26,35 @@ const CollapsibleSection = (props: CollapsibleSectionProps) => {
   };
 
   return (
-    <div className="collapsible-section">
+    <div className={clsx('p-4', className)}>
       <div
-        className="collapsible-section__header"
+        className="flex justify-between items-center"
         onClick={toggleOpen}
         role="button"
         tabIndex={0}
         onKeyPress={handleKeypress}
       >
-        <div className="collapsible-section__header-title">{title}</div>
-        <div className="collapsible-section__header-icon">
-          <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'}`} />
-        </div>
+        <div className={clsx('text-lg', titleClassName)}>{title}</div>
+        <FontAwesomeIcon
+          icon={faAngleUp}
+          className={clsx('transform duration-300', {
+            'rotate-180': isOpen,
+          })}
+        />
       </div>
-      <div
-        className={`collapsible-section__content ${
-          isOpen ? 'collapsible-section__content--open' : ''
-        }`}
-      >
-        {children}
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: 'auto' }}
+            exit={{ height: 0 }}
+            transition={{ duration: 0.5 }}
+            className="origin-top overflow-hidden"
+          >
+            <div className="p-4">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
