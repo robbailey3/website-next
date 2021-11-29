@@ -1,6 +1,10 @@
 import CollapsibleSection from '@/components/common/collapsible-section/collapsible-section';
+import FlexContainer from '@/components/common/layout/flex-container/flex-container';
+import FlexItem from '@/components/common/layout/flex-item/flex-item';
+import React from 'react';
 import { TEffort } from '../../responses/GetActivityResponse';
 import runUtilsService from '../../services/run-utils.service';
+import RunMap from '../run-map/run-map';
 
 type ActivitySegmentsProps = {
   segments: TEffort[];
@@ -8,6 +12,7 @@ type ActivitySegmentsProps = {
 
 const ActivitySegments = (props: ActivitySegmentsProps) => {
   const { segments } = props;
+  console.log({ segments });
   return (
     <div className="segments">
       <h2>Segments</h2>
@@ -15,17 +20,59 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
         <CollapsibleSection
           key={segment.id}
           title={segment.name}
-          className="px-0"
+          className="bg-background-600 my-4 rounded-sm"
         >
-          <div>
-            <div>
-              {runUtilsService.convertMillisecondsToTime(segment.moving_time)}
-            </div>
-            <div>
-              {runUtilsService.convertMetersToMiles(segment.distance)}miles
-            </div>
-            <pre>{JSON.stringify(segment, null, 4)}</pre>
-          </div>
+          <FlexContainer className="flex-wrap">
+            <FlexItem className="w-full md:w-1/2 my-2">
+              <span className="block text-background-50 text-sm">Time</span>
+              <span className="block">
+                {runUtilsService.convertMillisecondsToTime(segment.moving_time)}
+              </span>
+            </FlexItem>
+            {segment.segment ? (
+              <>
+                <FlexItem className="w-full md:w-1/2 my-2">
+                  <span className="block text-background-50 text-sm">
+                    Distance
+                  </span>
+                  <span className="block">
+                    {runUtilsService.convertMetersToMiles(
+                      segment.segment.distance
+                    )}
+                    miles
+                  </span>
+                </FlexItem>
+                <FlexItem className="w-full md:w-1/2 my-2">
+                  <span className="block text-background-50 text-sm">
+                    Elevation High
+                  </span>
+                  <span className="block">
+                    {segment.segment.elevation_high}m
+                  </span>
+                </FlexItem>
+                <FlexItem className="w-full md:w-1/2 my-2">
+                  <span className="block text-background-50 text-sm">
+                    Elevation Low
+                  </span>
+                  <span className="block">
+                    {segment.segment.elevation_low}m
+                  </span>
+                </FlexItem>
+                <FlexItem className="w-full">
+                  <RunMap
+                    width={400}
+                    height={300}
+                    points={[
+                      segment.segment.start_latlng,
+                      segment.segment.end_latlng,
+                    ]}
+                  ></RunMap>
+                </FlexItem>
+              </>
+            ) : (
+              <></>
+            )}
+          </FlexContainer>
         </CollapsibleSection>
       ))}
     </div>

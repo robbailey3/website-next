@@ -1,4 +1,4 @@
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -36,7 +36,7 @@ const CollapsibleSection = (props: CollapsibleSectionProps) => {
       >
         <div className={clsx('text-lg', titleClassName)}>{title}</div>
         <FontAwesomeIcon
-          icon={faAngleUp}
+          icon={faAngleDown}
           className={clsx('transform duration-300', {
             'rotate-180': isOpen,
           })}
@@ -51,7 +51,7 @@ const CollapsibleSection = (props: CollapsibleSectionProps) => {
             transition={{ duration: 0.5 }}
             className="origin-top overflow-hidden"
           >
-            <div className="p-4">{children}</div>
+            <div>{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
