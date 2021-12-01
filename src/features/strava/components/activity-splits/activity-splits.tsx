@@ -14,7 +14,7 @@ const ActivitySplits = (props: ActivitySplitsProps) => {
 
   return (
     <div className="splits">
-      <h2>Splits</h2>
+      <h2 className="text-lg">Splits</h2>
       {splits.map((split) => (
         <CollapsibleSection
           key={split.split}

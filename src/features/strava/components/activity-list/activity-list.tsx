@@ -1,4 +1,5 @@
-import React, { FocusEvent, useState } from 'react';
+import Link from 'next/link';
+import React, { ChangeEvent, FocusEvent, useState } from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
 import ActivityListItem from '../activity-list-item/activity-list-item';
 import ActivityListSort, {
@@ -20,12 +21,16 @@ const ActivityList = (props: ActivityListProps) => {
   const [sortDirection, setSortDirection] =
     useState<ActivityListSortDirection>('desc');
 
-  const handleSort = ($event: FocusEvent<HTMLSelectElement>) => {
+  const handleSort = (
+    $event: FocusEvent<HTMLSelectElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
     setSortOption($event.target.value as keyof GetActivityResponse);
     sortRuns();
   };
 
-  const handleSortDirectionChange = ($event: FocusEvent<HTMLSelectElement>) => {
+  const handleSortDirectionChange = (
+    $event: FocusEvent<HTMLSelectElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
     setSortDirection($event.target.value as ActivityListSortDirection);
     sortRuns();
   };
@@ -33,9 +38,21 @@ const ActivityList = (props: ActivityListProps) => {
   const sortRuns = () => {
     setRunState(
       runs.sort((a, b) => {
-        console.log(`Sorting by ${sortOption} ${sortDirection}`);
         if (!a[sortOption] || !b[sortOption]) {
           return 0;
+        }
+        if (sortOption === 'start_date') {
+          if (sortDirection === 'asc') {
+            return (
+              new Date(b[sortOption]).getTime() -
+              new Date(a[sortOption]).getTime()
+            );
+          } else {
+            return (
+              new Date(a[sortOption]).getTime() -
+              new Date(b[sortOption]).getTime()
+            );
+          }
         }
         if (sortDirection === 'desc') {
           return (a[sortOption] as any)! - (b[sortOption] as any)!;
@@ -47,12 +64,12 @@ const ActivityList = (props: ActivityListProps) => {
 
   return (
     <div>
-      <h1>
-        <span role="img" aria-label="Running Emoji">
-          🏃
-        </span>{' '}
-        Rob&apos;s Runs
-      </h1>
+      <Link href="/projects">
+        <a className="text-sm text-background-50 my-4 inline-block">
+          Back to projects
+        </a>
+      </Link>
+      <h1>Running Tracker</h1>
       <p>
         I&apos;m certainly not the best runner in the world but it&apos;s given
         me some interesting data to play with.

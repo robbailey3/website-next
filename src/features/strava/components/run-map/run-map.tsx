@@ -19,7 +19,7 @@ const RunMap = (props: RunMapProps) => {
   };
 
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={getRunMapSrc()} alt="Map of run" className="w-full block" />;
+  return <img src={getRunMapSrc()} alt="Map of run" className="block" />;
 };
 
 export default RunMap;

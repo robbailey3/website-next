@@ -1,4 +1,6 @@
-import { FocusEventHandler } from 'react';
+import Select from '@/components/common/form/select/select';
+import FlexContainer from '@/components/common/layout/flex-container/flex-container';
+import React, { FocusEventHandler } from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
 
 export interface ActivityListSortOption {
@@ -28,8 +30,16 @@ export const ActivityListSortOptions: ActivityListSortOption[] = [
 ];
 
 type ActivityListSortProps = {
-  handleSortChange: FocusEventHandler<HTMLSelectElement>;
-  handleSortDirectionChange: FocusEventHandler<HTMLSelectElement>;
+  handleSortChange: (
+    event:
+      | React.FocusEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => void;
+  handleSortDirectionChange: (
+    event:
+      | React.FocusEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => void;
   value: string;
   direction: ActivityListSortDirection;
 };
@@ -37,29 +47,33 @@ type ActivityListSortProps = {
 const ActivityListSort = (props: ActivityListSortProps) => {
   const { handleSortChange, handleSortDirectionChange, value, direction } =
     props;
-  const sortOptions = Object.entries(ActivityListSortOptions);
+
   return (
-    <>
-      <select
+    <FlexContainer className="gap-4 my-4">
+      <Select
         onBlur={handleSortChange}
         onChange={handleSortChange}
+        label="Sort by"
         value={value}
-      >
-        {sortOptions.map(([key, value]) => (
-          <option key={key} value={value.value}>
-            {value.label}
-          </option>
-        ))}
-      </select>
-      <select
+        options={ActivityListSortOptions}
+        name="Sort Field"
+        id="sort-field"
+        className="flex-grow"
+      ></Select>
+      <Select
         onBlur={handleSortDirectionChange}
         onChange={handleSortDirectionChange}
+        label="Direction"
         value={direction}
-      >
-        <option value="asc">Asc</option>
-        <option value="desc">Desc</option>
-      </select>
-    </>
+        options={[
+          { label: 'Ascending', value: 'asc' },
+          { label: 'Descending', value: 'desc' },
+        ]}
+        name="Sort Direction"
+        id="sort-direction"
+        className="flex-initial"
+      ></Select>
+    </FlexContainer>
   );
 };
 

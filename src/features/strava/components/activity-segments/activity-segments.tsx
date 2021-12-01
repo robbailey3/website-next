@@ -15,7 +15,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
   console.log({ segments });
   return (
     <div className="segments">
-      <h2>Segments</h2>
+      <h2 className="text-lg">Segments</h2>
       {segments.map((segment) => (
         <CollapsibleSection
           key={segment.id}
@@ -58,16 +58,21 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
                     {segment.segment.elevation_low}m
                   </span>
                 </FlexItem>
-                <FlexItem className="w-full">
-                  <RunMap
-                    width={400}
-                    height={300}
-                    points={[
-                      segment.segment.start_latlng,
-                      segment.segment.end_latlng,
-                    ]}
-                  ></RunMap>
-                </FlexItem>
+                {segment.segment.start_latlng && (
+                  <FlexItem className="w-full">
+                    <span className="block text-background-50 text-sm">
+                      Map
+                    </span>
+                    <RunMap
+                      width={200}
+                      height={150}
+                      points={[
+                        segment.segment.start_latlng,
+                        segment.segment.end_latlng,
+                      ]}
+                    ></RunMap>
+                  </FlexItem>
+                )}
               </>
             ) : (
               <></>
