@@ -1,5 +1,5 @@
 export interface GetActivityResponse {
-  resource_state: number;
+  _id: string;
   athlete: Athlete;
   name: string;
   distance: number;
@@ -184,6 +184,7 @@ export interface Trend {
 }
 
 export interface Splits {
+  name: string;
   distance: number;
   elapsed_time: number;
   elevation_difference: number;
