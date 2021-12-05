@@ -52,12 +52,20 @@ class StravaService {
     });
   }
 
-  public async getActivities(): Promise<GetActivityResponse[]> {
+  public async getActivities(
+    perPage = 20,
+    page = 1
+  ): Promise<{ count: number; activities: GetActivityResponse[] }> {
     const collection = databaseService.getCollection('strava_activities');
+    const count = await collection.countDocuments();
     const activities = await collection
-      .find<GetActivityResponse>({}, { sort: { start_date: -1 } })
+      .find<GetActivityResponse>(
+        {},
+        { sort: { start_date: -1 }, limit: perPage, skip: perPage * (page - 1) }
+      )
       .toArray();
-    return activities;
+
+    return { activities, count };
   }
 
   public async getActivityById(id: string) {
