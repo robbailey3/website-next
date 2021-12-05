@@ -74,7 +74,6 @@ module.exports = {
         dark: '#121215',
       },
     },
-    extend: {},
   },
   variants: {
     extend: {},
