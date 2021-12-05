@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Rob Bailey's Portfolio
 
-## Getting Started
+This repository is for my main portfolio site. If you've seen my GitHub over the past few years, you will have seen different repositories for my site, usually alternating between Angular and React - there was once one which had a PHP backend (🤷‍♂️). This one is written in React (Next.js to be precise).
+Usually, I try and write my own API using NestJS and, whilst I think NestJS is great, it's always been more difficult and more expensive to host. That's why, this time, I've gone for NextJS as it's a great technology and has easy hosting with Vercel.
 
-First, run the development server:
+## Why?
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+A lot of developers have a portfolio. I thought I might as well.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What's this built with?
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- NextJS
+- A bit of RxJS (because I like it)
+- Jest and Cypress for testing (but I need to write more tests)
+- Some different APIs (GitHub, Strava)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## What's on the roadmap?
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+I'll work on whatever I find interesting. If I make a fun canvas game, I'll probably add it here. I'm going to try and make something cool with tensorflow.
 
-## Learn More
+So, in summary, whatever is fun to code. Any suggestions? Let me know.
 
-To learn more about Next.js, take a look at the following resources:
+## Can I steal this?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you want to create a portfolio like this (I doubt it, it's not that great), you'll probably benefit more from doing it yourself.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Can I contact you?
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Sure, you can email me [here](mailto:%20rob.bailey3+github-contact@gmail.com).
