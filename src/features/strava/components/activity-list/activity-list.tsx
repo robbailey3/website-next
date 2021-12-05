@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { ChangeEvent, FocusEvent, useState } from 'react';
+import React, { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
 import ActivityListItem from '../activity-list-item/activity-list-item';
 import ActivityListSort, {
@@ -14,6 +14,10 @@ const ActivityList = (props: ActivityListProps) => {
   const { runs } = props;
 
   const [runState, setRunState] = useState<GetActivityResponse[]>(runs);
+
+  useEffect(() => {
+    setRunState(runs);
+  }, [runs]);
 
   const [sortOption, setSortOption] =
     useState<keyof GetActivityResponse>('start_date');
