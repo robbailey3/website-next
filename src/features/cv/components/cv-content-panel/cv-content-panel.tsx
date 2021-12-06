@@ -1,6 +1,3 @@
-import { CVPanel } from '@/data/cv-panel';
-import { CV } from '@/data/cv/cv';
-import { motion } from 'framer-motion';
 import React from 'react';
 import CVEducationPanel from '../cv-education-panel/cv-education-panel';
 import CVExperiencePanel from '../cv-experience-panel/cv-experience-panel';
