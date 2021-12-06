@@ -4,8 +4,12 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/features/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false, // Everything is dark, why faff?
   theme: {
+    fontFamily: {
+      sans: ['Poppins', 'Arial', 'Helvetica', 'sans-serif'],
+      mono: ['"Source Code Pro"', 'monospace'],
+    },
     colors: {
       background: {
         DEFAULT: '#121215',

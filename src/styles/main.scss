@@ -5,14 +5,12 @@
 
 @import './partials/typography';
 @import './partials/accessibility';
-@import './partials/colours';
 
 html,
 body {
-  background-color: $background;
-  color: $fontMain;
+  @apply bg-background text-font;
   a {
-    color: $fontMain;
+    @apply text-font;
   }
   #main-content {
     margin-top: 63px;

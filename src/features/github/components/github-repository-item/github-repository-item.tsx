@@ -1,6 +1,6 @@
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
-import { GetUserRepositoriesResponse } from '@/services/github/responses/GetUserRepositoriesResponse';
+import { GetUserRepositoriesResponse } from '@/features/github/services/responses/GetUserRepositoriesResponse';
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';

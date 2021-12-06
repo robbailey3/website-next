@@ -1,8 +1,8 @@
-import GithubRepositories from '@/components/github/github-repositories/github-repositories';
-import GithubUserDetails from '@/components/github/github-user-details/github-user-details';
-import githubService from '@/services/github/github.service';
-import { GetUserRepositoriesResponse } from '@/services/github/responses/GetUserRepositoriesResponse';
-import { GetUserResponse } from '@/services/github/responses/GetUserResponse';
+import GithubRepositories from '@/features/github/components/github-repositories/github-repositories';
+import GithubUserDetails from '@/features/github/components/github-user-details/github-user-details';
+import githubService from '@/features/github/services/github.service';
+import { GetUserRepositoriesResponse } from '@/features/github/services/responses/GetUserRepositoriesResponse';
+import { GetUserResponse } from '@/features/github/services/responses/GetUserResponse';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 

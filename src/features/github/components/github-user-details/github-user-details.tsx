@@ -1,7 +1,7 @@
 import Container from '@/components/common/layout/container/container';
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
-import { GetUserResponse } from '@/services/github/responses/GetUserResponse';
+import { GetUserResponse } from '@/features/github/services/responses/GetUserResponse';
 import {
   faBriefcase,
   faCalendar,

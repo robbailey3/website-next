@@ -1,8 +1,8 @@
 import Container from '@/components/common/layout/container/container';
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
-import CVContentPanel from '@/components/cv/cv-content-panel/cv-content-panel';
-import CVNavigation from '@/components/cv/cv-navigation/cv-navigation';
+import CVContentPanel from '@/features/cv/components/cv-content-panel/cv-content-panel';
+import CVNavigation from '@/features/cv/components/cv-navigation/cv-navigation';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { CVPanel } from '@/data/cv-panel';
