@@ -11,7 +11,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer
-      className="bg-background-300 shadow-inner py-12 text-center"
+      className="bg-background-300 shadow-inner py-12 text-center z-50 relative"
       data-cy="footer"
     >
       <Container className="px-8">
