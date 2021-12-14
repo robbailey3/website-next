@@ -6,6 +6,7 @@ import {
   Subscription,
   throttleTime,
 } from 'rxjs';
+import spotifyService from '../../services/spotify.service';
 
 const SpotifySearch = () => {
   const searchValueSubject = new Subject<string>();
@@ -13,14 +14,17 @@ const SpotifySearch = () => {
   const [value, setValue] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
     searchValueSubject.next(e.target.value);
   };
 
   useEffect(() => {
     let subscription = searchValueSubject
       .pipe(throttleTime(300), distinctUntilChanged())
-      .subscribe((value) => {
-        setValue(value);
+      .subscribe(async (value) => {
+        console.log(value);
+        const result = await spotifyService.search(value);
+        console.log(result);
       });
     return () => {
       if (subscription) {
@@ -34,7 +38,7 @@ const SpotifySearch = () => {
       label="Search"
       id="spotify-search"
       name="spotify-search"
-      onChange={() => {}}
+      onChange={(evt) => handleChange(evt)}
       type="search"
       value={value}
     />

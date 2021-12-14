@@ -17,6 +17,7 @@ const TextInput = (props: TextInputProps) => {
     <div>
       <label htmlFor={id}>{label}</label>
       <input
+        className="px-1 py-2 bg-background-600 border border-light-900 rounded-sm block w-full"
         type={type}
         name={name}
         id={id}

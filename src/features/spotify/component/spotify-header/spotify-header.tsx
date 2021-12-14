@@ -45,6 +45,7 @@ const SpotifyHeader = () => {
           </div>
         </FlexContainer>
       </Container>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </section>
   );
 };
