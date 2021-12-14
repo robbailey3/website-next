@@ -1,3 +1,4 @@
+import RecentlyPlayed from '@/features/spotify/component/recently-played/recently-played';
 import SpotifyHeader from '@/features/spotify/component/spotify-header/spotify-header';
 import spotifyAuthService from '@/features/spotify/services/spotify-auth.service';
 import { useRouter } from 'next/router';
@@ -14,7 +15,8 @@ const SpotifyPage = () => {
 
   return (
     <div className="relative">
-      <SpotifyHeader></SpotifyHeader>
+      <SpotifyHeader />
+      <RecentlyPlayed />
     </div>
   );
 };

@@ -16,5 +16,9 @@ class SpotifyService {
     };
     return spotifyAuthService.request<any>('GET', '/search', params);
   }
+
+  public async getRecentlyPlayed(): Promise<any> {
+    return spotifyAuthService.request<any>('GET', '/me/player/recently-played');
+  }
 }
 export default new SpotifyService();
