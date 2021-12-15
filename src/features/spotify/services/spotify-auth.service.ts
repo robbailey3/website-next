@@ -1,4 +1,5 @@
-import axios, { Axios, Method } from 'axios';
+import axios, { Axios, AxiosError, Method } from 'axios';
+import { retry } from 'rxjs';
 import { AuthTokenResponse } from '../interfaces/AuthTokenResponse';
 import { CurrentUser } from '../interfaces/CurrentUser';
 
@@ -14,6 +15,14 @@ class SpotifyAuthService {
     this.httpClient = axios.create({
       baseURL: this.URL_BASE,
     });
+    this.httpClient.interceptors.response.use(
+      (res) => res,
+      (error: AxiosError) => {
+        if (error.response && error.response.status === 401) {
+          this.logout();
+        }
+      }
+    );
   }
 
   public async request<T>(
@@ -47,6 +56,13 @@ class SpotifyAuthService {
     this.setupRefreshTokenInterval();
   }
 
+  public logout() {
+    this.accessToken = null;
+    this.refreshToken = null;
+    this.expiryTime = 0;
+    this.deleteTokensFromLocalStorage();
+  }
+
   public isLoggedIn(): boolean {
     if (this.accessToken && !this.tokenHasExpired()) {
       return true;
@@ -56,6 +72,10 @@ class SpotifyAuthService {
       return true;
     }
     return false;
+  }
+
+  public getAccessToken(): string | null {
+    return this.accessToken;
   }
 
   private saveTokensInLocalStorage(): void {
@@ -68,6 +88,12 @@ class SpotifyAuthService {
     if (this.expiryTime) {
       localStorage.setItem('spotifyExpiryTime', this.expiryTime.toString());
     }
+  }
+
+  private deleteTokensFromLocalStorage(): void {
+    localStorage.removeItem('spotifyAccessToken');
+    localStorage.removeItem('spotifyRefreshToken');
+    localStorage.removeItem('spotifyExpiryTime');
   }
 
   private tokenHasExpired(): boolean {

@@ -1,4 +1,5 @@
 import { CurrentUser } from '../interfaces/CurrentUser';
+import { RecentlyPlayedResponse } from '../interfaces/RecentlyPlayedResponse';
 import spotifyAuthService from './spotify-auth.service';
 
 class SpotifyService {
@@ -17,8 +18,12 @@ class SpotifyService {
     return spotifyAuthService.request<any>('GET', '/search', params);
   }
 
-  public async getRecentlyPlayed(): Promise<any> {
-    return spotifyAuthService.request<any>('GET', '/me/player/recently-played');
+  public async getRecentlyPlayed(limit = 10): Promise<RecentlyPlayedResponse> {
+    return spotifyAuthService.request<RecentlyPlayedResponse>(
+      'GET',
+      '/me/player/recently-played',
+      { limit }
+    );
   }
 }
 export default new SpotifyService();

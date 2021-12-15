@@ -17,7 +17,7 @@ const SpotifyHeader = () => {
   }, []);
 
   return (
-    <section className="absolute top-0 w-full bg-background-600 shadow-xl z-10">
+    <section className="w-full bg-background-600 shadow-xl z-10">
       <Container>
         <FlexContainer className="py-8">
           <nav>
@@ -45,7 +45,6 @@ const SpotifyHeader = () => {
           </div>
         </FlexContainer>
       </Container>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
     </section>
   );
 };
