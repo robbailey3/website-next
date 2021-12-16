@@ -27,7 +27,7 @@ const RecentlyPlayed = () => {
           <h1>Recently Played</h1>
           <FlexContainer className="flex-wrap justify-between">
             {recentlyPlayed.items.map((item) => (
-              <RecentlyPlayedItem key={item.track.id} track={item.track} />
+              <RecentlyPlayedItem key={item.played_at} track={item.track} />
             ))}
           </FlexContainer>
         </Container>

@@ -22,9 +22,7 @@ const SpotifySearch = () => {
     let subscription = searchValueSubject
       .pipe(throttleTime(300), distinctUntilChanged())
       .subscribe(async (value) => {
-        console.log(value);
         const result = await spotifyService.search(value);
-        console.log(result);
       });
     return () => {
       if (subscription) {

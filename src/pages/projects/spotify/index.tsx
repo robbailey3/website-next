@@ -6,7 +6,7 @@ const SpotifyPage = () => {
   return (
     <div className="relative">
       <SpotifyHeader />
-      <RecentlyPlayed />
+      {/* <RecentlyPlayed /> */}
     </div>
   );
 };

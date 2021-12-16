@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import spotifyAuthService from './spotify-auth.service';
 
 declare var window: any;
@@ -6,34 +6,39 @@ declare var window: any;
 class SpotifyPlayer {
   public deviceId: string | null = null;
 
-  public $playerState: Subject<any> = new Subject();
+  public ready: boolean = false;
 
-  public $playbackState: Subject<Spotify.PlaybackState> = new Subject();
+  public $playerReady: Subject<boolean> = new ReplaySubject();
 
-  private $scriptLoad = new Subject();
+  public $playerState: Subject<Spotify.PlaybackState> = new Subject();
 
   private scriptEl!: HTMLScriptElement;
 
   private player!: Spotify.Player;
 
-  public injectScript() {
+  constructor() {}
+
+  public async init() {
+    await this.handleScriptLoad();
     if (!this.scriptEl) {
       this.scriptEl = document.createElement('script');
       this.scriptEl.src = 'https://sdk.scdn.co/spotify-player.js';
       document.head.appendChild(this.scriptEl);
-      this.scriptEl.onload = () => this.handleScriptLoad();
     }
   }
 
   private async handleScriptLoad() {
-    console.log('Script loaded');
-    (window as any).onSpotifyWebPlaybackSDKReady = async () => {
-      await this.createPlayer();
-      this.setupEventHandlers();
-    };
+    if (typeof window !== 'undefined') {
+      window.onSpotifyWebPlaybackSDKReady = async () => {
+        console.log('Spotify SDK Ready');
+        this.createPlayer();
+        this.setupEventHandlers();
+        await this.connect();
+      };
+    }
   }
 
-  private async createPlayer(): Promise<void> {
+  private createPlayer(): void {
     this.player = new Spotify.Player({
       name: 'Spotify Player',
       getOAuthToken: (cb: any) => {
@@ -41,18 +46,40 @@ class SpotifyPlayer {
         cb(accessToken);
       },
     });
-    this.player.connect();
+  }
+
+  public async connect(): Promise<void> {
+    const success = this.player.connect();
+    if (!success) {
+      throw new Error('Could not connect to Spotify');
+    }
   }
 
   private setupEventHandlers(): void {
     this.player.addListener('ready', (args) => {
-      console.log('Ready with Device ID', args.device_id);
       this.deviceId = args.device_id;
-      this.$playerState.next('ready');
+      this.ready = true;
+      this.$playerReady.next(this.ready);
+    });
+    this.player.addListener('not_ready', (args) => {
+      this.ready = false;
+      this.$playerReady.next(this.ready);
     });
     this.player.addListener('player_state_changed', (state) => {
-      this.$playbackState.next(state);
+      this.$playerState.next(state);
     });
+  }
+
+  public togglePlay(): Promise<void> {
+    return this.player.togglePlay();
+  }
+
+  public nextTrack(): Promise<void> {
+    return this.player.nextTrack();
+  }
+
+  public previousTrack(): Promise<void> {
+    return this.player.previousTrack();
   }
 }
 

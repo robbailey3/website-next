@@ -1,4 +1,5 @@
 import { CurrentUser } from '../interfaces/CurrentUser';
+import { DeviceResponse } from '../interfaces/Device';
 import { RecentlyPlayedResponse } from '../interfaces/RecentlyPlayedResponse';
 import spotifyAuthService from './spotify-auth.service';
 
@@ -40,6 +41,13 @@ class SpotifyService {
       device_ids: deviceIds,
       play,
     });
+  }
+
+  public async getDevices() {
+    return spotifyAuthService.request<DeviceResponse>(
+      'GET',
+      '/me/player/devices'
+    );
   }
 }
 export default new SpotifyService();

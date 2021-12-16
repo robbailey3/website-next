@@ -27,22 +27,20 @@ const SpotifyProvider = (props: { children: JSX.Element | JSX.Element[] }) => {
   }, [router.pathname]);
 
   useEffect(() => {
-    console.log('USE EFFECT');
     const checkLogin = async () => {
       const isLoggedIn = await spotifyAuthService.isLoggedIn();
       if (!isLoggedIn) {
-        console.log('Not logged in, redirecting to login');
         window.location.replace('/api/spotify/auth/login');
       }
-      spotifyPlayerService.injectScript();
-      spotifyPlayerService.$playerState.subscribe((state) => {
-        if (state === 'ready') {
+      spotifyPlayerService.$playerReady.subscribe((ready) => {
+        if (ready) {
           spotifyService.transferPlayback([
             spotifyPlayerService.deviceId as string,
           ]);
           setLoading(false);
         }
       });
+      await spotifyPlayerService.init();
     };
     if (isSpotifyPage()) {
       checkLogin();
