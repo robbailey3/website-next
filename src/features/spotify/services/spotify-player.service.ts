@@ -1,8 +1,13 @@
+import { Subject } from 'rxjs';
 import spotifyAuthService from './spotify-auth.service';
 
 declare var window: any;
 
 class SpotifyPlayer {
+  public deviceId: string | null = null;
+
+  public $playerState: Subject<any> = new Subject();
+
   private scriptEl!: HTMLScriptElement;
 
   private player!: Spotify.Player;
@@ -32,12 +37,13 @@ class SpotifyPlayer {
       },
     });
     this.player.connect();
-    console.log(this);
   }
 
   private setupEventHandlers(): void {
     this.player.addListener('ready', (args) => {
       console.log('Ready with Device ID', args.device_id);
+      this.deviceId = args.device_id;
+      this.$playerState.next('ready');
     });
   }
 }

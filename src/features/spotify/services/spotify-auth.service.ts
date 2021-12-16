@@ -20,7 +20,10 @@ class SpotifyAuthService {
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
           this.logout();
+          window.location.replace('/api/spotify/auth/login');
+          return;
         }
+        return;
       }
     );
   }
@@ -40,7 +43,7 @@ class SpotifyAuthService {
       params,
       data,
     });
-    return response.data;
+    return response?.data;
   }
 
   public login(
@@ -63,11 +66,14 @@ class SpotifyAuthService {
     this.deleteTokensFromLocalStorage();
   }
 
-  public isLoggedIn(): boolean {
+  public async isLoggedIn(): Promise<boolean> {
     if (this.accessToken && !this.tokenHasExpired()) {
       return true;
     }
     this.getTokensFromLocalStorage();
+    if (this.refreshToken && this.tokenHasExpired()) {
+      await this.refreshAccessToken();
+    }
     if (this.accessToken && !this.tokenHasExpired()) {
       return true;
     }

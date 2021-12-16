@@ -25,5 +25,21 @@ class SpotifyService {
       { limit }
     );
   }
+
+  public async playTrack(trackUri: string[]): Promise<any> {
+    return spotifyAuthService.request<any>('PUT', '/me/player/play', null, {
+      uris: trackUri,
+    });
+  }
+
+  public async transferPlayback(
+    deviceIds: string[],
+    play = true
+  ): Promise<any> {
+    return spotifyAuthService.request<any>('PUT', '/me/player', null, {
+      device_ids: deviceIds,
+      play,
+    });
+  }
 }
 export default new SpotifyService();

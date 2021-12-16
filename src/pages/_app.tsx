@@ -6,6 +6,7 @@ import Header from '@/components/global/header/header';
 import Footer from '@/components/global/footer/footer';
 import Script from 'next/script';
 import KeyboardShortcut from '@/components/global/keyboard-shortcut/keyboard-shortcut';
+import AppProvider from '@/components/providers/app.provider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,9 +23,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }}
       ></Script>
       <Header />
-      <main id="main-content">
-        <Component {...pageProps} />
-      </main>
+      <AppProvider>
+        <main id="main-content">
+          <Component {...pageProps} />
+        </main>
+      </AppProvider>
       <KeyboardShortcut />
       <Footer />
     </>
