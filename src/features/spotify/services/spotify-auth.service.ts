@@ -19,6 +19,7 @@ class SpotifyAuthService {
       (res) => res,
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
+          console.log('Unauthorized, destroying tokens');
           this.logout();
           window.location.replace('/api/spotify/auth/login');
           return;
@@ -51,6 +52,7 @@ class SpotifyAuthService {
     expiresIn: number,
     refreshToken?: string
   ): void {
+    console.log('Logging in', { accessToken, expiresIn, refreshToken });
     this.accessToken = accessToken;
     this.expiryTime = Date.now() + expiresIn * 1000;
     this.refreshToken = refreshToken || this.refreshToken;

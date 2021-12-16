@@ -8,6 +8,10 @@ class SpotifyPlayer {
 
   public $playerState: Subject<any> = new Subject();
 
+  public $playbackState: Subject<Spotify.PlaybackState> = new Subject();
+
+  private $scriptLoad = new Subject();
+
   private scriptEl!: HTMLScriptElement;
 
   private player!: Spotify.Player;
@@ -22,6 +26,7 @@ class SpotifyPlayer {
   }
 
   private async handleScriptLoad() {
+    console.log('Script loaded');
     (window as any).onSpotifyWebPlaybackSDKReady = async () => {
       await this.createPlayer();
       this.setupEventHandlers();
@@ -44,6 +49,9 @@ class SpotifyPlayer {
       console.log('Ready with Device ID', args.device_id);
       this.deviceId = args.device_id;
       this.$playerState.next('ready');
+    });
+    this.player.addListener('player_state_changed', (state) => {
+      this.$playbackState.next(state);
     });
   }
 }

@@ -7,6 +7,7 @@ import Footer from '@/components/global/footer/footer';
 import Script from 'next/script';
 import KeyboardShortcut from '@/components/global/keyboard-shortcut/keyboard-shortcut';
 import AppProvider from '@/components/providers/app.provider';
+import Player from '@/features/spotify/components/player/player';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -27,6 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <main id="main-content">
           <Component {...pageProps} />
         </main>
+        <Player />
       </AppProvider>
       <KeyboardShortcut />
       <Footer />

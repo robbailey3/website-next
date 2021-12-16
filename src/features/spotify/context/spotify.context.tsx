@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import spotifyAuthService from '../services/spotify-auth.service';
 import spotifyPlayerService from '../services/spotify-player.service';
 import spotifyService from '../services/spotify.service';
@@ -19,19 +19,23 @@ const SpotifyProvider = (props: { children: JSX.Element | JSX.Element[] }) => {
 
   const router = useRouter();
 
-  const isSpotifyPage = () => {
-    return router.pathname.includes('/projects/spotify');
-  };
+  const isSpotifyPage = useCallback(() => {
+    return (
+      router.pathname.includes('/projects/spotify') &&
+      !router.pathname.includes('/projects/spotify/auth-success')
+    );
+  }, [router.pathname]);
 
   useEffect(() => {
+    console.log('USE EFFECT');
     const checkLogin = async () => {
       const isLoggedIn = await spotifyAuthService.isLoggedIn();
       if (!isLoggedIn) {
+        console.log('Not logged in, redirecting to login');
         window.location.replace('/api/spotify/auth/login');
       }
       spotifyPlayerService.injectScript();
       spotifyPlayerService.$playerState.subscribe((state) => {
-        console.log(state);
         if (state === 'ready') {
           spotifyService.transferPlayback([
             spotifyPlayerService.deviceId as string,
@@ -43,7 +47,7 @@ const SpotifyProvider = (props: { children: JSX.Element | JSX.Element[] }) => {
     if (isSpotifyPage()) {
       checkLogin();
     }
-  }, [router.pathname]);
+  }, [isSpotifyPage, router.pathname]);
 
   if (loading && isSpotifyPage()) {
     return null;

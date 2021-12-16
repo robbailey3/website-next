@@ -1,13 +1,17 @@
-import spotifyService from '@/features/spotify/services/spotify-auth.service';
+import { useSpotify } from '@/features/spotify/context/spotify.context';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const AuthSuccessPage = () => {
   const router = useRouter();
 
+  const { auth } = useSpotify();
+
+  console.log('AUTH SUCCESS!!');
+
   useEffect(() => {
     const { access_token, refresh_token, expires_in } = router.query;
-    spotifyService.login(
+    auth.login(
       access_token as string,
       parseInt(expires_in as string, 10),
       refresh_token as string
