@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useSpotify } from '../../context/spotify.context';
 import { Device } from '../../interfaces/Device';
 import { Subscription } from 'rxjs';
+import Link from 'next/link';
 
 const Player = () => {
   const { player, spotify } = useSpotify();
@@ -80,9 +81,21 @@ const Player = () => {
               {playbackState.track_window.current_track.name}
             </span>
             <span className="block text-accent-300 text-xs">
-              {playbackState.track_window.current_track.artists
-                .map((artist) => artist.name)
-                .join(', ')}
+              {playbackState.track_window.current_track.artists.map(
+                (artist, i) => (
+                  <>
+                    {i > 0 ? <span>, </span> : null}
+                    <Link
+                      href={`/projects/spotify/artists/${
+                        artist.uri.split(':')[2]
+                      }`}
+                      key={artist.uri}
+                    >
+                      <a>{artist.name}</a>
+                    </Link>
+                  </>
+                )
+              )}
             </span>
           </div>
         </div>

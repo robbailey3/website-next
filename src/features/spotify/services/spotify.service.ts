@@ -49,5 +49,9 @@ class SpotifyService {
       '/me/player/devices'
     );
   }
+
+  public async getArtist(artistId: string): Promise<any> {
+    return spotifyAuthService.request<any>('GET', `/artists/${artistId}`);
+  }
 }
 export default new SpotifyService();
