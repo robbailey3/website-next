@@ -7,8 +7,6 @@ const AuthSuccessPage = () => {
 
   const { auth } = useSpotify();
 
-  console.log('AUTH SUCCESS!!');
-
   useEffect(() => {
     const { access_token, refresh_token, expires_in } = router.query;
     auth.login(

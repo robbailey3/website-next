@@ -1,7 +1,5 @@
 import axios, { Axios, AxiosError, Method } from 'axios';
-import { retry } from 'rxjs';
 import { AuthTokenResponse } from '../interfaces/AuthTokenResponse';
-import { CurrentUser } from '../interfaces/CurrentUser';
 
 class SpotifyAuthService {
   private refreshToken: string | null = null;
@@ -34,9 +32,6 @@ class SpotifyAuthService {
     params?: any,
     data?: any
   ): Promise<T> {
-    if (!this.isLoggedIn()) {
-      throw new Error('Not logged in');
-    }
     const response = await this.httpClient.request<T>({
       method,
       url,
@@ -81,20 +76,15 @@ class SpotifyAuthService {
   }
 
   public async getAccessToken(): Promise<string | null> {
-    console.log('Getting access token');
     if (!this.accessToken) {
-      console.log('No access token, looking in local storage');
       this.getTokensFromLocalStorage();
     }
     if (!this.accessToken) {
-      console.log('Still no access token, giving up');
       return null;
     }
     if (this.tokenHasExpired()) {
-      console.log('Access token has expired, refreshing');
       await this.refreshAccessToken();
     }
-    console.log('Got access token', this.accessToken);
     return this.accessToken;
   }
 
@@ -141,17 +131,18 @@ class SpotifyAuthService {
     this.accessToken = localStorage.getItem('spotifyAccessToken');
     this.refreshToken = localStorage.getItem('spotifyRefreshToken');
     this.expiryTime = Number(localStorage.getItem('spotifyExpiryTime'));
+    const expires_in = (this.expiryTime - Date.now()) / 1000;
+
     if (this.tokenHasExpired()) {
       this.refreshAccessToken();
     } else {
       if (this.accessToken && this.refreshToken && this.expiryTime) {
-        this.login(this.accessToken, this.expiryTime, this.refreshToken);
+        this.login(this.accessToken, expires_in, this.refreshToken);
       }
     }
   }
 
   private async refreshAccessToken(): Promise<void> {
-    console.log('Refreshing access token', this.refreshToken);
     if (!this.refreshToken) {
       return;
     }

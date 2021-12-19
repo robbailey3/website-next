@@ -12,7 +12,6 @@ const UserPlaylists = () => {
   useEffect(() => {
     const getCategories = async () => {
       const response = await spotify.getPlaylists();
-      console.log({ response });
       setPlaylists(response.items);
     };
 
