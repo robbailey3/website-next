@@ -53,5 +53,12 @@ class SpotifyService {
   public async getArtist(artistId: string): Promise<any> {
     return spotifyAuthService.request<any>('GET', `/artists/${artistId}`);
   }
+
+  public async getPlaylists(limit = 10, offset = 10): Promise<any> {
+    return spotifyAuthService.request<any>('GET', '/me/playlists', {
+      limit,
+      offset,
+    });
+  }
 }
 export default new SpotifyService();

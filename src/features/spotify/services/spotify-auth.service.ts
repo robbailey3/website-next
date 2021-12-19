@@ -80,7 +80,21 @@ class SpotifyAuthService {
     return false;
   }
 
-  public getAccessToken(): string | null {
+  public async getAccessToken(): Promise<string | null> {
+    console.log('Getting access token');
+    if (!this.accessToken) {
+      console.log('No access token, looking in local storage');
+      this.getTokensFromLocalStorage();
+    }
+    if (!this.accessToken) {
+      console.log('Still no access token, giving up');
+      return null;
+    }
+    if (this.tokenHasExpired()) {
+      console.log('Access token has expired, refreshing');
+      await this.refreshAccessToken();
+    }
+    console.log('Got access token', this.accessToken);
     return this.accessToken;
   }
 
@@ -137,6 +151,7 @@ class SpotifyAuthService {
   }
 
   private async refreshAccessToken(): Promise<void> {
+    console.log('Refreshing access token', this.refreshToken);
     if (!this.refreshToken) {
       return;
     }

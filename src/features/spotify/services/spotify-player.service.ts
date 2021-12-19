@@ -41,8 +41,8 @@ class SpotifyPlayer {
   private createPlayer(): void {
     this.player = new Spotify.Player({
       name: 'Spotify Player',
-      getOAuthToken: (cb: any) => {
-        const accessToken = spotifyAuthService.getAccessToken();
+      getOAuthToken: async (cb: any) => {
+        const accessToken = await spotifyAuthService.getAccessToken();
         cb(accessToken);
       },
     });

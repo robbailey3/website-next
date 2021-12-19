@@ -40,11 +40,9 @@ const Player = () => {
     let $readySubscription: Subscription;
     if (typeof window !== 'undefined') {
       $stateSubscription = player.$playerState.subscribe((state) => {
-        console.log({ state });
         setPlaybackState(state);
       });
       $readySubscription = player.$playerReady.subscribe((ready) => {
-        console.log({ ready });
         setPlayerReady(ready);
       });
     }
@@ -58,6 +56,11 @@ const Player = () => {
       }
     };
   }, [player, spotify]);
+
+  const getPlaybackPosition = () => {
+    if (!playbackState) return 0;
+    return `${(playbackState.position / playbackState.duration) * 100}%`;
+  };
 
   if (!playerReady || !playbackState) {
     return null;
@@ -83,7 +86,7 @@ const Player = () => {
             <span className="block text-accent-300 text-xs">
               {playbackState.track_window.current_track.artists.map(
                 (artist, i) => (
-                  <>
+                  <span key={artist.uri}>
                     {i > 0 ? <span>, </span> : null}
                     <Link
                       href={`/projects/spotify/artists/${
@@ -93,10 +96,21 @@ const Player = () => {
                     >
                       <a>{artist.name}</a>
                     </Link>
-                  </>
+                  </span>
                 )
               )}
             </span>
+          </div>
+        </div>
+        {/* TODO: Move the playback tracker into it's own component */}
+        <div className="w-full my-4">
+          <div className="h-1 w-full bg-background-50 rounded overflow-hidden">
+            <div
+              className="h-full rounded bg-accent-400"
+              style={{
+                width: getPlaybackPosition(),
+              }}
+            ></div>
           </div>
         </div>
         <div className="flex justify-around w-full">
