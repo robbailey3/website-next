@@ -2,6 +2,7 @@ import Card from '@/components/common/layout/card/card';
 import { useEffect, useState } from 'react';
 import { TodoItem } from '../../interfaces/todo-item';
 import todoService from '../../services/todo.service';
+import TodoItemView from '../todo-item/todo-item';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -24,10 +25,17 @@ const TodoList = () => {
 
   return (
     <Card>
-      <div>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
+      <div className="p-4">
+        <h2>Todos</h2>
+        {todos.length ? (
+          <div>
+            {todos.map((todo) => (
+              <TodoItemView key={todo.id} todo={todo} />
+            ))}
+          </div>
+        ) : (
+          <div>Nothing to do!</div>
+        )}
       </div>
     </Card>
   );
