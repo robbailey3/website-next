@@ -13,13 +13,13 @@ const ProjectsPage = () => {
       description:
         'A running tracker app that tracks my running activities and provides a visual representation of my progress.',
     },
-    {
-      id: 2,
-      name: 'Spotify Player',
-      route: '/projects/spotify',
-      description:
-        'A spotify player app that allows you to play music from your spotify account.',
-    },
+    // {
+    //   id: 2,
+    //   name: 'Spotify Player',
+    //   route: '/projects/spotify',
+    //   description:
+    //     'A spotify player app that allows you to play music from your spotify account.',
+    // },
   ];
 
   return (
