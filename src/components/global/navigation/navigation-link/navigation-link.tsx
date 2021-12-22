@@ -8,13 +8,25 @@ type NavigationLinkProps = {
 
 const NavigationLink = (props: NavigationLinkProps) => {
   const { href, children } = props;
+
+  const isApiRoute = () => href.startsWith('/api');
+
   return (
     <li className="block">
-      <Link href={href}>
-        <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+      {isApiRoute() ? (
+        <a
+          href={href}
+          className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75"
+        >
           {children}
         </a>
-      </Link>
+      ) : (
+        <Link href={href}>
+          <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+            {children}
+          </a>
+        </Link>
+      )}
     </li>
   );
 };

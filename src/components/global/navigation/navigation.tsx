@@ -67,6 +67,11 @@ const Navigation = () => {
         <NavigationLink href="/github">GitHub</NavigationLink>
         <NavigationLink href="/projects">Projects</NavigationLink>
         <NavigationLink href="/cv">CV</NavigationLink>
+        {auth.user ? (
+          <NavigationLink href="/api/auth/logout">Logout</NavigationLink>
+        ) : (
+          <NavigationLink href="/api/auth/login">Login</NavigationLink>
+        )}
       </ul>
     </nav>
   );

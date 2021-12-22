@@ -9,7 +9,7 @@ export class OkResponse extends HttpResponse {
   public toResponse(res: any): any {
     return res.status(this.statusCode).json({
       status: this.statusCode,
-      data: this.data,
+      result: this.data,
       timestamp: Date.now(),
     });
   }
