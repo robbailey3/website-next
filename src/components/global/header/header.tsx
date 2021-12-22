@@ -4,7 +4,7 @@ import Navigation from '../navigation/navigation';
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 w-full bg-background-400 z-50">
+    <header className="fixed top-0 left-0 w-full bg-background-400 z-10">
       <a href="#main-content" id="skip-to-content" className="sr-only">
         Skip to Content
       </a>

@@ -12,7 +12,6 @@ type ActivitySegmentsProps = {
 
 const ActivitySegments = (props: ActivitySegmentsProps) => {
   const { segments } = props;
-  console.log({ segments });
   return (
     <div className="segments">
       <h2 className="text-lg">Segments</h2>
