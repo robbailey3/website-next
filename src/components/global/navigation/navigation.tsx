@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import NavigationButton from './navigation-button/navigation-button';
 import NavigationLink from './navigation-link/navigation-link';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,8 @@ const Navigation = () => {
   const handleRouteChangeComplete = () => {
     setIsOpen(false);
   };
+
+  const auth = useUser();
 
   useEffect(() => {
     router.events.on('routeChangeComplete', handleRouteChangeComplete);
