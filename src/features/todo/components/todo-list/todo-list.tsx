@@ -8,11 +8,11 @@ import todoService from '../../services/todo.service';
 import TodoItemView from '../todo-item/todo-item';
 
 const TodoList = () => {
-  const fetcher = async (url: string): Promise<ApiResponse<TodoItem[]>> => {
-    const response = await axios.get<ApiResponse<TodoItem[]>>(url);
-    return response?.data;
+  const { data, error } = useSWR('/api/todo', todoService.fetcher);
+
+  const updateTodo = async (todo: TodoItem) => {
+    await todoService.update(todo);
   };
-  const { data, error } = useSWR('/api/todo', fetcher);
 
   console.log({ data, error });
 
@@ -24,10 +24,10 @@ const TodoList = () => {
     <Card>
       <div className="p-4">
         <h2>Todos</h2>
-        {data.result.length ? (
+        {data.length ? (
           <div>
-            {data.result.map((todo: TodoItem) => (
-              <TodoItemView key={todo.id} todo={todo} />
+            {data.map((todo: TodoItem) => (
+              <TodoItemView key={todo._id} todo={todo} onUpdate={updateTodo} />
             ))}
           </div>
         ) : (

@@ -14,9 +14,9 @@ class TodoRepository {
     await databaseService.connect();
 
     const collection = databaseService.getCollection('todos');
-    const todoId = ObjectId.createFromHexString(todoItem.id);
+    const todoId = ObjectId.createFromHexString(todoItem._id);
     const todo = await collection.findOne<TodoItem>({
-      _id: ObjectId.createFromHexString(todoItem.id),
+      _id: ObjectId.createFromHexString(todoItem._id),
     });
     if (todo) {
       todo.completed = !todo.completed;
