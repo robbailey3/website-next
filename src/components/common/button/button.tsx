@@ -3,6 +3,7 @@ import { MouseEventHandler } from 'react';
 
 type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
+  size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   children: JSX.Element | string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -13,6 +14,7 @@ type ButtonProps = {
 const Button = (props: ButtonProps) => {
   const {
     variant = 'primary',
+    size = 'medium',
     onClick,
     children,
     disabled,
@@ -39,11 +41,18 @@ const Button = (props: ButtonProps) => {
     <button
       onClick={onClick}
       className={clsx(
-        'p-4 shadow border-none',
-        getClassNames(),
+        'shadow border-none',
         {
-          'rounded-full leading-none': round,
+          'py-3 px-6': !round && size === 'large',
+          'py-2 px-4': !round && size === 'medium',
+          'py-1 px-2': !round && size === 'small',
+          'rounded-full p-4 leading-none': round,
+          'p-2': round && size === 'small',
+          'p-3': round && size === 'medium',
+          'p-4': round && size === 'large',
         },
+        getClassNames(),
+        {},
         className
       )}
       disabled={disabled}

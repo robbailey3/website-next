@@ -21,7 +21,6 @@ describe('[COMPONENT]: CvSkillCategory', () => {
   });
 
   it('should render each skill as a list item', () => {
-    console.log(wrapper.html());
     expect(wrapper.find('li').length).toEqual(category.skills.length);
   });
 
