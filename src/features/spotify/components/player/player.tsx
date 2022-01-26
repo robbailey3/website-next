@@ -81,7 +81,7 @@ const Player = () => {
   return (
     <div
       className={clsx(
-        'fixed bottom-0 right-0 z-50 p-4 bg-background-500 shadow-xl max-w-md rounded m-4',
+        'fixed bottom-0 right-0 z-50 p-4 bg-background-200 shadow-xl max-w-md rounded m-4',
         {
           'w-full': playerVisibility === 'maximized',
         }

@@ -19,7 +19,7 @@ const ActivitySplits = (props: ActivitySplitsProps) => {
         <CollapsibleSection
           key={split.split}
           title={`Mile ${split.split}`}
-          className="bg-background-600 my-4 rounded-sm"
+          className="bg-background-100 my-4 rounded-sm"
         >
           <FlexContainer className="flex-wrap">
             <FlexItem className="w-full md:w-1/2 my-2">

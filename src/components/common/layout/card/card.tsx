@@ -9,7 +9,7 @@ const Card = (props: CardProps) => {
   const { className, children } = props;
 
   return (
-    <div className={clsx('rounded bg-background-400 shadow', className)}>
+    <div className={clsx('rounded bg-light-400 shadow', className)}>
       {children}
     </div>
   );

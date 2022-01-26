@@ -6,7 +6,7 @@ const HomepageBanner = () => {
     <FlexContainer className="h-screen justify-center items-center flex-wrap">
       <FlexItem className="text-center w-full md:w-1/2">
         <h1 data-cy="homepage-banner-title">Rob Bailey</h1>
-        <h2 className="text-accent" data-cy="homepage-banner-subtitle">
+        <h2 className="text-tertiary" data-cy="homepage-banner-subtitle">
           Software Engineer
         </h2>
       </FlexItem>

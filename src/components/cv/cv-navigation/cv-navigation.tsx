@@ -12,11 +12,12 @@ const CVNavigation = (props: CVNavigationProps) => {
   const variants: Variants = {
     active: {
       opacity: 1,
-      color: '#fff',
+      color: '#004E98',
+      fontWeight: 'bold',
     },
     inactive: {
-      opacity: 0.65,
-      color: '#c57b57',
+      opacity: 0.8,
+      color: '#001632',
     },
     hover: {
       scale: 1.1,

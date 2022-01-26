@@ -19,7 +19,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
         <CollapsibleSection
           key={segment.id}
           title={segment.name}
-          className="bg-background-600 my-4 rounded-sm"
+          className="bg-background-100 my-4 rounded-sm"
         >
           <FlexContainer className="flex-wrap">
             <FlexItem className="w-full md:w-1/2 my-2">
