@@ -1,4 +1,5 @@
 import Container from '@/components/common/layout/container/container';
+import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import {
   faGithub,
   faLinkedinIn,
@@ -11,78 +12,45 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer
-      className="bg-background-300 shadow-inner py-12 text-center z-10 relative"
+      className="bg-background-600 border-t border-secondary-200 shadow-inner py-12 z-10 relative"
       data-cy="footer"
     >
-      <Container className="px-8">
-        <div data-cy="footerSocialMenu">
-          <ul>
-            <li className="inline-block">
-              <a
-                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
-                href="https://www.linkedin.com/in/robbailey3/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="sr-only">LinkedIn</span>
-                <FontAwesomeIcon icon={faLinkedinIn}></FontAwesomeIcon>
-              </a>
-            </li>
-            <li className="inline-block">
-              <a
-                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
-                href="https://github.com/robbailey3"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="sr-only">GitHub</span>
-                <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-              </a>
-            </li>
-            <li className="inline-block">
-              <a
-                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
-                href="https://twitter.com/rob_bailey3"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="sr-only">Twitter</span>
-                <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
-              </a>
-            </li>
-            <li className="inline-block">
-              <a
-                className="block mr-4 text-4xl duration-200 p-2 hover:text-accent"
-                href="https://stackoverflow.com/users/7959497/rob-bailey"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="sr-only">StackOverflow</span>
-                <FontAwesomeIcon icon={faStackOverflow}></FontAwesomeIcon>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="max-w-lg my-12 mx-auto" data-cy="footerGetInTouch">
-          <h4 className="text-accent">Contact Me</h4>
-          <p>
-            If you have any questions or just want to say hello, please get in
-            touch.
-          </p>
-          <div>
+      <Container>
+        <FlexContainer className="space-x-8 items-start flex-wrap">
+          <div data-cy="footerGetInTouch">
+            <h3 className="text-secondary-200">Say Hello</h3>
+
             <a
-              className="border-2 border-accent py-2 px-8 duration-300 inline-block  cursor-pointer my-8 hover:bg-accent hover:text-font-dark focus:bg-accent focus:text-font-dark"
-              href="mailto: rob.bailey3@gmail.com"
+              href="mailto:rob.bailey3+website-contact@gmail.com"
+              className="p-2 text-center rounded bg-secondary-500 my-2 inline-block"
             >
-              Say Hello
+              Send me an email
             </a>
           </div>
-        </div>
-        <div
-          className="text-accent text-sm opacity-80"
-          data-cy="footerAttribution"
-        >
-          <p className="monospace">Created by Rob Bailey</p>
+          <div data-cy="footerSocialMenu">
+            <h3 className="text-secondary-200">Find me on</h3>
+            <ul>
+              <li>
+                <a href="https://github.com/robbailey3">GitHub</a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/robbailey3/">LinkedIn</a>
+              </li>
+              <li>
+                <a href="https://twitter.com/rob_bailey3">Twitter</a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/7959497/rob-bailey">
+                  Stack Overflow
+                </a>
+              </li>
+            </ul>
+          </div>
+        </FlexContainer>
+        <div className="font-mono my-4">
+          <p className="text-secondary-200">
+            Created by Rob Bailey using some code
+          </p>
         </div>
       </Container>
     </footer>
