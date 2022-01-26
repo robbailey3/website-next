@@ -2,8 +2,6 @@ import Container from '@/components/common/layout/container/container';
 import FlexContainer from '@/components/common/layout/flex-container/flex-container';
 import FlexItem from '@/components/common/layout/flex-item/flex-item';
 import { DateTime } from '@/utils/dateTime';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import { GetActivityResponse } from '../../responses/GetActivityResponse';
@@ -66,14 +64,14 @@ const ActivityDetail = (props: ActivityDetailProps) => {
         </FlexItem>
       </FlexContainer>
       <section className="my-8">
-        <FlexContainer className="gap-4">
+        <FlexContainer className="md:space-x-4 md:flex-nowrap flex-wrap">
           {run.segment_efforts && (
-            <FlexItem className="w-full md:w-1/2">
+            <FlexItem className="basis-full md:basis-1/2">
               <ActivitySegments segments={run.segment_efforts} />
             </FlexItem>
           )}
           {run.splits_standard && (
-            <FlexItem className="w-full md:w-1/2">
+            <FlexItem className="basis-full md:basis-1/2">
               <ActivitySplits splits={run.splits_standard} />
             </FlexItem>
           )}
