@@ -23,7 +23,11 @@ describe('[GLOBAL COMPONENT]: Footer', () => {
       cy.get('[data-cy=footerGetInTouch]')
         .find('a')
         .should('be.visible')
-        .and('have.attr', 'href', 'mailto:rob.bailey3@gmail.com');
+        .and(
+          'have.attr',
+          'href',
+          'mailto:rob.bailey3+website-contact@gmail.com'
+        );
     });
   });
 });
