@@ -17,7 +17,7 @@ const Footer = () => {
     >
       <Container>
         <FlexContainer className="space-x-8 items-start flex-wrap">
-          <div data-cy="footerGetInTouch">
+          <div data-cy="footerGetInTouch" className="md:basis-1/3">
             <h3 className="text-secondary-200">Say Hello</h3>
 
             <a
@@ -27,20 +27,38 @@ const Footer = () => {
               Send me an email
             </a>
           </div>
-          <div data-cy="footerSocialMenu">
+          <div data-cy="footerSocialMenu" className="md:basis-1/3">
             <h3 className="text-secondary-200">Find me on</h3>
             <ul>
               <li>
-                <a href="https://github.com/robbailey3">GitHub</a>
+                <a
+                  href="https://github.com/robbailey3"
+                  className="text-light-50"
+                >
+                  GitHub
+                </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/in/robbailey3/">LinkedIn</a>
+                <a
+                  href="https://www.linkedin.com/in/robbailey3/"
+                  className="text-light-50"
+                >
+                  LinkedIn
+                </a>
               </li>
               <li>
-                <a href="https://twitter.com/rob_bailey3">Twitter</a>
+                <a
+                  href="https://twitter.com/rob_bailey3"
+                  className="text-light-50"
+                >
+                  Twitter
+                </a>
               </li>
               <li>
-                <a href="https://stackoverflow.com/users/7959497/rob-bailey">
+                <a
+                  href="https://stackoverflow.com/users/7959497/rob-bailey"
+                  className="text-light-50"
+                >
                   Stack Overflow
                 </a>
               </li>

@@ -69,7 +69,7 @@ const ActivityList = (props: ActivityListProps) => {
   return (
     <div>
       <Link href="/projects">
-        <a className="text-sm text-background-50 my-4 inline-block">
+        <a className="text-sm text-background-400 my-4 inline-block">
           Back to projects
         </a>
       </Link>

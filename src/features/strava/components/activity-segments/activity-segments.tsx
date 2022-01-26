@@ -19,11 +19,11 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
         <CollapsibleSection
           key={segment.id}
           title={segment.name}
-          className="bg-background-600 my-4 rounded-sm"
+          className="bg-background-100 my-4 rounded-sm"
         >
           <FlexContainer className="flex-wrap">
             <FlexItem className="w-full md:w-1/2 my-2">
-              <span className="block text-background-50 text-sm">Time</span>
+              <span className="block text-background-400 text-sm">Time</span>
               <span className="block">
                 {runUtilsService.convertMillisecondsToTime(segment.moving_time)}
               </span>
@@ -31,7 +31,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
             {segment.segment ? (
               <>
                 <FlexItem className="w-full md:w-1/2 my-2">
-                  <span className="block text-background-50 text-sm">
+                  <span className="block text-background-400 text-sm">
                     Distance
                   </span>
                   <span className="block">
@@ -42,7 +42,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
                   </span>
                 </FlexItem>
                 <FlexItem className="w-full md:w-1/2 my-2">
-                  <span className="block text-background-50 text-sm">
+                  <span className="block text-background-400 text-sm">
                     Elevation High
                   </span>
                   <span className="block">
@@ -50,7 +50,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
                   </span>
                 </FlexItem>
                 <FlexItem className="w-full md:w-1/2 my-2">
-                  <span className="block text-background-50 text-sm">
+                  <span className="block text-background-400 text-sm">
                     Elevation Low
                   </span>
                   <span className="block">
@@ -59,7 +59,7 @@ const ActivitySegments = (props: ActivitySegmentsProps) => {
                 </FlexItem>
                 {segment.segment.start_latlng && (
                   <FlexItem className="w-full">
-                    <span className="block text-background-50 text-sm">
+                    <span className="block text-background-400 text-sm">
                       Map
                     </span>
                     <RunMap

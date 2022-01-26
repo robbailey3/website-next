@@ -24,7 +24,7 @@ const Select = (props: SelectProps) => {
         value={value}
         onChange={onChange}
         onBlur={onChange}
-        className="px-1 py-2 bg-background-600 border border-light-900 rounded-sm block w-full"
+        className="px-1 py-2 bg-background-100 border border-light-900 rounded-sm block w-full"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

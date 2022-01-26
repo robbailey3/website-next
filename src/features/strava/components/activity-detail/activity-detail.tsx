@@ -35,7 +35,7 @@ const ActivityDetail = (props: ActivityDetailProps) => {
   return (
     <Container>
       <Link href="/projects/running-tracker">
-        <a className="text-sm text-background-50 my-4 inline-block">
+        <a className="text-sm text-background-400 my-4 inline-block">
           Back to list
         </a>
       </Link>
@@ -49,15 +49,15 @@ const ActivityDetail = (props: ActivityDetailProps) => {
       </div>
       <FlexContainer className="flex-wrap items-center gap-4">
         <FlexItem>
-          <div className="block text-background-50 text-sm">Distance</div>
+          <div className="block text-background-400 text-sm">Distance</div>
           <div>{convertMetersToMiles(run.distance)} miles</div>
         </FlexItem>
         <FlexItem>
-          <div className="block text-background-50 text-sm">Moving Time</div>
+          <div className="block text-background-400 text-sm">Moving Time</div>
           <div>{convertSecondsToTime(run.moving_time)}</div>
         </FlexItem>
         <FlexItem>
-          <div className="block text-background-50 text-sm">Pace</div>
+          <div className="block text-background-400 text-sm">Pace</div>
           <div>
             {convertMetersPerSecondToMinutesPerMile(run.average_speed)}m/s
           </div>

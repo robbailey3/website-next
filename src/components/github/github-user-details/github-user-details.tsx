@@ -23,7 +23,7 @@ const GithubUserDetails = (props: GithubUserDetailsProps) => {
   return (
     <section
       data-cy="github-user-details"
-      className="text-center bg-background-400"
+      className="text-center border-b border-tertiary mb-4"
     >
       <Container className="inline-block">
         <div className="rounded-full border-2 border-accent w-48 block mt-8 mx-auto overflow-hidden">
