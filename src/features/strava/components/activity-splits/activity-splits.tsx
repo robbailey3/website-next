@@ -23,13 +23,13 @@ const ActivitySplits = (props: ActivitySplitsProps) => {
         >
           <FlexContainer className="flex-wrap">
             <FlexItem className="w-full md:w-1/2 my-2">
-              <span className="block text-background-50 text-sm">Time</span>
+              <span className="block text-background-400 text-sm">Time</span>
               <span className="block">
                 {runUtilsService.convertMillisecondsToTime(split.moving_time)}
               </span>
             </FlexItem>
             <FlexItem className="w-full md:w-1/2 my-2">
-              <span className="block text-background-50 text-sm">Pace</span>
+              <span className="block text-background-400 text-sm">Pace</span>
               <span className="block">
                 {runUtilsService.convertMetersPerSecondToMinutesPerMile(
                   split.average_speed
@@ -38,7 +38,7 @@ const ActivitySplits = (props: ActivitySplitsProps) => {
               </span>
             </FlexItem>
             <FlexItem className="w-full md:w-1/2 my-2">
-              <span className="block text-background-50 text-sm">
+              <span className="block text-background-400 text-sm">
                 Elevation Change
               </span>
               <span className="block">{split.elevation_difference}m</span>
