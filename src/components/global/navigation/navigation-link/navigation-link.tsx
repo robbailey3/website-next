@@ -11,7 +11,7 @@ const NavigationLink = (props: NavigationLinkProps) => {
   return (
     <li className="block">
       <Link href={href}>
-        <a className="block p-4 no-underline duration-200 hover:bg-background-300 hover:bg-opacity-75">
+        <a className="block p-4 no-underline duration-200 hover:bg-light-400 hover:bg-opacity-75">
           {children}
         </a>
       </Link>

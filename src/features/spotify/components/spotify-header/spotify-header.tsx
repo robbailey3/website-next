@@ -17,7 +17,7 @@ const SpotifyHeader = () => {
   }, []);
 
   return (
-    <section className="w-full bg-background-600 shadow-xl z-10">
+    <section className="w-full bg-background-100 shadow-xl z-10">
       <Container>
         <FlexContainer className="py-8">
           <nav>

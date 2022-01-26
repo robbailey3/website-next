@@ -23,7 +23,7 @@ const AboutPage = () => {
           I create things using Vue.JS and C#.
         </p>
         <FlexContainer className="flex-wrap py-8 items-center space-x-4 space-y-4">
-          <div className="bg-background-400 flex-1 p-8 rounded-lg">
+          <div className="flex-1 p-8 rounded-lg">
             <p>This is me here in some woods with my camera.</p>
           </div>
           <div className="w-96 max-w-full">

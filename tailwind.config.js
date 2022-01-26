@@ -4,11 +4,11 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/features/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     colors: {
       background: {
-        DEFAULT: '#121215',
+        DEFAULT: '#fff',
         50: '#676778',
         100: '#5D5D6D',
         200: '#4A4A57',
@@ -44,17 +44,17 @@ module.exports = {
         900: '#000000',
       },
       tertiary: {
-        DEFAULT: '#C57B57',
-        50: '#F4E6DF',
-        100: '#EFDAD0',
-        200: '#E4C2B2',
-        300: '#DAAB94',
-        400: '#CF9375',
-        500: '#C57B57',
-        600: '#A95F3A',
-        700: '#80472C',
-        800: '#56301E',
-        900: '#2C190F',
+        DEFAULT: '#004E98',
+        50: '#7FCAFF',
+        100: '#65BEFF',
+        200: '#32A5FF',
+        300: '#008BFE',
+        400: '#006CCB',
+        500: '#004E98',
+        600: '#003F7F',
+        700: '#003065',
+        800: '#00234C',
+        900: '#001632',
       },
       light: {
         DEFAULT: '#DBD3D8',
@@ -70,7 +70,7 @@ module.exports = {
         900: '#715D69',
       },
       font: {
-        DEFAULT: '#fafafa',
+        DEFAULT: '#121215',
         dark: '#121215',
       },
     },
