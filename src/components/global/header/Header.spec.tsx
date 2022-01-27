@@ -14,7 +14,6 @@ describe('[COMPONENT]: Header', () => {
 
   it('should contain "software engineer" in another span element', () => {
     createWrapper();
-    console.log(wrapper.html());
     expect(wrapper.find('span').at(1).text()).toEqual('Software Engineer');
   });
 });
