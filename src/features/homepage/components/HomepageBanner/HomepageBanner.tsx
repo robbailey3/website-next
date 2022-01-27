@@ -33,8 +33,8 @@ const HomepageBanner = () => {
 
   return (
     <section>
-      <div className="flex items-center h-screen">
-        <div className="md:basis-3/5 bg-gray-200 p-8 text-left">
+      <div className="flex items-center flex-wrap md:h-screen">
+        <div className="basis-full md:basis-3/5 bg-gray-200 p-8 text-left pr-16">
           <motion.h1
             variants={sentenceAnimation}
             className="text-8xl font-extrabold"
@@ -55,7 +55,7 @@ const HomepageBanner = () => {
           </motion.h1>
           <p>My name is Rob and I&apos;m a Software Engineer</p>
         </div>
-        <div className="md:basis-2/5 -left-16 relative bg-blue-500 text-white p-16 pb-0">
+        <div className="basis-full md:basis-2/5 md:-left-16 relative bg-blue-500 text-white p-16 pb-0">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
             atque nostrum perferendis earum corrupti distinctio sequi. Minima
