@@ -10,9 +10,19 @@ import {
 import NavigationLink from './NavigationLink/NavigationLink';
 
 const Navigation = () => {
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
 
-  const [isOpen, setIsOpen] = React.useState(window.innerWidth > 768);
+  const [isOpen, setIsOpen] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth > 768;
+    }
+    return true;
+  });
 
   const toggleNavigation = () => {
     setIsOpen(!isOpen);
