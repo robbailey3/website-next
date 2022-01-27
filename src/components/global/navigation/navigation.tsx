@@ -1,71 +1,100 @@
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { debounceTime, fromEvent, map, Subscription } from 'rxjs';
-import { useRouter } from 'next/router';
 import clsx from 'clsx';
-import NavigationButton from './navigation-button/navigation-button';
-import NavigationLink from './navigation-link/navigation-link';
+import React from 'react';
+import {
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  Subscription,
+  throttleTime,
+} from 'rxjs';
+import NavigationLink from './NavigationLink/NavigationLink';
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
 
-  const router = useRouter();
-
-  const [currentWindowSize, setCurrentWindowSize] = useState(0);
-
-  const handleRouteChangeComplete = () => {
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-    let windowResizeSubscription: Subscription;
-    if (typeof window !== 'undefined') {
-      setCurrentWindowSize(window.innerWidth);
-      windowResizeSubscription = fromEvent(window, 'resize')
-        .pipe(
-          debounceTime(500),
-          map(($event: Event) => ($event.target as Window).innerWidth || 0)
-        )
-        .subscribe({
-          next: (windowSize) => {
-            setCurrentWindowSize(windowSize);
-          },
-        });
-    }
-    return () => {
-      if (windowResizeSubscription) {
-        windowResizeSubscription.unsubscribe();
-      }
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
-  }, []);
+  const [isOpen, setIsOpen] = React.useState(window.innerWidth > 768);
 
   const toggleNavigation = () => {
     setIsOpen(!isOpen);
   };
 
-  const isMobileDevice = () => currentWindowSize < 768;
+  React.useEffect(() => {
+    let $resizeSubscription: Subscription;
+    if (typeof window != undefined) {
+      $resizeSubscription = fromEvent(window, 'resize')
+        .pipe(
+          map(() => window.innerWidth),
+          throttleTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe({
+          next: (width) => {
+            setIsMobile(width < 768);
+            if (width > 768) {
+              setIsOpen(true);
+            }
+          },
+        });
+    }
+
+    return () => {
+      if ($resizeSubscription) {
+        $resizeSubscription.unsubscribe();
+      }
+    };
+  }, []);
 
   return (
-    <nav data-cy="navigation" className="ml-auto">
-      {isMobileDevice() && (
-        <NavigationButton onClick={toggleNavigation} isOpen={isOpen} />
+    <section>
+      {isMobile && (
+        <button
+          onClick={toggleNavigation}
+          className="w-10 h-10 p-2 hover:bg-gray-100 rounded-full"
+        >
+          <span className="sr-only">Toggle Navigation</span>
+          <span
+            className={clsx(
+              'w-full h-0.5 block bg-black relative duration-200',
+              {
+                'transform -rotate-45': isOpen,
+              }
+            )}
+          ></span>
+          <span
+            className={clsx('w-full h-0.5 block bg-black mt-2 relative', {
+              hidden: isOpen,
+            })}
+          ></span>
+          <span
+            className={clsx(
+              'w-full h-0.5 block bg-black mt-2 relative duration-200',
+              {
+                'transform rotate-45 mt-0 -top-0.5': isOpen,
+              }
+            )}
+          ></span>
+        </button>
       )}
-      <ul
-        className={clsx('md:flex list-none', {
-          'block absolute right-0 top-full w-full text-center shadow-lg rounded backdrop-filter backdrop-blur bg-background-300 bg-opacity-95':
-            isOpen,
-          hidden: !isOpen,
+      <nav
+        className={clsx({
+          'absolute w-full top-full left-0 shadow rounded-lg': isMobile,
         })}
       >
-        <NavigationLink href="/">Home</NavigationLink>
-        <NavigationLink href="/about">About</NavigationLink>
-        <NavigationLink href="/github">GitHub</NavigationLink>
-        <NavigationLink href="/projects">Projects</NavigationLink>
-        <NavigationLink href="/cv">CV</NavigationLink>
-      </ul>
-    </nav>
+        <ul
+          className={clsx('md:space-x-4', {
+            'flex-col space-y-2 mt-8 p-4': isOpen && isMobile,
+            flex: isOpen && !isMobile,
+            hidden: !isOpen && isMobile,
+          })}
+        >
+          <NavigationLink text="Home" href="/" />
+          <NavigationLink text="About" href="/about" />
+          <NavigationLink text="GitHub" href="/github" />
+          <NavigationLink text="Projects" href="/projects" />
+          <NavigationLink text="CV" href="/cv" />
+        </ul>
+      </nav>
+    </section>
   );
 };
 

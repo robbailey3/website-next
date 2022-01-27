@@ -1,15 +1,17 @@
-import Container from '@/components/common/layout/container/container';
-import React from 'react';
-import Navigation from '../navigation/navigation';
+import Container from '@/components/common/Container/Container';
+import Navigation from '../Navigation/Navigation';
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 w-full shadow-lg bg-light-50 z-10">
-      <a href="#main-content" id="skip-to-content" className="sr-only">
-        Skip to Content
-      </a>
-      <Container className="flex">
-        <Navigation></Navigation>
+    <header data-cy="header" className="py-4">
+      <Container className="flex justify-between items-center relative">
+        <div>
+          <h1 className="text-2xl md:text-4xl lg:text-6xl font-extrabold">
+            Rob Bailey
+          </h1>
+          <span className="font-mono text-blue-700">Software Engineer</span>
+        </div>
+        <Navigation />
       </Container>
     </header>
   );
