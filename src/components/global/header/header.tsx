@@ -3,12 +3,12 @@ import Navigation from '../Navigation/Navigation';
 
 const Header = () => {
   return (
-    <header data-cy="header" className="py-4">
+    <header data-cy="header" className="py-4 bg-white shadow-md">
       <Container className="flex justify-between items-center relative">
         <div>
-          <h1 className="text-2xl md:text-4xl lg:text-6xl font-extrabold">
+          <span className="text-2xl md:text-4xl lg:text-6xl font-extrabold block">
             Rob Bailey
-          </h1>
+          </span>
           <span className="font-mono text-blue-700">Software Engineer</span>
         </div>
         <Navigation />

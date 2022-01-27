@@ -77,7 +77,8 @@ const Navigation = () => {
       )}
       <nav
         className={clsx({
-          'absolute w-full top-full left-0 shadow rounded-lg': isMobile,
+          'absolute w-full top-full left-0 shadow rounded-lg bg-white':
+            isMobile,
         })}
       >
         <ul
