@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import mePng from '../../../../../public/me.png';
 
 const HomepageBanner = () => {
   const sentenceAnimation = {
@@ -34,7 +32,7 @@ const HomepageBanner = () => {
   return (
     <section>
       <div className="flex items-center flex-wrap md:h-screen">
-        <div className="basis-full md:basis-3/5 bg-gray-200 p-8 text-left pr-16">
+        <div className="basis-full md:basis-3/5 bg-gray-200 p-16 text-left rounded-lg">
           <motion.h1
             variants={sentenceAnimation}
             className="text-8xl font-extrabold"
@@ -53,16 +51,35 @@ const HomepageBanner = () => {
               </motion.span>
             ))}
           </motion.h1>
-          <p>My name is Rob and I&apos;m a Software Engineer</p>
+          <motion.p
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 1 }}
+          >
+            My name is Rob and I&apos;m a Software Engineer
+          </motion.p>
         </div>
-        <div className="basis-full md:basis-2/5 md:-left-16 relative bg-blue-500 text-white p-16 pb-0">
+        <motion.div
+          className="basis-full md:basis-2/5 md:-left-16 relative bg-blue-500 text-white p-16 rounded-lg shadow-xl"
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 1 }}
+        >
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-            atque nostrum perferendis earum corrupti distinctio sequi. Minima
-            vero nisi, quia inventore, unde adipisci, esse temporibus excepturi
-            perspiciatis architecto harum ipsa!
+            Full-Stack developer working mainly with TypeScript, React, Vue and
+            C#.
           </p>
-        </div>
+          <p>
+            I&apos;m a self-taught developer with a passion for learning new
+            technologies and solving problems.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
+            accusamus! Nobis incidunt modi ea dicta fuga eaque molestiae odio,
+            commodi necessitatibus placeat sequi recusandae corporis repudiandae
+            enim sed maxime ducimus!
+          </p>
+        </motion.div>
       </div>
     </section>
   );
