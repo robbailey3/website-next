@@ -4,7 +4,6 @@ import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
-
 jest.mock('framer-motion', () => {
   const FakeTransition = jest
     .fn()
@@ -15,20 +14,21 @@ jest.mock('framer-motion', () => {
     .mockImplementation(({ children }) => (
       <FakeTransition>{children}</FakeTransition>
     ));
-  // TODO: Make these work in all scenarios
+
   const motion = {
     a: jest
       .fn()
       .mockImplementation(({ children, ...rest }) => (
         <a {...rest}>{children}</a>
       )),
-    li: jest.fn().mockImplementation(({ children }) => <li>{children}</li>),
-    span: 'span',
+    li: jest.fn().mockImplementation(({ children }) => children),
+    span: jest.fn().mockImplementation(({ children }) => children),
     small: jest
       .fn()
       .mockImplementation(({ children }) => <small>{children}</small>),
     h4: jest.fn().mockImplementation(({ children }) => <h4>{children}</h4>),
     h2: jest.fn().mockImplementation(({ children }) => <h2>{children}</h2>),
+    h1: jest.fn().mockImplementation(({ children }) => <h1>{children}</h1>),
     p: jest.fn().mockImplementation(({ children }) => <p>{children}</p>),
     div: require('react').forwardRef(({ children, ...rest }, ref) => {
       const { whileTap, animate, initial, variants, ...divProps } = rest;

@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-
 const HomepageBanner = () => {
   const sentenceAnimation = {
     hidden: {
@@ -32,7 +31,7 @@ const HomepageBanner = () => {
   return (
     <section>
       <div className="flex items-center flex-wrap md:h-screen">
-        <div className="basis-full md:basis-3/5 bg-gray-200 p-16 text-left rounded-lg">
+        <div className="basis-full lg:basis-3/5 bg-gray-200 p-16 text-left rounded-lg">
           <motion.h1
             variants={sentenceAnimation}
             className="text-8xl font-extrabold"
@@ -60,25 +59,41 @@ const HomepageBanner = () => {
           </motion.p>
         </div>
         <motion.div
-          className="basis-full md:basis-2/5 md:-left-16 relative bg-blue-500 text-white p-16 rounded-lg shadow-xl"
+          className="basis-full lg:basis-2/5 lg:-left-16 relative bg-blue-500 text-white p-16 rounded-lg shadow-xl"
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 1 }}
         >
           <p>
-            Full-Stack developer working mainly with TypeScript, React, Vue and
-            C#.
-          </p>
-          <p>
             I&apos;m a self-taught developer with a passion for learning new
             technologies and solving problems.
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
-            accusamus! Nobis incidunt modi ea dicta fuga eaque molestiae odio,
-            commodi necessitatibus placeat sequi recusandae corporis repudiandae
-            enim sed maxime ducimus!
+            I&apos;m a big fan of the environment, beer and making cool things
+            with code.
           </p>
+          <div className="my-2">
+            <p>
+              <span role="img" aria-label="Briefcase" className="text-xl mr-2">
+                💼
+              </span>
+              <span className="font-bold">Currently working at: </span>
+              <a
+                target="_blank"
+                href="https://www.netcall.com/"
+                rel="noopener noreferrer"
+              >
+                Netcall
+              </a>
+            </p>
+            <p>
+              <span role="img" aria-label="Learning" className="text-xl mr-2">
+                🎓
+              </span>
+              <span className="font-bold">Currently learning: </span>
+              <span className="font-bold">Go</span>
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

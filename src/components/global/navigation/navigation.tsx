@@ -10,25 +10,21 @@ import {
 import NavigationLink from './NavigationLink/NavigationLink';
 
 const Navigation = () => {
-  const [isMobile, setIsMobile] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
+  const [isMobile, setIsMobile] = React.useState(false);
 
-  const [isOpen, setIsOpen] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth > 768;
-    }
-    return true;
-  });
+  const [isOpen, setIsOpen] = React.useState(true);
 
   const toggleNavigation = () => {
     setIsOpen(!isOpen);
   };
 
   React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+        setIsOpen(false);
+      }
+    }
     let $resizeSubscription: Subscription;
     if (typeof window != undefined) {
       $resizeSubscription = fromEvent(window, 'resize')
@@ -56,7 +52,7 @@ const Navigation = () => {
 
   return (
     <section>
-      {isMobile && (
+      {typeof window !== undefined && isMobile && (
         <button
           onClick={toggleNavigation}
           className="w-10 h-10 p-2 hover:bg-gray-100 rounded-full"
@@ -99,10 +95,9 @@ const Navigation = () => {
           })}
         >
           <NavigationLink text="Home" href="/" />
-          <NavigationLink text="About" href="/about" />
-          <NavigationLink text="GitHub" href="/github" />
-          <NavigationLink text="Projects" href="/projects" />
-          <NavigationLink text="CV" href="/cv" />
+          <NavigationLink text="GitHub" href="/github/robbailey3" />
+          {/* <NavigationLink text="Projects" href="/projects" />
+          <NavigationLink text="CV" href="/cv" /> */}
         </ul>
       </nav>
     </section>

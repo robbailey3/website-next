@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }}
       ></Script>
       <Header />
-      <main id="main-content">
+      <main id="main-content" className="mt-24 inline-block w-full">
         <Component {...pageProps} />
       </main>
     </>
