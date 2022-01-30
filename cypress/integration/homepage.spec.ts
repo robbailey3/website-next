@@ -1,9 +1,9 @@
-describe('[PAGE]: Homepage', () => {
-  beforeEach(() => {
+describe('[Page]: Homepage', () => {
+  before(() => {
     cy.visit('/');
   });
 
-  it('should display the homepage', () => {
-    cy.get('[data-cy=homepage-banner-title]').should('contain', 'Rob Bailey');
+  it('should load', () => {
+    cy.get('[data-cy="header"]').should('exist');
   });
 });

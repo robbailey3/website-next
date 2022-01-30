@@ -1,8 +1,6 @@
-import FlexContainer from '@/components/common/layout/flex-container/flex-container';
-import FlexItem from '@/components/common/layout/flex-item/flex-item';
-import HomepageBanner from '@/components/homepage/homepage-banner/homepage-banner';
-import HomepageInfo from '@/components/homepage/homepage-info/homepage-info';
-import HomepageTech from '@/components/homepage/homepage-tech/homepage-tech';
+import Container from '@/components/common/Container/Container';
+import HomepageBanner from '@/features/homepage/components/HomepageBanner/HomepageBanner';
+import HomepageSocial from '@/features/homepage/components/HomepageSocial/HomepageSocial';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
@@ -17,9 +15,10 @@ const Home: NextPage = () => {
           content="The portfolio site of Nottingham based Software Engineer Rob Bailey"
         />
       </Head>
-      <HomepageBanner />
-      <HomepageInfo />
-      <HomepageTech />
+      <Container>
+        <HomepageBanner />
+        <HomepageSocial />
+      </Container>
     </>
   );
 };

@@ -1,13 +1,10 @@
 import 'reflect-metadata';
-import '../styles/main.scss';
 import type { AppProps } from 'next/app';
 import React from 'react';
-import Header from '@/components/global/header/header';
-import Footer from '@/components/global/footer/footer';
 import Script from 'next/script';
-import KeyboardShortcut from '@/components/global/keyboard-shortcut/keyboard-shortcut';
-import AppProvider from '@/components/providers/app.provider';
-import Player from '@/features/spotify/components/player/player';
+import Header from '@/components/global/Header/Header';
+
+import '@/styles/main.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -24,14 +21,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }}
       ></Script>
       <Header />
-      <AppProvider>
-        <main id="main-content">
-          <Component {...pageProps} />
-        </main>
-        <Player />
-      </AppProvider>
-      <KeyboardShortcut />
-      <Footer />
+      <main id="main-content" className="mt-24 inline-block w-full">
+        <Component {...pageProps} />
+      </main>
     </>
   );
 }

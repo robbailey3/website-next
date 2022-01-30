@@ -1,13 +1,12 @@
-import Card from '@/components/common/layout/card/card';
-import Container from '@/components/common/layout/container/container';
+import Container from '@/components/common/Container/Container';
 import Link from 'next/link';
 
 const NotFoundPage = () => {
   return (
-    <Container className="inline-block w-full">
-      <div className="flex w-full justify-center items-center my-16">
-        <Card className="p-4 text-center">
-          <h1 className="text-2xl">
+    <>
+      <Container>
+        <div className="my-8 mx-auto p-4 rounded shadow text-center">
+          <h1 className="text-4xl">
             Oops!
             <span role="img" aria-label="Monkey covering eyes">
               🙈
@@ -19,9 +18,9 @@ const NotFoundPage = () => {
               Click here to go home
             </a>
           </Link>
-        </Card>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </>
   );
 };
 

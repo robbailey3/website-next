@@ -1,5 +1,6 @@
 import { Collection, MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
+import * as Sentry from '@sentry/nextjs';
 
 class DatabaseService {
   private client!: MongoClient;
@@ -29,7 +30,7 @@ const withDatabase = (
       await dbInstance.connect();
       return await handler(req, res);
     } catch (error) {
-      console.log(error);
+      Sentry.captureException(error);
       res.status(500).send(error);
     } finally {
       await dbInstance.disconnect();

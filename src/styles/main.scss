@@ -1,29 +1,9 @@
-/* ./styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import './partials/typography';
-@import './partials/accessibility';
-@import './partials/colours';
-
 html,
 body {
-  background-color: #fff;
-  color: $fontMain;
-  a {
-    color: $fontMain;
-  }
-  #main-content {
-    margin-top: 63px;
-    padding-bottom: 4rem;
-    min-height: 80vh;
-  }
-}
-
-button {
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  font-size: 18px;
+  @apply text-gray-900;
 }
