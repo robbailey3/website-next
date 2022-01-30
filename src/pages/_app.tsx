@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import Script from 'next/script';
-import Header from '@/components/global/Header/Header';
+import Header from '@/components/global/Header_TEMP/Header';
 
 import '@/styles/main.scss';
 
