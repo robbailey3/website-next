@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header
       data-cy="header"
-      className="py-4 bg-white shadow-md fixed top-0 left-0 w-full z-50"
+      className="py-4 bg-white shadow-md fixed top-0 left-0 w-full z-40"
     >
       <Container className="flex justify-between items-center relative">
         <div>
