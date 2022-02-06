@@ -9,12 +9,12 @@ const PageLoader = () => {
   const [loading, setLoading] = useState(false);
 
   React.useEffect(() => {
-    const handleStart = (url: string) => {
-      url !== router.pathname && setLoading(true);
+    const handleStart = () => {
+      setLoading(true);
     };
 
-    const handleComplete = (url: string) => {
-      url === router.pathname && setLoading(false);
+    const handleComplete = () => {
+      setLoading(false);
     };
 
     router.events.on('routeChangeStart', handleStart);
