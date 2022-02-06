@@ -1,14 +1,16 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 
 export interface NavigationLinkProps {
   text: string;
   href: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 
 const NavigationLink = (props: NavigationLinkProps) => {
-  const { text, href } = props;
+  const { text, href, onClick } = props;
   const router = useRouter();
 
   return (
@@ -23,6 +25,7 @@ const NavigationLink = (props: NavigationLinkProps) => {
                 router.pathname === href,
             }
           )}
+          onClick={onClick}
         >
           {text}
         </a>
