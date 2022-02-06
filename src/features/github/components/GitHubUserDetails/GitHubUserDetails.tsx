@@ -56,7 +56,7 @@ const GitHubUserDetails = (props: GitHubUserDetailsProps) => {
             {user.followers}
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center w-full">
           {/* TODO: Sanitize this shit */}
           <p dangerouslySetInnerHTML={{ __html: user.bio }}></p>
         </div>
