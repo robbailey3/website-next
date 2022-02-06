@@ -18,6 +18,12 @@ const Navigation = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleNavLinkClick = () => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
+
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
@@ -94,8 +100,12 @@ const Navigation = () => {
             hidden: !isOpen && isMobile,
           })}
         >
-          <NavigationLink text="Home" href="/" />
-          <NavigationLink text="GitHub" href="/github/robbailey3" />
+          <NavigationLink text="Home" href="/" onClick={handleNavLinkClick} />
+          <NavigationLink
+            text="GitHub"
+            href="/github/robbailey3"
+            onClick={handleNavLinkClick}
+          />
           {/* <NavigationLink text="Projects" href="/projects" />
           <NavigationLink text="CV" href="/cv" /> */}
         </ul>
