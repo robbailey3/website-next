@@ -28,4 +28,12 @@ describe('[COMPONENT]: NavigationLink', () => {
     const a = wrapper.find('a');
     expect(a.hasClass('bg-blue-600')).toBe(true);
   });
+
+  it('should call the onClick method passed in props when the anchor is clicked', () => {
+    const onClick = jest.fn();
+    createWrapper({ text: 'Test', href: '/', onClick });
+    const a = wrapper.find('a');
+    a.simulate('click');
+    expect(onClick).toHaveBeenCalled();
+  });
 });
