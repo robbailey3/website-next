@@ -10,10 +10,10 @@ export interface CardProps {
 const Card = (props: CardProps) => {
   const { header, className, children } = props;
   return (
-    <section className={clsx(className)}>
+    <div className={clsx(className, 'rounded shadow')}>
       {header && <header>{header}</header>}
       <div>{children}</div>
-    </section>
+    </div>
   );
 };
 
