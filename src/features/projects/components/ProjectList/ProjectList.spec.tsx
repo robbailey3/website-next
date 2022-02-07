@@ -1,6 +1,18 @@
-import { ShallowWrapper, shallow } from 'enzyme';
+import { ShallowWrapper, shallow, CommonWrapper } from 'enzyme';
 import projects from '../../data/projects';
+import { Project } from '../../models/Project';
+import ProjectListItem from '../ProjectListItem/ProjectListItem';
 import ProjectList from './ProjectList';
+
+jest.mock(
+  '../../data/projects',
+  () =>
+    [
+      {
+        id: '1',
+      },
+    ] as Project[]
+);
 
 describe('[COMPONENT]: ProjectList', () => {
   let wrapper: ShallowWrapper<typeof ProjectList>;
@@ -18,5 +30,12 @@ describe('[COMPONENT]: ProjectList', () => {
 
   it('should render a ProjectListItem for each project in the data', () => {
     expect(wrapper.find('ProjectListItem').length).toBe(projects.length);
+  });
+
+  it('should pass the project into the project list item as props', () => {
+    const project = projects[0];
+    expect(
+      (wrapper.find('ProjectListItem').at(0) as any).props().project
+    ).toEqual(project);
   });
 });
