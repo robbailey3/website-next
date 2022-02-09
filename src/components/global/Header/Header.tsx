@@ -1,4 +1,5 @@
 import Container from '@/components/common/Container/Container';
+import Link from 'next/link';
 import Navigation from '../Navigation/Navigation';
 
 const Header = () => {
@@ -9,10 +10,14 @@ const Header = () => {
     >
       <Container className="flex justify-between items-center relative">
         <div>
-          <span className="text-xl md:text-2xl lg:text-4xl font-extrabold block">
-            Rob Bailey
-          </span>
-          <span className="font-mono text-blue-700">Software Engineer</span>
+          <Link href="/">
+            <a>
+              <span className="text-xl md:text-2xl lg:text-4xl font-extrabold block">
+                Rob Bailey
+              </span>
+              <span className="font-mono text-blue-700">Software Engineer</span>
+            </a>
+          </Link>
         </div>
         <Navigation />
       </Container>
