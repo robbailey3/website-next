@@ -11,30 +11,31 @@ const CvProfile = (props: CvProfileProps) => {
 
   return (
     <section>
-      <h2>Profile</h2>
-      <p>
+      <h2 className="my-2 text-gray-700 text-4xl">
         {profile.firstName} {profile.lastName}
-      </p>
-      <p>{profile.profile}</p>
-      <p>
+      </h2>
+      <p className="italic text-sm text-gray-800">{profile.profile}</p>
+      <p className="my-2">
+        {profile.location.city}, {profile.location.country}
         {profile.location.remote && (
-          <span className="mr-2">
+          <span className="ml-2">
             <Tag variant="primary">Remote</Tag>
           </span>
         )}
-        {profile.location.city}, {profile.location.country}
       </p>
-      <p>
+      <div className="my-4">
         {profile.socialMedia.map((social, i) => (
-          <span key={`${social.name}__${i}`}>
+          <span
+            key={`${social.name}__${i}`}
+            className="text-3xl mr-2 text-gray-800 hover:text-blue-900"
+          >
             <a href={social.url.toString()}>
-              <FontAwesomeIcon icon={social.icon} className="text-2xl mr-2" />
+              <FontAwesomeIcon icon={social.icon} />
               <span className="sr-only">{social.name}</span>
             </a>
           </span>
         ))}
-      </p>
-      <pre>{JSON.stringify(profile, null, 4)}</pre>
+      </div>
     </section>
   );
 };
