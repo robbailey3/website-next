@@ -1,4 +1,6 @@
 import Container from '@/components/common/Container/Container';
+import { AnalyseResponse } from '@/features/sentiment-analysis/models/analyse-response';
+import { ClassifyResponse } from '@/features/sentiment-analysis/models/classify-response';
 import axios from 'axios';
 import React from 'react';
 import { distinctUntilChanged, Subject, throttleTime } from 'rxjs';
@@ -6,8 +8,8 @@ import { distinctUntilChanged, Subject, throttleTime } from 'rxjs';
 const SentimentAnalysisProjectPage = () => {
   const inputValue = new Subject<string>();
 
-  const [analysis, setAnalysis] = React.useState(null);
-  const [classify, setClassify] = React.useState(null);
+  const [analysis, setAnalysis] = React.useState<AnalyseResponse | null>(null);
+  const [classify, setClassify] = React.useState<ClassifyResponse | null>(null);
 
   const handleKeyup = (e) => {
     inputValue.next(e.target.value);
@@ -41,6 +43,8 @@ const SentimentAnalysisProjectPage = () => {
     const subscription = inputValue
       .pipe(throttleTime(800), distinctUntilChanged())
       .subscribe((value: string) => {
+        setAnalysis(null);
+        setClassify(null);
         getAnalysis(value);
         getClassification(value);
       });
@@ -69,14 +73,31 @@ const SentimentAnalysisProjectPage = () => {
           </div>
         </div>
         <div className="w-full md:w-1/2">
-          {analysis && (
-            <div>
-              <pre>{JSON.stringify(analysis, null, 4)}</pre>
-            </div>
-          )}
           {classify && (
             <div>
-              <pre>{JSON.stringify(classify, null, 4)}</pre>
+              <h3>Classification</h3>
+              <div>
+                {classify.categories.map((category) => (
+                  <div key={category.name}>
+                    <span>{category.name}</span>
+                    <span>{category.confidence}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {analysis && (
+            <div>
+              <h3>Analysis</h3>
+              <div>
+                {analysis.entities.map((entity) => (
+                  <div key={entity.name}>
+                    <span>{entity.name}</span>
+                    <span>{entity.type}</span>
+                    <span>{entity.salience}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

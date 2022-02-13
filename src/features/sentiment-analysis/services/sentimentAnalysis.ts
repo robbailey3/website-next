@@ -19,7 +19,7 @@ class SentimentAnalysisService {
       type: 'PLAIN_TEXT',
     };
 
-    const [result] = await this.client.analyzeEntities({ document });
+    const [result] = await this.client.analyzeEntitySentiment({ document });
 
     return result;
   }
