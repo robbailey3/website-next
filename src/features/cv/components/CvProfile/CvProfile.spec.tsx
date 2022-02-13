@@ -26,4 +26,28 @@ describe('[COMPONENT]: CvProfile', () => {
   beforeEach(() => {
     createWrapper();
   });
+
+  it('should contain the first name and last name in a h2 element', () => {
+    expect(wrapper.find('h2').text()).toEqual(
+      `${mockProfile.firstName} ${mockProfile.lastName}`
+    );
+  });
+
+  it('should contain the profile in a p element', () => {
+    expect(wrapper.find('p[data-test="profile"]').text()).toEqual(
+      mockProfile.profile
+    );
+  });
+
+  it('should contain the city and country in a p element', () => {
+    expect(wrapper.find('p[data-test="location"]').text()).toContain(
+      `${mockProfile.location.city}, ${mockProfile.location.country}`
+    );
+  });
+
+  it('should contain a link for each social media', () => {
+    expect(wrapper.find('a[data-test="social"]').length).toEqual(
+      mockProfile.socialMedia.length
+    );
+  });
 });

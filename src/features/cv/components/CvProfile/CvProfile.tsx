@@ -14,8 +14,10 @@ const CvProfile = (props: CvProfileProps) => {
       <h2 className="my-2 text-gray-700 text-4xl">
         {profile.firstName} {profile.lastName}
       </h2>
-      <p className="italic text-sm text-gray-800">{profile.profile}</p>
-      <p className="my-2">
+      <p className="italic text-sm text-gray-800" data-test="profile">
+        {profile.profile}
+      </p>
+      <p className="my-2" data-test="location">
         {profile.location.city}, {profile.location.country}
         {profile.location.remote && (
           <span className="ml-2">
@@ -29,7 +31,7 @@ const CvProfile = (props: CvProfileProps) => {
             key={`${social.name}__${i}`}
             className="text-3xl mr-2 text-gray-800 hover:text-blue-900"
           >
-            <a href={social.url.toString()}>
+            <a href={social.url.toString()} data-test="social">
               <FontAwesomeIcon icon={social.icon} />
               <span className="sr-only">{social.name}</span>
             </a>
