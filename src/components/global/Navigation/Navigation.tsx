@@ -107,8 +107,7 @@ const Navigation = () => {
             onClick={handleNavLinkClick}
           />
           {/* <NavigationLink text="Projects" href="/projects" /> */}
-          {/* 
-          <NavigationLink text="CV" href="/cv" /> */}
+          <NavigationLink text="CV" href="/cv" />
         </ul>
       </nav>
     </section>
