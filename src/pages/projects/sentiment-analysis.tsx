@@ -18,6 +18,8 @@ const SentimentAnalysisProjectPage = () => {
 
   const [analysisActive, setAnalysisActive] = React.useState(false);
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const handleKeyup = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     setInputValue(e.currentTarget.value);
   };
@@ -34,14 +36,18 @@ const SentimentAnalysisProjectPage = () => {
   };
 
   const getClassification = async (): Promise<void> => {
-    const result = await axios.post(
-      '/api/projects/sentiment-analysis/classify',
-      {
-        text: inputValue,
-      }
-    );
+    try {
+      const result = await axios.post(
+        '/api/projects/sentiment-analysis/classify',
+        {
+          text: inputValue,
+        }
+      );
 
-    setClassification(result.data);
+      setClassification(result.data);
+    } catch {
+      setClassification(null);
+    }
   };
 
   const getSentiment = async (): Promise<void> => {
@@ -56,21 +62,29 @@ const SentimentAnalysisProjectPage = () => {
   };
 
   const analyse = async () => {
+    setIsLoading(true);
     try {
-      reset();
-      getSentiment();
-      getAnalysis();
-      getClassification();
+      clear();
+      await getSentiment();
+      await getAnalysis();
+      await getClassification();
       setAnalysisActive(true);
     } catch (e) {
       Sentry.captureException(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const reset = () => {
+  const clear = () => {
     setAnalysis(null);
     setClassification(null);
     setSentiment(null);
+  };
+
+  const reset = () => {
+    clear();
+    setAnalysisActive(false);
   };
 
   return (
@@ -86,17 +100,21 @@ const SentimentAnalysisProjectPage = () => {
             sentiment={sentiment}
             analysis={analysis}
             classification={classification}
+            onReset={reset}
           />
         ) : (
           <div>
             <div>
-              <label htmlFor="text">Enter some text</label>
+              <label htmlFor="text" className="block font-bold">
+                Enter some text
+              </label>
               <textarea
                 name="text"
                 id="text"
                 cols={30}
-                rows={10}
+                rows={5}
                 onKeyUp={handleKeyup}
+                className="border border-gray-900 w-full rounded p-4"
               ></textarea>
             </div>
             <button onClick={analyse}>Analyse</button>
