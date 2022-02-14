@@ -1,106 +1,107 @@
 import Container from '@/components/common/Container/Container';
+import SentimentAnalysisResult from '@/features/sentiment-analysis/components/SentimentAnalysisResult/SentimentAnalysisResult';
 import { AnalyseResponse } from '@/features/sentiment-analysis/models/analyse-response';
 import { ClassifyResponse } from '@/features/sentiment-analysis/models/classify-response';
+import { SentimentResponse } from '@/features/sentiment-analysis/models/sentiment-response';
 import axios from 'axios';
-import React from 'react';
-import { distinctUntilChanged, Subject, throttleTime } from 'rxjs';
+import React, { KeyboardEvent } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 const SentimentAnalysisProjectPage = () => {
-  const inputValue = new Subject<string>();
-
   const [analysis, setAnalysis] = React.useState<AnalyseResponse | null>(null);
-  const [classify, setClassify] = React.useState<ClassifyResponse | null>(null);
+  const [classification, setClassification] =
+    React.useState<ClassifyResponse | null>(null);
+  const [sentiment, setSentiment] = React.useState<SentimentResponse | null>(
+    null
+  );
+  const [inputValue, setInputValue] = React.useState('');
 
-  const handleKeyup = (e) => {
-    inputValue.next(e.target.value);
+  const [analysisActive, setAnalysisActive] = React.useState(false);
+
+  const handleKeyup = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.currentTarget.value);
   };
 
-  const getAnalysis = async (val: string) => {
-    if (val.split(' ').length > 5) {
-      const response = await axios.post(
-        '/api/projects/sentiment-analysis/analyse',
-        {
-          text: val,
-        }
-      );
-      setAnalysis(response.data);
+  const getAnalysis = async (): Promise<void> => {
+    const result = await axios.post(
+      '/api/projects/sentiment-analysis/analyse',
+      {
+        text: inputValue,
+      }
+    );
+
+    setAnalysis(result.data);
+  };
+
+  const getClassification = async (): Promise<void> => {
+    const result = await axios.post(
+      '/api/projects/sentiment-analysis/classify',
+      {
+        text: inputValue,
+      }
+    );
+
+    setClassification(result.data);
+  };
+
+  const getSentiment = async (): Promise<void> => {
+    const result = await axios.post(
+      '/api/projects/sentiment-analysis/sentiment',
+      {
+        text: inputValue,
+      }
+    );
+
+    setSentiment(result.data);
+  };
+
+  const analyse = async () => {
+    try {
+      reset();
+      getSentiment();
+      getAnalysis();
+      getClassification();
+      setAnalysisActive(true);
+    } catch (e) {
+      Sentry.captureException(e);
     }
   };
 
-  const getClassification = async (val: string) => {
-    if (val.split(' ').length > 5) {
-      const response = await axios.post(
-        '/api/projects/sentiment-analysis/classify',
-        {
-          text: val,
-        }
-      );
-      setClassify(response.data);
-    }
+  const reset = () => {
+    setAnalysis(null);
+    setClassification(null);
+    setSentiment(null);
   };
-
-  React.useEffect(() => {
-    const subscription = inputValue
-      .pipe(throttleTime(800), distinctUntilChanged())
-      .subscribe((value: string) => {
-        setAnalysis(null);
-        setClassify(null);
-        getAnalysis(value);
-        getClassification(value);
-      });
-
-    return () => subscription.unsubscribe();
-  });
 
   return (
     <Container>
-      <section className="flex flex-wrap">
-        <div className="w-full md:w-1/2">
-          <h1 className="w-full text-4xl font-bold mb-4">Sentiment Analysis</h1>
-          <p className="w-full text-xl">
-            Sentiment analysis is a technique that uses the words in a text to
-            determine whether the text is positive, negative, or neutral.
-          </p>
+      <section>
+        <h1 className="w-full text-4xl font-bold mb-4">Sentiment Analysis</h1>
+        <p className="w-full text-xl">
+          Sentiment analysis is a technique that uses the words in a text to
+          determine whether the text is positive, negative, or neutral.
+        </p>
+        {analysisActive ? (
+          <SentimentAnalysisResult
+            sentiment={sentiment}
+            analysis={analysis}
+            classification={classification}
+          />
+        ) : (
           <div>
-            <label htmlFor="text">Enter some text</label>
-            <textarea
-              name="text"
-              id="text"
-              cols={30}
-              rows={10}
-              onKeyUp={handleKeyup}
-            ></textarea>
+            <div>
+              <label htmlFor="text">Enter some text</label>
+              <textarea
+                name="text"
+                id="text"
+                cols={30}
+                rows={10}
+                onKeyUp={handleKeyup}
+              ></textarea>
+            </div>
+            <button onClick={analyse}>Analyse</button>
           </div>
-        </div>
-        <div className="w-full md:w-1/2">
-          {classify && (
-            <div>
-              <h3>Classification</h3>
-              <div>
-                {classify.categories.map((category) => (
-                  <div key={category.name}>
-                    <span>{category.name}</span>
-                    <span>{category.confidence}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {analysis && (
-            <div>
-              <h3>Analysis</h3>
-              <div>
-                {analysis.entities.map((entity) => (
-                  <div key={entity.name}>
-                    <span>{entity.name}</span>
-                    <span>{entity.type}</span>
-                    <span>{entity.salience}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </section>
     </Container>
   );

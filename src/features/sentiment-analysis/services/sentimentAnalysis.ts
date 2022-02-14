@@ -34,6 +34,17 @@ class SentimentAnalysisService {
 
     return result;
   }
+
+  public async getSentiment(str: string) {
+    const document: any = {
+      content: str,
+      type: 'PLAIN_TEXT',
+    };
+
+    const [result] = await this.client.analyzeSentiment({ document });
+
+    return result;
+  }
 }
 
 export default new SentimentAnalysisService();
