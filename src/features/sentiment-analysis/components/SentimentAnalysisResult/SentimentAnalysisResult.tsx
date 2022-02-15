@@ -107,7 +107,7 @@ const SentimentAnalysisResult = (props: SentimentAnalysisResultProps) => {
         )}
       </section>
       <section className="flex flex-wrap">
-        <div className="w-full md:w-2/3">
+        <div className="w-full md:w-2/3 pb-32 md:pb-0">
           <SentimentSentences
             sentences={sentiment.sentences}
             highlightedSentenceIndex={highlightedSentence}
