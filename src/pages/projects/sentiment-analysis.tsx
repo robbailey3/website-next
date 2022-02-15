@@ -6,6 +6,7 @@ import { SentimentResponse } from '@/features/sentiment-analysis/models/sentimen
 import axios from 'axios';
 import React, { KeyboardEvent } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import SentimentAnalysisForm from '@/features/sentiment-analysis/components/SentimentAnalysisForm/SentimentAnalysisForm';
 
 const SentimentAnalysisProjectPage = () => {
   const [analysis, setAnalysis] = React.useState<AnalyseResponse | null>(null);
@@ -14,34 +15,33 @@ const SentimentAnalysisProjectPage = () => {
   const [sentiment, setSentiment] = React.useState<SentimentResponse | null>(
     null
   );
-  const [inputValue, setInputValue] = React.useState('');
+  const [value, setValue] = React.useState({ text: '' });
 
   const [analysisActive, setAnalysisActive] = React.useState(false);
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleKeyup = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.currentTarget.value);
+    setValue({ text: e.currentTarget.value });
   };
 
   const getAnalysis = async (): Promise<void> => {
     const result = await axios.post(
       '/api/projects/sentiment-analysis/analyse',
-      {
-        text: inputValue,
-      }
+      value
     );
 
     setAnalysis(result.data);
   };
 
   const getClassification = async (): Promise<void> => {
+    if (value.text.split(' ').length < 20) {
+      return;
+    }
     try {
       const result = await axios.post(
         '/api/projects/sentiment-analysis/classify',
-        {
-          text: inputValue,
-        }
+        value
       );
 
       setClassification(result.data);
@@ -53,9 +53,7 @@ const SentimentAnalysisProjectPage = () => {
   const getSentiment = async (): Promise<void> => {
     const result = await axios.post(
       '/api/projects/sentiment-analysis/sentiment',
-      {
-        text: inputValue,
-      }
+      value
     );
 
     setSentiment(result.data);
@@ -74,6 +72,11 @@ const SentimentAnalysisProjectPage = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (value: { text: string }) => {
+    setValue(value);
+    analyse();
   };
 
   const clear = () => {
@@ -95,6 +98,7 @@ const SentimentAnalysisProjectPage = () => {
           Sentiment analysis is a technique that uses the words in a text to
           determine whether the text is positive, negative, or neutral.
         </p>
+        {isLoading && <div>Loading...</div>}
         {analysisActive ? (
           <SentimentAnalysisResult
             sentiment={sentiment}
@@ -103,22 +107,7 @@ const SentimentAnalysisProjectPage = () => {
             onReset={reset}
           />
         ) : (
-          <div>
-            <div>
-              <label htmlFor="text" className="block font-bold">
-                Enter some text
-              </label>
-              <textarea
-                name="text"
-                id="text"
-                cols={30}
-                rows={5}
-                onKeyUp={handleKeyup}
-                className="border border-gray-900 w-full rounded p-4"
-              ></textarea>
-            </div>
-            <button onClick={analyse}>Analyse</button>
-          </div>
+          <SentimentAnalysisForm value={value} onSubmit={handleSubmit} />
         )}
       </section>
     </Container>
