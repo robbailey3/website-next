@@ -1,9 +1,10 @@
+import clsx from 'clsx';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 export interface SentimentAnalysisFormProps {
   onSubmit: (value: { text: string }) => void;
-  value: { text: string };
+  value: string;
 }
 
 const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
@@ -11,7 +12,7 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
 
   const schema = Yup.object().shape({
     text: Yup.string()
-      .required('Required')
+      .required('Please enter some text')
       .test('Word count', 'Must be 20 words or more', (value) => {
         if (!value) {
           return false;
@@ -21,7 +22,12 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
   });
 
   return (
-    <Formik initialValues={value} onSubmit={onSubmit} validationSchema={schema}>
+    <Formik
+      initialValues={{ text: value }}
+      onSubmit={onSubmit}
+      validationSchema={schema}
+      validateOnMount={true}
+    >
       {({ errors, isSubmitting }) => (
         <Form>
           <label htmlFor="text" className="block my-2 font-bold">
@@ -32,7 +38,12 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
             id="text"
             as="textarea"
             rows={6}
-            className="p-1 w-full resize-none border border-slate-600 rounded"
+            className={clsx(
+              'px-2 py-1 w-full resize-none border border-slate-600 rounded',
+              {
+                'border-red-600 shadow-sm shadow-red-900': errors.text,
+              }
+            )}
           ></Field>
           <ErrorMessage
             name="text"

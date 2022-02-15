@@ -19,7 +19,10 @@ class SentimentAnalysisService {
       type: 'PLAIN_TEXT',
     };
 
-    const [result] = await this.client.analyzeEntitySentiment({ document });
+    const [result] = await this.client.analyzeEntitySentiment({
+      document,
+      encodingType: 'UTF8',
+    });
 
     return result;
   }
@@ -30,7 +33,9 @@ class SentimentAnalysisService {
       type: 'PLAIN_TEXT',
     };
 
-    const [result] = await this.client.classifyText({ document });
+    const [result] = await this.client.classifyText({
+      document,
+    });
 
     return result;
   }
@@ -41,7 +46,10 @@ class SentimentAnalysisService {
       type: 'PLAIN_TEXT',
     };
 
-    const [result] = await this.client.analyzeSentiment({ document });
+    const [result] = await this.client.analyzeSentiment({
+      document,
+      encodingType: 'UTF8',
+    });
 
     return result;
   }
