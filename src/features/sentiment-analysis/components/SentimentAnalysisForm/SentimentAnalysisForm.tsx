@@ -28,7 +28,7 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
       validationSchema={schema}
       validateOnMount={true}
     >
-      {({ errors, isSubmitting }) => (
+      {({ errors, isSubmitting, touched }) => (
         <Form>
           <label htmlFor="text" className="block my-2 font-bold">
             Enter some text
@@ -41,7 +41,8 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
             className={clsx(
               'px-2 py-1 w-full resize-none border border-slate-600 rounded',
               {
-                'border-red-600 shadow-sm shadow-red-900': errors.text,
+                'border-red-600 shadow-sm shadow-red-900':
+                  errors.text && touched.text,
               }
             )}
           ></Field>
