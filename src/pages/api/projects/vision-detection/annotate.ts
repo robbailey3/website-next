@@ -3,6 +3,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
 const upload = multer({ storage: multer.memoryStorage() });
 
+const VALID_MIMETYPES = ['image/jpeg', 'image/png'];
+
+const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
+const VALID_FILE_EXTENSIONS = ['jpg', 'png'];
+
 function runMiddleware(
   req: NextApiRequest & { [key: string]: any },
   res: NextApiResponse,
@@ -25,6 +31,20 @@ export const config = {
   },
 };
 
+const isValidFile = (file: any): boolean => {
+  console.log({ file });
+  if (!VALID_MIMETYPES.includes(file.mimetype)) {
+    return false;
+  }
+  if (file.size > MAX_FILE_SIZE) {
+    return false;
+  }
+  if (!VALID_FILE_EXTENSIONS.includes(file.originalname.split('.').pop())) {
+    return false;
+  }
+  return true;
+};
+
 const Handler = async (
   req: NextApiRequest & { [key: string]: any },
   res: NextApiResponse
@@ -32,9 +52,19 @@ const Handler = async (
   if (req.method !== 'POST') {
     return;
   }
-  await runMiddleware(req, res, upload.single('file'));
+  await runMiddleware(req, res, upload.single('image'));
   const { file } = req;
-  console.log({ file });
+  if (!file) {
+    return res.status(400).json({
+      error: 'No file was uploaded',
+    });
+  }
+  if (!isValidFile(file)) {
+    return res.status(400).json({
+      error: 'Invalid file',
+    });
+  }
+
   await visionDetectionApi.init();
   const result = await visionDetectionApi.annotate(file.buffer);
 

@@ -10,6 +10,14 @@ const projects: Project[] = [
     slug: 'sentiment-analysis',
     keywords: ['sentiment analysis', 'natural language api', 'google'],
   },
+  {
+    id: '2',
+    title: 'Image Analysis',
+    description:
+      'Using the Cloud Vision API to generate captions for a user-inputted image.',
+    slug: 'vision-detection',
+    keywords: ['image analysis', 'Vision AI', 'image recognition', 'google'],
+  },
 ];
 
 export default projects;

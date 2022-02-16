@@ -13,29 +13,6 @@ class VisionDetectionApiService {
     await this.client.initialize();
   }
 
-  public async detectLabels(image: Buffer) {
-    const [result] = await this.client.labelDetection(image);
-
-    return result;
-  }
-
-  public async detectFaces(image: Buffer) {
-    const [result] = await this.client.faceDetection(image);
-
-    return result;
-  }
-
-  public async detectLandmarks(image: Buffer) {
-    const [result] = await this.client.landmarkDetection(image);
-
-    return result;
-  }
-
-  public async detectText(image: Buffer) {
-    const [result] = await this.client.textDetection(image);
-    return result;
-  }
-
   public async annotate(buffer: Buffer) {
     const [result] = await this.client.annotateImage({
       image: {
