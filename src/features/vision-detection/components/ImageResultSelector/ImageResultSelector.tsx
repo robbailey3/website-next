@@ -3,10 +3,13 @@ import React from 'react';
 
 export interface ImageResultSelectorProps {
   results: vision.protos.google.cloud.vision.v1.IAnnotateImageResponse;
+  onActiveCategoryChange: (
+    category: keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+  ) => void;
 }
 
 const ImageResultSelector = (props: ImageResultSelectorProps) => {
-  const { results } = props;
+  const { results, onActiveCategoryChange } = props;
 
   const [categories, setCategories] = React.useState<string[]>([]);
 
@@ -30,9 +33,34 @@ const ImageResultSelector = (props: ImageResultSelectorProps) => {
 
   return categories.length > 0 ? (
     <div>
-      {categories.map((cat) => (
-        <span key={cat}>{cat} </span>
-      ))}
+      <div>
+        <label htmlFor="category-selector">Select a Category</label>
+        <select
+          name="category-selector"
+          id="category-selector"
+          onChange={(e) =>
+            onActiveCategoryChange(
+              e.target
+                .value as keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+            )
+          }
+          onBlur={(e) =>
+            onActiveCategoryChange(
+              e.target
+                .value as keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+            )
+          }
+        >
+          {categories.map((cat) => (
+            <option value={cat} key={cat}>
+              {cat
+                .match(/^[a-z]+|[A-Z][a-z]*/g)
+                ?.map((x) => x[0].toUpperCase() + x.substr(1).toLowerCase())
+                .join(' ')}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   ) : (
     <div>No categories found</div>

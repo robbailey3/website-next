@@ -39,7 +39,11 @@ const isValidFile = (file: any): boolean => {
   if (file.size > MAX_FILE_SIZE) {
     return false;
   }
-  if (!VALID_FILE_EXTENSIONS.includes(file.originalname.split('.').pop())) {
+  if (
+    !VALID_FILE_EXTENSIONS.includes(
+      file.originalname.split('.').pop().toLowerCase()
+    )
+  ) {
     return false;
   }
   return true;

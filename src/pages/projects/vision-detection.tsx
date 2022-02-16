@@ -17,6 +17,10 @@ const VisionDetectionPage = () => {
       null
     );
 
+  const [activeCategory, setActiveCategory] = React.useState<
+    keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse | null
+  >(null);
+
   const handleFileChange = (file: File) => {
     setCurrentFile(file);
     getAnalysis(file);
@@ -26,6 +30,12 @@ const VisionDetectionPage = () => {
     const result = await visionDetection.getAnalysis(file);
     console.log({ result });
     setAnalysisResult(result);
+  };
+
+  const handleActiveCategoryChange = (
+    category: keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+  ) => {
+    setActiveCategory(category);
   };
 
   const reset = () => {
@@ -51,12 +61,22 @@ const VisionDetectionPage = () => {
           {!currentFile && (
             <ImageAnalysisForm onFileChange={handleFileChange} />
           )}
-          {analysisResult && <ImageResultSelector results={analysisResult} />}
+          {analysisResult && (
+            <ImageResultSelector
+              results={analysisResult}
+              onActiveCategoryChange={handleActiveCategoryChange}
+            />
+          )}
           {currentFile && (
             <ImagePreview file={currentFile} overlayVertices={[[]]} />
           )}
 
-          {analysisResult && <ImageAnalysisResult result={analysisResult} />}
+          {analysisResult && (
+            <ImageAnalysisResult
+              result={analysisResult}
+              activeCategory={activeCategory}
+            />
+          )}
         </div>
       </section>
     </Container>

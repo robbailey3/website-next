@@ -2,12 +2,21 @@ import * as vision from '@google-cloud/vision';
 
 export interface ImageAnalysisResultProps {
   result: vision.protos.google.cloud.vision.v1.IAnnotateImageResponse;
+  activeCategory:
+    | keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+    | null;
 }
 
 const ImageAnalysisResult = (props: ImageAnalysisResultProps) => {
-  const { result } = props;
+  const { result, activeCategory } = props;
 
-  return <pre>{JSON.stringify(result, null, 4)}</pre>;
+  console.log({ result, activeCategory });
+
+  return activeCategory ? (
+    <div>
+      <pre>{JSON.stringify(result[activeCategory], null, 4)}</pre>
+    </div>
+  ) : null;
 };
 
 export default ImageAnalysisResult;
