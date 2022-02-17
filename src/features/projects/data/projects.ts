@@ -10,6 +10,13 @@ const projects: Project[] = [
     slug: 'sentiment-analysis',
     keywords: ['sentiment analysis', 'natural language api', 'google'],
   },
+  {
+    id: '2',
+    title: 'Wordle Clone',
+    description: 'A clone of the popular wordle game.',
+    slug: 'wordle',
+    keywords: ['wordle', 'wordle.com', 'clone', 'game'],
+  },
 ];
 
 export default projects;
