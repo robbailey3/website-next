@@ -8,11 +8,12 @@ interface Vertex {
 /* eslint-disable @next/next/no-img-element */
 export interface ImagePreviewProps {
   file: File;
+  isLoading: boolean;
   overlayVertices: Vertex[][];
 }
 
 const ImagePreview = (props: ImagePreviewProps) => {
-  const { file } = props;
+  const { file, isLoading } = props;
 
   let imageRef = React.useRef<HTMLImageElement>(null);
 
@@ -49,7 +50,12 @@ const ImagePreview = (props: ImagePreviewProps) => {
   }, [file]);
 
   return (
-    <div className="relative">
+    <div className="relative inline-block">
+      {isLoading && (
+        <div className="absolute w-full h-full backdrop-filter backdrop-blur-sm bg-slate-900 bg-opacity-10 flex justify-center items-center">
+          <span className="text-white text-2xl">Loading...</span>
+        </div>
+      )}
       {imageSrc && (
         <img
           src={imageSrc}
