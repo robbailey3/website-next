@@ -106,8 +106,12 @@ const Navigation = () => {
             href="/github/robbailey3"
             onClick={handleNavLinkClick}
           />
-          <NavigationLink text="Projects" href="/projects" />
-          <NavigationLink text="CV" href="/cv" />
+          <NavigationLink
+            text="Projects"
+            href="/projects"
+            onClick={handleNavLinkClick}
+          />
+          <NavigationLink text="CV" href="/cv" onClick={handleNavLinkClick} />
         </ul>
       </nav>
     </section>

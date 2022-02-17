@@ -31,10 +31,10 @@ const HomepageBanner = () => {
   return (
     <section>
       <div className="flex items-center flex-wrap md:h-screen">
-        <div className="basis-full lg:basis-3/5 bg-gray-200 p-16 text-left rounded-lg">
+        <div className="basis-full lg:basis-3/5 bg-gray-200 p-8 md:p-16 text-left rounded-lg">
           <motion.h1
             variants={sentenceAnimation}
-            className="text-8xl font-extrabold"
+            className="text-4xl md:text-5xl lg:text-8xl font-extrabold"
             initial="hidden"
             animate="visible"
           >
@@ -59,7 +59,7 @@ const HomepageBanner = () => {
           </motion.p>
         </div>
         <motion.div
-          className="basis-full lg:basis-2/5 lg:-left-16 relative bg-blue-500 text-white p-16 rounded-lg shadow-xl"
+          className="basis-full lg:basis-2/5 lg:-left-16 relative bg-blue-500 text-white p-8 md:p-16 rounded-lg shadow-xl"
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 1 }}
