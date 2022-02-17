@@ -2,17 +2,24 @@ import clsx from 'clsx';
 import React from 'react';
 import { Guess } from '../../models/guess';
 
-export interface WordleAttemptRowProps {
+export interface WordGameAttemptRowProps {
   attemptNumber: number;
   numberOfLetters: number;
   onGuessChange: (guess: Guess) => void;
   guess: Guess;
   targetWord: string;
+  incorrectLetters: string[];
 }
 
-const WordleAttemptRow = (props: WordleAttemptRowProps) => {
-  const { attemptNumber, numberOfLetters, onGuessChange, guess, targetWord } =
-    props;
+const WordGameAttemptRow = (props: WordGameAttemptRowProps) => {
+  const {
+    attemptNumber,
+    numberOfLetters,
+    onGuessChange,
+    guess,
+    targetWord,
+    incorrectLetters,
+  } = props;
 
   const inputs = React.useRef<HTMLInputElement[]>([]);
 
@@ -24,13 +31,16 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
 
     if (
       event.currentTarget.value.length === 1 &&
-      event.currentTarget.value.match(/[A-Za-z]/i)
+      event.currentTarget.value.match(/[A-Za-z]/i) &&
+      !incorrectLetters.includes(event.currentTarget.value)
     ) {
       guess.letters[letterIndex] = event.currentTarget.value;
       onGuessChange(guess);
       focusOnNextInput(letterIndex);
     } else {
       event.currentTarget.value = '';
+      guess.letters[letterIndex] = event.currentTarget.value;
+      onGuessChange(guess);
     }
   };
 
@@ -60,25 +70,39 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
     return targetWord[index] === letter;
   };
 
+  React.useEffect(() => {
+    inputs.current[0].focus();
+  }, []);
+
   return (
     <div className="flex justify-center space-x-4 mb-4">
       {Array.from({ length: numberOfLetters }).map((_, i) => (
-        <div key={`wordle-attempt-${attemptNumber}-letter-${i + 1}`}>
+        <div
+          key={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.2, delay: i * 0.1 }}
+        >
           <label
-            htmlFor={`wordle-attempt-${attemptNumber}-letter-${i + 1}`}
+            htmlFor={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
             className="sr-only"
           >
             Letter 1
           </label>
           <input
             type="text"
-            id={`wordle-attempt-${attemptNumber}-letter-${i + 1}`}
-            name={`wordle-attempt-${attemptNumber}-letter-${i + 1}`}
+            id={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
+            name={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
             className={clsx(
-              'w-16 h-16 text-5xl text-center border border-slate-500 rounded',
+              'w-12 h-12 md:w-16 md:h-16 text-5xl text-center border border-slate-500 rounded disabled:bg-gray-600',
               {
-                'bg-orange-200': letterIsInWord(guess.letters[i]),
-                'bg-green-200': letterIsInCorrectPosition(guess.letters[i], i),
+                'bg-yellow-200 disabled:bg-yellow-200': letterIsInWord(
+                  guess.letters[i]
+                ),
+                'bg-green-200 disabled:bg-green-200': letterIsInCorrectPosition(
+                  guess.letters[i],
+                  i
+                ),
               }
             )}
             maxLength={1}
@@ -100,4 +124,4 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
   );
 };
 
-export default WordleAttemptRow;
+export default WordGameAttemptRow;

@@ -12,10 +12,11 @@ const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'Wordle Clone',
-    description: 'A clone of the popular wordle game.',
-    slug: 'wordle',
-    keywords: ['wordle', 'wordle.com', 'clone', 'game'],
+    title: 'Word Game',
+    description:
+      'A clone of a particular word game which seem to be popular at the moment.',
+    slug: 'word-game',
+    keywords: ['word-game', 'clone', 'guessing', 'game'],
   },
 ];
 
