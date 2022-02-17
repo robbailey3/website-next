@@ -77,12 +77,7 @@ const WordGameAttemptRow = (props: WordGameAttemptRowProps) => {
   return (
     <div className="flex justify-center space-x-4 mb-4">
       {Array.from({ length: numberOfLetters }).map((_, i) => (
-        <div
-          key={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.2, delay: i * 0.1 }}
-        >
+        <div key={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}>
           <label
             htmlFor={`word-game-attempt-${attemptNumber}-letter-${i + 1}`}
             className="sr-only"
