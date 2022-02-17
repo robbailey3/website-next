@@ -16,15 +16,21 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
 
   const inputs = React.useRef<HTMLInputElement[]>([]);
 
-  const handleKeyUp = (
-    event: React.KeyboardEvent<HTMLInputElement>,
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
     letterIndex: number
   ) => {
     event.currentTarget.value = event.currentTarget.value.toUpperCase();
-    guess.letters[letterIndex] = event.currentTarget.value;
-    onGuessChange(guess);
-    if (event.key.length === 1 && event.key.match(/[A-Za-z]/i)) {
+
+    if (
+      event.currentTarget.value.length === 1 &&
+      event.currentTarget.value.match(/[A-Za-z]/i)
+    ) {
+      guess.letters[letterIndex] = event.currentTarget.value;
+      onGuessChange(guess);
       focusOnNextInput(letterIndex);
+    } else {
+      event.currentTarget.value = '';
     }
   };
 
@@ -77,7 +83,7 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
             )}
             maxLength={1}
             disabled={guess.isSubmitted}
-            defaultValue={guess.letters[i]}
+            value={guess.letters[i]}
             ref={(input) => {
               if (input) {
                 if (inputs.current) {
@@ -85,7 +91,8 @@ const WordleAttemptRow = (props: WordleAttemptRowProps) => {
                 }
               }
             }}
-            onKeyUp={(event) => handleKeyUp(event, i)}
+            pattern="[A-Za-z]"
+            onChange={(event) => handleChange(event, i)}
           />
         </div>
       ))}

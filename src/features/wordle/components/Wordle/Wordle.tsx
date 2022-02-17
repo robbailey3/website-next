@@ -44,6 +44,7 @@ const Wordle = () => {
   };
 
   const handleGuessClear = () => {
+    console.log('handleGuessClear', currentGuess);
     setCurrentGuess(new Guess(CONFIG.lettersPerWord));
   };
 
