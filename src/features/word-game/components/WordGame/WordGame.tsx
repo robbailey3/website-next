@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Guess } from '../../models/guess';
 import WordGameActions from '../WordGameActions/WordGameActions';
 import WordGameAttemptRow from '../WordGameAttemptRow/WordGameAttemptRow';
 import wordGameService from '../../services/word-game';
-import Sentry from '@sentry/nextjs';
+import Sentry from '@sentry/browser';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
+import wordlist from '../../data/wordlist';
+import { ToastContext } from 'src/context/ToastContext/ToastContext';
+import { ToastModel } from '@/models/Toast';
 
 const WordGame = () => {
   const CONFIG = {
     maxNumberOfAttempts: 6,
     lettersPerWord: 5,
   };
+
+  const { toasts, addToast } = useContext(ToastContext);
+
+  console.log({ toasts, addToast });
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -33,11 +40,16 @@ const WordGame = () => {
   const [showSuccessPopup, setShowSuccessPopup] = React.useState(false);
 
   const handleGuessChange = (guess: Guess) => {
+    addToast(new ToastModel('info', guess.letters.join(''), 2000));
     setCurrentGuess(() => ({ ...guess }));
   };
 
   const guessIsCorrect = () => {
     return currentGuess?.letters.join('') === targetWord;
+  };
+
+  const wordIsValid = () => {
+    return wordlist.includes(currentGuess?.letters.join('').toLowerCase());
   };
 
   const checkIncorrectLetters = () => {

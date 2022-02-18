@@ -6,6 +6,7 @@ import Header from '@/components/global/Header/Header';
 
 import '@/styles/main.scss';
 import PageLoader from '@/components/common/Loaders/PageLoader/PageLoader';
+import ToastProvider from 'src/context/ToastContext/ToastContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,9 +24,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       ></Script>
       <PageLoader />
       <Header />
-      <main id="main-content" className="mt-24 inline-block w-full">
-        <Component {...pageProps} />
-      </main>
+      <ToastProvider>
+        <main id="main-content" className="mt-24 inline-block w-full">
+          <Component {...pageProps} />
+        </main>
+      </ToastProvider>
     </>
   );
 }
