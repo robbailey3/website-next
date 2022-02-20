@@ -1,6 +1,6 @@
 import ToastHost from '@/components/global/ToastHost/ToastHost';
 import React from 'react';
-import { ToastModel } from 'src/models/Toast';
+import { ToastModel } from '@/models/ToastModel';
 
 export interface ToastState {
   toasts: ToastModel[];
@@ -21,8 +21,6 @@ const ToastProvider = (props: ToastProviderProps) => {
   };
 
   const [toasts, setToasts] = React.useState<ToastModel[]>([]);
-
-  console.log({ toasts });
 
   return (
     <ToastContext.Provider value={{ toasts, addToast }}>

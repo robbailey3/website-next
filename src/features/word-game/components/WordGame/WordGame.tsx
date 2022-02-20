@@ -7,7 +7,7 @@ import Sentry from '@sentry/browser';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
 import wordlist from '../../data/wordlist';
 import { ToastContext } from 'src/context/ToastContext/ToastContext';
-import { ToastModel } from '@/models/Toast';
+import { ToastModel } from '@/models/ToastModel';
 
 const WordGame = () => {
   const CONFIG = {
@@ -15,9 +15,7 @@ const WordGame = () => {
     lettersPerWord: 5,
   };
 
-  const { toasts, addToast } = useContext(ToastContext);
-
-  console.log({ toasts, addToast });
+  const { addToast } = useContext(ToastContext);
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -40,7 +38,6 @@ const WordGame = () => {
   const [showSuccessPopup, setShowSuccessPopup] = React.useState(false);
 
   const handleGuessChange = (guess: Guess) => {
-    addToast(new ToastModel('info', guess.letters.join(''), 2000));
     setCurrentGuess(() => ({ ...guess }));
   };
 
@@ -60,17 +57,21 @@ const WordGame = () => {
   };
 
   const handleGuessSubmit = () => {
-    currentGuess.isSubmitted = true;
     if (guessIsCorrect()) {
       currentGuess.isCorrect = true;
       setShowSuccessPopup(true);
       endTimer();
       return;
     }
+    if (!wordIsValid()) {
+      addToast(new ToastModel('warning', 'Invalid word', 5000));
+      return;
+    }
     checkIncorrectLetters();
     if (attemptNumber === CONFIG.maxNumberOfAttempts) {
       return;
     }
+    currentGuess.isSubmitted = true;
     setGuessHistory((prevGuessHistory) => [...prevGuessHistory, currentGuess]);
     setCurrentGuess(new Guess(CONFIG.lettersPerWord));
     setAttemptNumber(() => attemptNumber + 1);
