@@ -59,6 +59,7 @@ const WordGame = () => {
   const handleGuessSubmit = () => {
     if (guessIsCorrect()) {
       currentGuess.isCorrect = true;
+      currentGuess.isSubmitted = true;
       setShowSuccessPopup(true);
       endTimer();
       return;
