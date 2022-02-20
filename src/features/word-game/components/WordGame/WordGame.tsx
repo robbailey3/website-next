@@ -3,7 +3,7 @@ import { Guess } from '../../models/guess';
 import WordGameActions from '../WordGameActions/WordGameActions';
 import WordGameAttemptRow from '../WordGameAttemptRow/WordGameAttemptRow';
 import wordGameService from '../../services/word-game';
-import Sentry from '@sentry/nextjs';
+import Sentry from '@sentry/browser';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
 
 const WordGame = () => {
