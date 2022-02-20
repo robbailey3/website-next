@@ -13,6 +13,7 @@ module.exports = {
     '^@/features/(.*)$': '<rootDir>/src/features/$1',
     '^@/enums/(.*)$': '<rootDir>/src/enums/$1',
     '^@/types/(.*)$': '<rootDir>/types/$1',
+    '^@/models/(.*)$': '<rootDir>/models/$1',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
     '^.+\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',

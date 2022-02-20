@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Guess } from '../../models/guess';
 import WordGameActions from '../WordGameActions/WordGameActions';
 import WordGameAttemptRow from '../WordGameAttemptRow/WordGameAttemptRow';
 import wordGameService from '../../services/word-game';
 import Sentry from '@sentry/browser';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
+import wordlist from '../../data/wordlist';
+import { ToastContext } from 'src/context/ToastContext/ToastContext';
+import { ToastModel } from '@/models/ToastModel';
 
 const WordGame = () => {
   const CONFIG = {
     maxNumberOfAttempts: 6,
     lettersPerWord: 5,
   };
+
+  const { addToast } = useContext(ToastContext);
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -40,6 +45,10 @@ const WordGame = () => {
     return currentGuess?.letters.join('') === targetWord;
   };
 
+  const wordIsValid = () => {
+    return wordlist.includes(currentGuess?.letters.join('').toLowerCase());
+  };
+
   const checkIncorrectLetters = () => {
     setIncorrectLetters(() => [
       ...incorrectLetters,
@@ -48,17 +57,22 @@ const WordGame = () => {
   };
 
   const handleGuessSubmit = () => {
-    currentGuess.isSubmitted = true;
     if (guessIsCorrect()) {
       currentGuess.isCorrect = true;
+      currentGuess.isSubmitted = true;
       setShowSuccessPopup(true);
       endTimer();
+      return;
+    }
+    if (!wordIsValid()) {
+      addToast(new ToastModel('warning', 'Invalid word', 5000));
       return;
     }
     checkIncorrectLetters();
     if (attemptNumber === CONFIG.maxNumberOfAttempts) {
       return;
     }
+    currentGuess.isSubmitted = true;
     setGuessHistory((prevGuessHistory) => [...prevGuessHistory, currentGuess]);
     setCurrentGuess(new Guess(CONFIG.lettersPerWord));
     setAttemptNumber(() => attemptNumber + 1);
