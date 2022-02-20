@@ -32,7 +32,6 @@ export const config = {
 };
 
 const isValidFile = (file: any): boolean => {
-  console.log({ file });
   if (!VALID_MIMETYPES.includes(file.mimetype)) {
     return false;
   }

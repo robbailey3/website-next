@@ -2,54 +2,25 @@ import * as vision from '@google-cloud/vision';
 import React from 'react';
 
 export interface ImageResultSelectorProps {
-  results: vision.protos.google.cloud.vision.v1.IAnnotateImageResponse;
-  onActiveCategoryChange: (
-    category: keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
-  ) => void;
+  categories: string[];
+  onActiveCategoryChange: (category: string) => void;
 }
 
 const ImageResultSelector = (props: ImageResultSelectorProps) => {
-  const { results, onActiveCategoryChange } = props;
-
-  const [categories, setCategories] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    const getResultCategories = () => {
-      const cats: string[] = [];
-
-      Object.entries(results).forEach(([key, value]) => {
-        console.log({ key, value });
-        if (
-          value != null &&
-          (value.length > 0 || Object.keys(value).length > 0)
-        ) {
-          cats.push(key);
-        }
-      });
-      setCategories(cats);
-    };
-    getResultCategories();
-  }, [results]);
+  const { categories, onActiveCategoryChange } = props;
 
   return categories.length > 0 ? (
     <div>
       <div>
-        <label htmlFor="category-selector">Select a Category</label>
+        <label htmlFor="category-selector" className="block text-xs">
+          Select a Category
+        </label>
         <select
           name="category-selector"
           id="category-selector"
-          onChange={(e) =>
-            onActiveCategoryChange(
-              e.target
-                .value as keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
-            )
-          }
-          onBlur={(e) =>
-            onActiveCategoryChange(
-              e.target
-                .value as keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
-            )
-          }
+          className="p-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm"
+          onChange={(e) => onActiveCategoryChange(e.target.value)}
+          onBlur={(e) => onActiveCategoryChange(e.target.value)}
         >
           {categories.map((cat) => (
             <option value={cat} key={cat}>

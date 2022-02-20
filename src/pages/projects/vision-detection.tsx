@@ -35,6 +35,7 @@ const VisionDetectionPage = () => {
       const result = await visionDetection.getAnalysis(file);
       setAnalysisResult(result);
       setIsLoading(false);
+      handleActiveCategoryChange(getResultCategories(result)[0]);
     } catch (e) {
       Sentry.captureException(e);
       reset();
@@ -43,10 +44,30 @@ const VisionDetectionPage = () => {
     }
   };
 
-  const handleActiveCategoryChange = (
-    category: keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
-  ) => {
-    setActiveCategory(category);
+  const getResultCategories = (
+    results?: vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+  ): string[] => {
+    if (!analysisResult && !results) {
+      return [];
+    }
+    const analysis = results || analysisResult;
+    const cats: string[] = [];
+
+    Object.entries(analysis!).forEach(([key, value]) => {
+      if (
+        value != null &&
+        (value.length > 0 || Object.keys(value).length > 0)
+      ) {
+        cats.push(key);
+      }
+    });
+    return cats;
+  };
+
+  const handleActiveCategoryChange = (category: string) => {
+    setActiveCategory(
+      category as keyof vision.protos.google.cloud.vision.v1.IAnnotateImageResponse
+    );
   };
 
   const reset = () => {
@@ -74,12 +95,14 @@ const VisionDetectionPage = () => {
           {!currentFile && (
             <ImageAnalysisForm onFileChange={handleFileChange} />
           )}
-          {analysisResult && (
-            <ImageResultSelector
-              results={analysisResult}
-              onActiveCategoryChange={handleActiveCategoryChange}
-            />
-          )}
+          <div className="flex justify-end my-2">
+            {analysisResult && (
+              <ImageResultSelector
+                categories={getResultCategories()}
+                onActiveCategoryChange={handleActiveCategoryChange}
+              />
+            )}
+          </div>
           {currentFile && (
             <ImagePreview
               file={currentFile}
@@ -87,7 +110,6 @@ const VisionDetectionPage = () => {
               overlayVertices={[[]]}
             />
           )}
-
           {analysisResult && (
             <ImageAnalysisResult
               result={analysisResult}

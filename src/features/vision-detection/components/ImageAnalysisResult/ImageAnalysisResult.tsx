@@ -10,8 +10,6 @@ export interface ImageAnalysisResultProps {
 const ImageAnalysisResult = (props: ImageAnalysisResultProps) => {
   const { result, activeCategory } = props;
 
-  console.log({ result, activeCategory });
-
   return activeCategory ? (
     <div>
       <pre>{JSON.stringify(result[activeCategory], null, 4)}</pre>
