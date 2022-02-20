@@ -55,7 +55,10 @@ const Toast = (props: ToastProps) => {
       </div>
       <div className="p-2 grow">{toast.message}</div>
       <div className="p-2 flex justify-center items-center">
-        <button className="p-1 leading-none rounded-full bg-gray-400 bg-opacity-40 text-xs hover:bg-gray-600 duration-200">
+        <button
+          className="p-1 leading-none rounded-full bg-gray-400 bg-opacity-40 text-xs hover:bg-gray-600 duration-200"
+          onClick={() => onClose(toast)}
+        >
           <span className="sr-only">Close</span>
           <FontAwesomeIcon icon={faTimes} />
         </button>
