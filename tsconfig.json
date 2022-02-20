@@ -26,8 +26,11 @@
       "@/utils/*": ["src/utils/*"],
       "@/enums/*": ["src/enums/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/data/*": ["src/data/*"]
-    }
+      "@/data/*": ["src/data/*"],
+      "@/models/*": ["src/models/*"],
+      "@/context/*": ["src/context/*"]
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_document.js"],
   "exclude": ["node_modules"]

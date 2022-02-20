@@ -12,7 +12,6 @@ describe('[COMPONENT]: Header', () => {
   });
 
   it('should contain a link back to the homepage', () => {
-    console.log(wrapper.debug());
     expect(wrapper.find('Link').prop('href')).toBe('/');
   });
 
