@@ -1,7 +1,7 @@
 import * as vision from '@google-cloud/vision';
 import React from 'react';
 import FaceAttribute from '../../FaceAttribute/FaceAttribute';
-import ImagePreview, { Dot } from '../../ImagePreview/ImagePreview';
+import ImagePreview, { Box, Dot } from '../../ImagePreview/ImagePreview';
 
 export interface FaceAnnotationProps {
   faceAnnotations: vision.protos.google.cloud.vision.v1.IFaceAnnotation[];
@@ -14,9 +14,7 @@ const FaceAnnotation = (props: FaceAnnotationProps) => {
 
   const [dots, setDots] = React.useState<Dot[]>([]);
 
-  const [boxes, setBoxes] = React.useState<
-    vision.protos.google.cloud.vision.v1.IBoundingPoly[]
-  >([]);
+  const [boxes, setBoxes] = React.useState<Box[]>([]);
 
   React.useEffect(() => {
     const getDots = () => {
@@ -48,11 +46,30 @@ const FaceAnnotation = (props: FaceAnnotationProps) => {
           (face) =>
             face.boundingPoly !== undefined && face.boundingPoly !== null
         )
-        .map((face) => {
-          return [face.boundingPoly!, face.fdBoundingPoly!];
+        .map((face, index) => {
+          let box1: Box | null = null;
+          let box2: Box | null = null;
+          if (face.boundingPoly?.vertices) {
+            box1 = {
+              vertices: face.boundingPoly.vertices.map((vertex) => ({
+                x: vertex.x!,
+                y: vertex.y!,
+              })),
+            };
+          }
+          if (face.fdBoundingPoly?.vertices) {
+            box2 = {
+              label: `Face ${index + 1}`,
+              vertices: face.fdBoundingPoly.vertices.map((vertex) => ({
+                x: vertex.x!,
+                y: vertex.y!,
+              })),
+            };
+          }
+          return [box1, box2];
         })
         .flat();
-      setBoxes([...boxes]);
+      setBoxes([...(boxes.filter((b) => b !== null) as Box[])]);
     };
     getDots();
     getBoxes();
@@ -60,7 +77,7 @@ const FaceAnnotation = (props: FaceAnnotationProps) => {
 
   return (
     <section className="relative flex flex-wrap">
-      <div className="sticky top-32 self-start">
+      <div className="sticky top-24 md:top-32 self-start z-30 w-full md:w-auto bg-white text-center">
         <ImagePreview
           file={file}
           isLoading={isLoading}
@@ -71,7 +88,7 @@ const FaceAnnotation = (props: FaceAnnotationProps) => {
       <div className="grow p-4">
         {faceAnnotations.map((face, index) => {
           return (
-            <div key={`face_${index}`}>
+            <div key={`face_${index}`} className="mb-4">
               <h3>Face {index + 1}</h3>
               <div>
                 <FaceAttribute

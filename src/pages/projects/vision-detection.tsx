@@ -92,13 +92,20 @@ const VisionDetectionPage = () => {
   return (
     <Container>
       <section>
-        <div className="flex">
+        <div className="flex py-4 items-center">
           <div className="grow">
-            <h1>Image Analysis</h1>
+            <h1 className="text-2xl">Image Analysis</h1>
+            <p>
+              Using Google Cloud Vision API to analyse images and do cool stuff
+              like detect faces, labels, and more.
+            </p>
           </div>
           <div className="ml-auto">
-            <button onClick={reset}>
-              <span className="sr-only">Reset</span>
+            <button
+              onClick={reset}
+              className="p-2 rounded bg-blue-500 hover:bg-blue-600 shadow text-white flex items-center"
+            >
+              <span className="mr-2">Reset</span>
               <FontAwesomeIcon icon={faSync} />
             </button>
           </div>
@@ -116,7 +123,7 @@ const VisionDetectionPage = () => {
               />
             )}
           </div>
-          {analysisResult && currentFile && (
+          {currentFile && (
             <ImageAnalysisResult
               result={analysisResult}
               file={currentFile}

@@ -1,8 +1,10 @@
 import React from 'react';
 import * as vision from '@google-cloud/vision';
 
-export interface Box
-  extends vision.protos.google.cloud.vision.v1.IBoundingPoly {}
+export interface Box {
+  label?: string;
+  vertices: { x: number; y: number }[];
+}
 
 export interface Dot {
   x: number;
@@ -13,7 +15,7 @@ export interface Dot {
 export interface ImagePreviewProps {
   file: File;
   isLoading: boolean;
-  boxes?: vision.protos.google.cloud.vision.v1.IBoundingPoly[];
+  boxes?: Box[];
   dots?: Dot[];
 }
 
@@ -109,6 +111,15 @@ const ImagePreview = (props: ImagePreviewProps) => {
               ctx.closePath();
               ctx.strokeStyle = 'lime';
               ctx.stroke();
+            }
+            if (box.label) {
+              ctx.font = '16px Nunito Sans';
+              ctx.fillStyle = 'lime';
+              ctx.fillText(
+                box.label,
+                box.vertices[0].x! * scaleFactor.x,
+                (box.vertices[0].y! - 10) * scaleFactor.y
+              );
             }
           });
         }
