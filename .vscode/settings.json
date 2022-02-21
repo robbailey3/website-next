@@ -3,5 +3,7 @@
   "editor.detectIndentation": false,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  "cmake.configureOnOpen": true
+  "cmake.configureOnOpen": true,
+  "editor.lineHeight": 2.05,
+  "editor.renderWhitespace": "none"
 }
