@@ -6,7 +6,7 @@ import wordGameService from '../../services/word-game';
 import Sentry from '@sentry/browser';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
 import wordlist from '../../data/wordlist';
-import { ToastContext } from 'src/context/ToastContext/ToastContext';
+import { ToastContext } from '@/context/ToastContext/ToastContext';
 import { ToastModel } from '@/models/ToastModel';
 
 const WordGame = () => {
