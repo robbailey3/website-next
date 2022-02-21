@@ -1,14 +1,16 @@
 import Container from '@/components/common/Container/Container';
 import ImageAnalysisForm from '@/features/vision-detection/components/ImageAnalysisForm/ImageAnalysisForm';
-import ImagePreview from '@/features/vision-detection/components/ImagePreview/ImagePreview';
+
 import visionDetection from '@/features/vision-detection/services/vision-detection';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useContext } from 'react';
 import * as vision from '@google-cloud/vision';
 import ImageAnalysisResult from '@/features/vision-detection/components/ImageAnalysisResult/ImageAnalysisResult';
 import ImageResultSelector from '@/features/vision-detection/components/ImageResultSelector/ImageResultSelector';
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from '@sentry/browser';
+import { ToastContext } from '@/context/ToastContext/ToastContext';
+import { ToastModel } from '@/models/ToastModel';
 
 const VisionDetectionPage = () => {
   const [currentFile, setCurrentFile] = React.useState<File | null>(null);
@@ -24,6 +26,8 @@ const VisionDetectionPage = () => {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
+  const { addToast } = useContext(ToastContext);
+
   const handleFileChange = (file: File) => {
     setCurrentFile(file);
     getAnalysis(file);
@@ -36,8 +40,17 @@ const VisionDetectionPage = () => {
       setAnalysisResult(result);
       setIsLoading(false);
       handleActiveCategoryChange(getResultCategories(result)[0]);
-    } catch (e) {
+    } catch (e: any) {
       Sentry.captureException(e);
+      addToast(
+        new ToastModel(
+          'error',
+          `An error occurred while analyzing the image: ${
+            e.response.status === 400 ? 'Invalid image' : e.message
+          }`,
+          5000
+        )
+      );
       reset();
     } finally {
       setIsLoading(false);
@@ -103,17 +116,12 @@ const VisionDetectionPage = () => {
               />
             )}
           </div>
-          {currentFile && (
-            <ImagePreview
-              file={currentFile}
-              isLoading={isLoading}
-              overlayVertices={[[]]}
-            />
-          )}
-          {analysisResult && (
+          {analysisResult && currentFile && (
             <ImageAnalysisResult
               result={analysisResult}
+              file={currentFile}
               activeCategory={activeCategory}
+              isLoading={isLoading}
             />
           )}
         </div>

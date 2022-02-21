@@ -7,7 +7,7 @@ const VALID_MIMETYPES = ['image/jpeg', 'image/png'];
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
 
-const VALID_FILE_EXTENSIONS = ['jpg', 'png'];
+const VALID_FILE_EXTENSIONS = ['jpg', 'png', 'jpeg'];
 
 function runMiddleware(
   req: NextApiRequest & { [key: string]: any },
@@ -31,21 +31,21 @@ export const config = {
   },
 };
 
-const isValidFile = (file: any): boolean => {
+const isInvalidFile = (file: any): string | null => {
   if (!VALID_MIMETYPES.includes(file.mimetype)) {
-    return false;
+    return 'Invalid file type';
   }
   if (file.size > MAX_FILE_SIZE) {
-    return false;
+    return 'File is too large';
   }
   if (
     !VALID_FILE_EXTENSIONS.includes(
       file.originalname.split('.').pop().toLowerCase()
     )
   ) {
-    return false;
+    return 'Invalid file extension';
   }
-  return true;
+  return null;
 };
 
 const Handler = async (
@@ -62,9 +62,10 @@ const Handler = async (
       error: 'No file was uploaded',
     });
   }
-  if (!isValidFile(file)) {
+  const error = isInvalidFile(file);
+  if (error) {
     return res.status(400).json({
-      error: 'Invalid file',
+      error,
     });
   }
 
