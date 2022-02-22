@@ -12,6 +12,7 @@ import ImageResultSelector from '@/features/vision-detection/components/ImageRes
 import * as Sentry from '@sentry/browser';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import { ToastModel } from '@/models/ToastModel';
+import { IconButton } from '@/components/common/Buttons';
 
 const VisionDetectionPage = () => {
   const [currentFile, setCurrentFile] = React.useState<File | null>(null);
@@ -111,13 +112,7 @@ const VisionDetectionPage = () => {
               </p>
             </div>
             <div className="ml-auto">
-              <button
-                onClick={reset}
-                className="p-2 rounded bg-blue-500 hover:bg-blue-600 shadow text-white flex items-center"
-              >
-                <span className="mr-2">Reset</span>
-                <FontAwesomeIcon icon={faSync} />
-              </button>
+              <IconButton label="reset" icon={faSync} />
             </div>
           </div>
 
