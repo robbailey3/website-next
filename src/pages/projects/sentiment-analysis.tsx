@@ -1,15 +1,10 @@
 import Container from '@/components/common/Container/Container';
 import SentimentAnalysisResult from '@/features/sentiment-analysis/components/SentimentAnalysisResult/SentimentAnalysisResult';
-import { AnalyseResponse } from '@/features/sentiment-analysis/models/analyse-response';
-import { ClassifyResponse } from '@/features/sentiment-analysis/models/classify-response';
-import { SentimentResponse } from '@/features/sentiment-analysis/models/sentiment-response';
-import axios from 'axios';
-import React, { KeyboardEvent } from 'react';
-import * as Sentry from '@sentry/nextjs';
+import React from 'react';
 import SentimentAnalysisForm from '@/features/sentiment-analysis/components/SentimentAnalysisForm/SentimentAnalysisForm';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Head from 'next/head';
+import { IconButton } from '@/components/common/Buttons';
 
 const SentimentAnalysisProjectPage = () => {
   const [value, setValue] = React.useState('');
@@ -23,6 +18,7 @@ const SentimentAnalysisProjectPage = () => {
 
   const reset = () => {
     setAnalysisActive(false);
+    setValue('');
   };
 
   return (
@@ -48,13 +44,7 @@ const SentimentAnalysisProjectPage = () => {
             </div>
             {analysisActive && (
               <div>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 leading-none rounded-full"
-                  onClick={reset}
-                >
-                  <FontAwesomeIcon icon={faArrowLeft} />
-                  <span className="sr-only">Reset</span>
-                </button>
+                <IconButton label="Reset" icon={faArrowLeft} onClick={reset} />
               </div>
             )}
           </div>

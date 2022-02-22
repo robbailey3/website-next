@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/Buttons';
 import clsx from 'clsx';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -51,13 +52,9 @@ const SentimentAnalysisForm = (props: SentimentAnalysisFormProps) => {
             className="text-red-800 italic my-2"
             component="div"
           />
-          <button
-            type="submit"
-            disabled={!!errors.text || isSubmitting}
-            className="bg-green-700 rounded shadow text-white px-4 py-2 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 duration-200"
-          >
+          <Button type="submit" disabled={isSubmitting || !!errors.text}>
             Analyse
-          </button>
+          </Button>
         </Form>
       )}
     </Formik>

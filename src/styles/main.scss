@@ -7,3 +7,6 @@ body {
   font-size: 18px;
   @apply text-gray-900;
 }
+*:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.75);
+}
