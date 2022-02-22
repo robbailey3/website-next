@@ -1,4 +1,5 @@
 import Container from '@/components/common/Container/Container';
+import Head from 'next/head';
 import ImageAnalysisForm from '@/features/vision-detection/components/ImageAnalysisForm/ImageAnalysisForm';
 
 import visionDetection from '@/features/vision-detection/services/vision-detection';
@@ -90,50 +91,60 @@ const VisionDetectionPage = () => {
   };
 
   return (
-    <Container>
-      <section>
-        <div className="flex py-4 items-center">
-          <div className="grow">
-            <h1 className="text-2xl">Image Analysis</h1>
-            <p>
-              Using Google Cloud Vision API to analyse images and do cool stuff
-              like detect faces, labels, and more.
-            </p>
+    <>
+      <Head>
+        <title>Image Analysis / Projects / Rob Bailey</title>
+        <meta
+          name="description"
+          content="Using Google Cloud Vision API to analyse images and do cool
+                stuff like detect faces, labels, and more."
+        />
+      </Head>
+      <Container>
+        <section>
+          <div className="flex py-4 items-center">
+            <div className="grow">
+              <h1 className="text-2xl">Image Analysis</h1>
+              <p>
+                Using Google Cloud Vision API to analyse images and do cool
+                stuff like detect faces, labels, and more.
+              </p>
+            </div>
+            <div className="ml-auto">
+              <button
+                onClick={reset}
+                className="p-2 rounded bg-blue-500 hover:bg-blue-600 shadow text-white flex items-center"
+              >
+                <span className="mr-2">Reset</span>
+                <FontAwesomeIcon icon={faSync} />
+              </button>
+            </div>
           </div>
-          <div className="ml-auto">
-            <button
-              onClick={reset}
-              className="p-2 rounded bg-blue-500 hover:bg-blue-600 shadow text-white flex items-center"
-            >
-              <span className="mr-2">Reset</span>
-              <FontAwesomeIcon icon={faSync} />
-            </button>
-          </div>
-        </div>
 
-        <div>
-          {!currentFile && (
-            <ImageAnalysisForm onFileChange={handleFileChange} />
-          )}
-          <div className="flex justify-end my-2">
-            {analysisResult && (
-              <ImageResultSelector
-                categories={getResultCategories()}
-                onActiveCategoryChange={handleActiveCategoryChange}
+          <div>
+            {!currentFile && (
+              <ImageAnalysisForm onFileChange={handleFileChange} />
+            )}
+            <div className="flex justify-end my-2">
+              {analysisResult && (
+                <ImageResultSelector
+                  categories={getResultCategories()}
+                  onActiveCategoryChange={handleActiveCategoryChange}
+                />
+              )}
+            </div>
+            {currentFile && (
+              <ImageAnalysisResult
+                result={analysisResult}
+                file={currentFile}
+                activeCategory={activeCategory}
+                isLoading={isLoading}
               />
             )}
           </div>
-          {currentFile && (
-            <ImageAnalysisResult
-              result={analysisResult}
-              file={currentFile}
-              activeCategory={activeCategory}
-              isLoading={isLoading}
-            />
-          )}
-        </div>
-      </section>
-    </Container>
+        </section>
+      </Container>
+    </>
   );
 };
 

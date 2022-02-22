@@ -22,7 +22,7 @@ const projects: Project[] = [
     id: '3',
     title: 'Image Analysis',
     description:
-      'Using the Cloud Vision API to generate captions for a user-inputted image.',
+      'Using Google Cloud Vision API to analyse images and do cool stuff like detect faces, labels, and more.',
     slug: 'vision-detection',
     keywords: ['image analysis', 'Vision AI', 'image recognition', 'google'],
   },
