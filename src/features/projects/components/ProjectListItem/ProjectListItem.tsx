@@ -10,17 +10,13 @@ export interface ProjectListItemProps {
 const ProjectListItem = (props: ProjectListItemProps) => {
   const { project } = props;
   return (
-    <Card
-      className="p-4 flex flex-col justify-around h-full"
-      header={
+    <Card className="p-4 flex flex-col justify-around h-full">
+      <>
         <h2 className="text-2xl mb-2">
           <Link href={`/projects/${project.slug}`}>
             <a href={`/projects/${project.slug}`}>{project.title}</a>
           </Link>
         </h2>
-      }
-    >
-      <>
         <div>
           <p>{project.description}</p>
         </div>
