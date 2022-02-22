@@ -10,29 +10,32 @@ export interface ProjectListItemProps {
 const ProjectListItem = (props: ProjectListItemProps) => {
   const { project } = props;
   return (
-    <Card className="basis-full md:basis-1/2 xl:basis-1/3 p-4">
-      <div>
+    <Card
+      className="p-4 flex flex-col justify-around h-full"
+      header={
         <h2 className="text-2xl mb-2">
           <Link href={`/projects/${project.slug}`}>
             <a href={`/projects/${project.slug}`}>{project.title}</a>
           </Link>
         </h2>
-      </div>
-      <div>
-        <p>{project.description}</p>
-        {project.keywords && project.keywords.length && (
-          <div
-            className="flex flex-wrap space-x-4 mt-4"
-            data-test="project-keywords"
-          >
-            {project.keywords.map((keyword) => (
-              <Tag key={keyword} variant="primary">
-                {keyword}
-              </Tag>
-            ))}
-          </div>
-        )}
-      </div>
+      }
+    >
+      <>
+        <div>
+          <p>{project.description}</p>
+        </div>
+        <div>
+          {project.keywords && project.keywords.length && (
+            <div className="flex flex-wrap mt-4" data-test="project-keywords">
+              {project.keywords.map((keyword) => (
+                <span key={keyword} className="mt-2 mr-2">
+                  <Tag variant="primary">{keyword}</Tag>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </>
     </Card>
   );
 };
