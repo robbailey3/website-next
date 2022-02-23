@@ -28,17 +28,23 @@ class PhotosController {
     req: NextApiRequest & { [key: string]: any },
     res: NextApiResponse
   ) {
-    await runMiddleware(req, res, upload.array('photos'));
+    try {
+      await runMiddleware(req, res, upload.single('photo'));
 
-    const { files } = req;
+      const { file } = req;
 
-    console.log({ files });
+      if (!photosService.isValidFile(file)) {
+        return res.status(400).json({ message: 'Invalid file' });
+      }
 
-    const uploadResult = await photosService.uploadToStorage(files[0]);
+      console.log(`File: ${file.originalname}`);
 
-    console.log({ uploadResult });
+      await photosService.uploadToStorage(file);
 
-    return res.json({ uploadResult });
+      return res.status(200).json({ message: 'Success' });
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 }
 
