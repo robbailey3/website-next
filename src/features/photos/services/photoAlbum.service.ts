@@ -10,7 +10,7 @@ class PhotoAlbumService {
   ): Promise<PhotoAlbum[]> {
     await databaseService.connect();
 
-    const collection = databaseService.getCollection('photoAlbums');
+    const collection = databaseService.getCollection('photo_albums');
 
     const photoAlbums = await collection
       .find<PhotoAlbum>({}, { limit, skip, sort: { updatedAt: -1 } })
@@ -40,9 +40,7 @@ class PhotoAlbumService {
       throw new BadRequestException('Id is not allowed');
     }
 
-    await databaseService.connect();
-
-    const collection = databaseService.getCollection('photoAlbums');
+    const collection = databaseService.getCollection('photo_albums');
 
     const result = await collection.insertOne({
       ...photoAlbum,
@@ -60,8 +58,6 @@ class PhotoAlbumService {
     if (!ObjectID.isValid(id)) {
       throw new BadRequestException('Invalid id');
     }
-    await databaseService.connect();
-
     const collection = databaseService.getCollection('photoAlbums');
 
     const result = await collection.findOneAndUpdate(

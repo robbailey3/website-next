@@ -16,7 +16,9 @@ class DatabaseService {
   }
 
   public async disconnect(): Promise<void> {
-    await this.client.close();
+    if (this.client) {
+      await this.client.close();
+    }
   }
 }
 
@@ -31,7 +33,7 @@ const withDatabase = (
       return await handler(req, res);
     } catch (error) {
       Sentry.captureException(error);
-      res.status(500).send(error);
+      return res.status(500).send(error);
     } finally {
       await dbInstance.disconnect();
     }
