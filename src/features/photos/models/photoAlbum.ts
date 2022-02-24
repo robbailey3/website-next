@@ -1,9 +1,11 @@
 import { ObjectId } from 'mongodb';
+import { PhotoModel } from './photo';
 
-export interface PhotoAlbum {
-  _id?: ObjectId;
+export interface PhotoAlbumModel {
+  _id: ObjectId | string;
   name: string;
-  coverImage?: string;
+  coverImageId: string;
+  coverImage?: PhotoModel | null;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,3 +1,5 @@
+import Container from '@/components/common/Container/Container';
+import AdminPhotoAlbumList from '@/features/photos/components/AdminPhotoAlbumList/AdminPhotoAlbumList';
 import { fetcher } from '@/utils/fetcher';
 import useSWR from 'swr';
 
@@ -5,10 +7,10 @@ const PhotoAdminPage = () => {
   const { data, error } = useSWR('/api/photo-albums', fetcher);
 
   return (
-    <div>
+    <Container>
       {error && <div>failed to load</div>}
-      {data && <div>{data.length} photos</div>}
-    </div>
+      {data && <AdminPhotoAlbumList albums={data} />}
+    </Container>
   );
 };
 
