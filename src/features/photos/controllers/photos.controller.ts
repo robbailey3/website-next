@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
-import photosService from '../services/photoUpload.service';
+import photoUploadService from '../services/photoUpload.service';
+import photoService from '../services/photo.service';
+import { ObjectID } from 'bson';
 const upload = multer({ storage: multer.memoryStorage() });
 
 function runMiddleware(
@@ -21,7 +23,16 @@ function runMiddleware(
 
 class PhotosController {
   public getPhotos(req: NextApiRequest, res: NextApiResponse) {
-    return res.json({ message: 'Hello Photos' });
+    let { limit = 20, skip = 0, albumId } = req.query;
+
+    limit = parseInt(limit as string, 10);
+    skip = parseInt(skip as string, 10);
+
+    const albumIdObj = ObjectID.createFromHexString(albumId as string);
+
+    const photos = photoService.getPhotos(albumIdObj, limit, skip);
+
+    return res.status(200).json(photos);
   }
 
   public async uploadPhotos(
@@ -33,13 +44,13 @@ class PhotosController {
 
       const { file } = req;
 
-      if (!photosService.isValidFile(file)) {
+      if (!photoUploadService.isValidFile(file)) {
         return res.status(400).json({ message: 'Invalid file' });
       }
 
       console.log(`File: ${file.originalname}`);
 
-      await photosService.uploadToStorage(file);
+      await photoUploadService.uploadToStorage(file);
 
       return res.status(200).json({ message: 'Success' });
     } catch (error: any) {
