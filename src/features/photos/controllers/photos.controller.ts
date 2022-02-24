@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
-import photosService from '../services/photos.service';
+import photosService from '../services/photoUpload.service';
 const upload = multer({ storage: multer.memoryStorage() });
 
 function runMiddleware(

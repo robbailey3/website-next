@@ -1,6 +1,6 @@
 import { Bucket, Storage } from '@google-cloud/storage';
 
-class PhotosService {
+class PhotoUploadService {
   private storage = new Storage({
     credentials: {
       private_key: process.env.GOOGLE_PRIVATE_KEY,
@@ -63,4 +63,4 @@ class PhotosService {
   }
 }
 
-export default new PhotosService();
+export default new PhotoUploadService();
