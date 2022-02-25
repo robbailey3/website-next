@@ -17,6 +17,22 @@ class PhotoAlbumsController {
     return new OkResponse(result).toResponse(res);
   }
 
+  public async getPhotoAlbum(req: NextApiRequest, res: NextApiResponse) {
+    const { id } = req.query;
+
+    if (!id) {
+      return res.status(400).json({ message: 'Missing id' });
+    }
+
+    if (Array.isArray(id)) {
+      return res.status(400).json({ message: 'Multiple ids not supported' });
+    }
+
+    const result = await photoAlbumService.getPhotoAlbum(id);
+
+    return new OkResponse(result).toResponse(res);
+  }
+
   public async createPhotoAlbum(req: NextApiRequest, res: NextApiResponse) {
     const { name } = req.body;
 
@@ -24,7 +40,7 @@ class PhotoAlbumsController {
       throw new Error('Name is required');
     }
 
-    const result = await photoAlbumService.createPhotoAlbum({ name });
+    const result = await photoAlbumService.createPhotoAlbum({ name } as any);
 
     // TODO: Create a CreatedResponse class
     return new OkResponse(result).toResponse(res);

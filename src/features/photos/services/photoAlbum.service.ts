@@ -9,8 +9,6 @@ class PhotoAlbumService {
     limit: number,
     skip: number
   ): Promise<PhotoAlbumModel[]> {
-    await databaseService.connect();
-
     const collection = databaseService.getCollection('photo_albums');
 
     const photoAlbums = await collection
@@ -39,9 +37,7 @@ class PhotoAlbumService {
       throw new BadRequestException('Invalid id');
     }
 
-    await databaseService.connect();
-
-    const collection = databaseService.getCollection('photoAlbums');
+    const collection = databaseService.getCollection('photo_albums');
 
     const photoAlbum = await collection.findOne<PhotoAlbumModel>({
       _id: ObjectID.createFromHexString(id),
@@ -84,7 +80,7 @@ class PhotoAlbumService {
     if (!ObjectID.isValid(id)) {
       throw new BadRequestException('Invalid id');
     }
-    const collection = databaseService.getCollection('photoAlbums');
+    const collection = databaseService.getCollection('photo_albums');
 
     const result = await collection.findOneAndUpdate(
       { _id: ObjectID.createFromHexString(id) },

@@ -3,6 +3,7 @@ import multer from 'multer';
 import photoUploadService from '../services/photoUpload.service';
 import photoService from '../services/photo.service';
 import { ObjectID } from 'bson';
+import { OkResponse } from '@/responses/ok-response';
 const upload = multer({ storage: multer.memoryStorage() });
 
 function runMiddleware(
@@ -22,17 +23,15 @@ function runMiddleware(
 }
 
 class PhotosController {
-  public getPhotos(req: NextApiRequest, res: NextApiResponse) {
-    let { limit = 20, skip = 0, albumId } = req.query;
+  public async getPhotos(req: NextApiRequest, res: NextApiResponse) {
+    let { limit = 20, skip = 0, id } = req.query;
 
     limit = parseInt(limit as string, 10);
     skip = parseInt(skip as string, 10);
 
-    const albumIdObj = ObjectID.createFromHexString(albumId as string);
+    const photos = await photoService.getPhotos(id as string, limit, skip);
 
-    const photos = photoService.getPhotos(albumIdObj, limit, skip);
-
-    return res.status(200).json(photos);
+    return new OkResponse(photos).toResponse(res);
   }
 
   public async uploadPhotos(

@@ -34,8 +34,6 @@ const withDatabase = (
     } catch (error) {
       Sentry.captureException(error);
       return res.status(500).send(error);
-    } finally {
-      await dbInstance.disconnect();
     }
   };
 };

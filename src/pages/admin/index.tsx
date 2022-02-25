@@ -1,7 +1,8 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const AdminPage = () => {
-  return <p>Not implemented yet</p>;
+  const user = useUser();
+  return <pre>{JSON.stringify(user, null, 4)}</pre>;
 };
 
 export default withPageAuthRequired(AdminPage);

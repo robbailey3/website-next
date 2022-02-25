@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
 
 export interface AdminPhotoAlbumProps {
@@ -9,18 +10,24 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
   const { album } = props;
 
   return (
-    <div className="flex bg-gray-300">
+    <div className="flex bg-gray-300 relative overflow-hidden w-32 h-32">
       {album.coverImage && (
-        <div>
+        <div className="absolute top-0 left-0 w-full h-full object-cover flex items-center justify-center">
           <img
             src={album.coverImage!.url}
             alt={album.coverImage!.caption}
-            className="w-full"
+            className="h-full w-full object-cover"
           />
         </div>
       )}
-      <span>{album._id}</span>
-      <div>{album.name}</div>
+      <div className="flex w-full h-full items-center justify-center bg-black bg-opacity-5 text-white relative z-10">
+        <Link href={`/admin/photos/${album._id}`}>
+          <a href="">
+            <span>{album._id}</span>
+            <div>{album.name}</div>
+          </a>
+        </Link>
+      </div>
     </div>
   );
 };
