@@ -1,17 +1,18 @@
 import Container from '@/components/common/Container/Container';
 import AdminPhotoAlbumList from '@/features/photos/components/AdminPhotoAlbumList/AdminPhotoAlbumList';
-import { fetcher } from '@/utils/fetcher';
-import useSWR from 'swr';
+import usePhotoAlbums from '@/features/photos/hooks/usePhotoAlbums';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const PhotoAdminPage = () => {
-  const { data, error } = useSWR('/api/photo-albums', fetcher);
+  const { albums, isLoading, error } = usePhotoAlbums();
 
   return (
     <Container>
+      {isLoading && <div>Loading...</div>}
       {error && <div>failed to load</div>}
-      {data && <AdminPhotoAlbumList albums={data} />}
+      {albums && <AdminPhotoAlbumList albums={albums} />}
     </Container>
   );
 };
 
-export default PhotoAdminPage;
+export default withPageAuthRequired(PhotoAdminPage);
