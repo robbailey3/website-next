@@ -1,4 +1,5 @@
 import { Bucket, Storage } from '@google-cloud/storage';
+import { ObjectID, UUID } from 'bson';
 
 class PhotoUploadService {
   private storage = new Storage({
@@ -44,8 +45,8 @@ class PhotoUploadService {
     return this.storage.bucket(bucketName);
   }
 
-  private generateRandomFilename = (file: any) => {
-    const randomString = Math.random().toString(36).substring(2, 15);
+  public generateRandomFilename = (file: any) => {
+    const randomString = new UUID().toString();
 
     return `${randomString}.${this.getFileExtension(file)}`;
   };
@@ -54,10 +55,10 @@ class PhotoUploadService {
     return file.originalname.split('.').pop().toLowerCase();
   }
 
-  public async uploadToStorage(file: any) {
+  public async uploadToStorage(file: any, albumId: string) {
     const bucket = this.getBucket();
 
-    const f = bucket.file(this.generateRandomFilename(file));
+    const f = bucket.file(`${albumId}/${file.originalName}`);
 
     await f.save(file.buffer);
   }

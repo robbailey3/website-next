@@ -1,4 +1,5 @@
 import photosController from '@/features/photos/controllers/photos.controller';
+import { withDatabase } from '@/services/database/database.service';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -15,4 +16,4 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(405).json({ message: 'Method not allowed' });
 };
 
-export default withApiAuthRequired(Handler);
+export default withDatabase(Handler);

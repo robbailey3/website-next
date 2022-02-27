@@ -1,5 +1,6 @@
 import databaseService from '@/services/database/database.service';
 import { PhotoModel } from '../models/photo';
+import { PhotoViewModel } from '../viewModels/photoViewModel';
 
 class PhotoService {
   public async getPhotos(
@@ -14,6 +15,19 @@ class PhotoService {
       .toArray();
 
     return photos;
+  }
+
+  public async createPhoto(photo: Partial<PhotoModel>): Promise<string> {
+    const collection =
+      databaseService.getCollection<Partial<PhotoModel>>('photos');
+
+    const result = await collection.insertOne({
+      ...photo,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    return result.insertedId.toHexString();
   }
 }
 

@@ -1,7 +1,7 @@
 export interface PhotoModel {
-  _id: string;
   caption: string;
   url: string;
+  thumbnailUrl: string;
   createdAt: Date;
   updatedAt: Date;
   albumId: string;
