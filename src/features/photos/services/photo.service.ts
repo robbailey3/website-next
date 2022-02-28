@@ -1,4 +1,5 @@
 import databaseService from '@/services/database/database.service';
+import { DeleteResult } from 'mongodb';
 import { PhotoModel } from '../models/photo';
 
 class PhotoService {
@@ -27,6 +28,12 @@ class PhotoService {
     });
 
     return result.insertedId.toHexString();
+  }
+
+  public async deletePhoto(photoId: string): Promise<DeleteResult> {
+    const collection = databaseService.getCollection('photos');
+
+    return await collection.deleteOne({ _id: photoId });
   }
 }
 

@@ -1,3 +1,4 @@
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import axios from 'axios';
 import React from 'react';
 
@@ -27,9 +28,15 @@ const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
   }, [uploadPhoto]);
 
   return (
-    <div>
-      {isLoading && <div>Loading...</div>}
-      {previewSrc && <img src={previewSrc} alt="" />}
+    <div className="w-48 h-48 mr-4 mb-4 relative">
+      {isLoading && (
+        <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center bg-black bg-opacity-40">
+          <Loader />
+        </div>
+      )}
+      {previewSrc && (
+        <img src={previewSrc} alt="" className="w-full h-full object-cover" />
+      )}
     </div>
   );
 };

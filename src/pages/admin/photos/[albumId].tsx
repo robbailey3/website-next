@@ -1,5 +1,7 @@
 import Container from '@/components/common/Container/Container';
 import LazyImage from '@/components/common/LazyImage/LazyImage';
+import Loader from '@/components/common/Loaders/Loader/Loader';
+import AdminPhotoItem from '@/features/photos/components/AdminPhotoItem/AdminPhotoItem';
 import AdminPhotoUploadModal, {
   UploadFormResult,
 } from '@/features/photos/components/AdminPhotoUploadModal/AdminPhotoUploadModal';
@@ -13,70 +15,76 @@ import React from 'react';
 const PhotoAlbumPage = () => {
   const router = useRouter();
 
-  const { id } = router.query;
+  const { albumId } = router.query;
 
-  const albumsResponse = usePhotoAlbum(id as string);
+  const albumsResponse = usePhotoAlbum(albumId as string);
 
-  const photosResponse = usePhotos(id as string);
+  const photosResponse = usePhotos(albumId as string);
 
-  const [isUploadModalOpen, setIsUploadModalOpen] = React.useState(true);
+  const [isUploadModalOpen, setIsUploadModalOpen] = React.useState(false);
 
   const [uploadFormResults, setUploadFormResults] = React.useState<
     UploadFormResult[]
   >([]);
 
+  React.useEffect(() => {
+    setUploadFormResults([]);
+  }, [albumsResponse.album, photosResponse.photos]);
+
   const handleUploadModalClose = () => {
-    console.log('Upload modal closed');
     setIsUploadModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsUploadModalOpen(true);
   };
 
   const handlePhotoSubmit = async (uploadResults: UploadFormResult[]) => {
     setUploadFormResults(uploadResults);
   };
 
+  if (albumsResponse.isLoading || photosResponse.isLoading) {
+    return (
+      <Container>
+        <div className="flex items-center justify-center p-16">
+          <Loader />
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      <div className="flex flex-wrap">
+      <div>
         {isUploadModalOpen && (
           <AdminPhotoUploadModal
             onClose={handleUploadModalClose}
             onSubmit={handlePhotoSubmit}
           />
         )}
-        {photosResponse &&
-          photosResponse.photos &&
-          photosResponse.photos.map((photo: PhotoViewModel) => (
-            <div key={photo._id} className="w-1/2">
-              <LazyImage
-                src={photo.url}
-                thumbnailSrc={photo.thumbnailUrl}
-                alt={photo.caption}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ))}
+      </div>
+      <div className="flex flex-wrap">
+        <button
+          className="w-48 h-48 mr-4 mb-4 relative flex justify-center items-center bg-gray-100 border-2 border-gray-500 rounded"
+          onClick={openModal}
+        >
+          Add Photos
+        </button>
         {uploadFormResults &&
           uploadFormResults.map((upload, i) => (
             <AdminUploadingPhoto
               previewSrc={upload.previewSrc!}
               key={`upload_${i}`}
-              albumId={id as string}
+              albumId={albumId as string}
               file={upload.file}
             />
           ))}
+        {photosResponse &&
+          photosResponse.photos &&
+          photosResponse.photos.map((photo: PhotoViewModel) => (
+            <AdminPhotoItem photo={photo} key={photo._id} />
+          ))}
       </div>
-      <pre>
-        {JSON.stringify(
-          {
-            album: albumsResponse.album,
-            photos: photosResponse.photos,
-            error: albumsResponse.error || photosResponse.error,
-            isLoading: albumsResponse.isLoading || photosResponse.isLoading,
-          },
-          null,
-          4
-        )}
-      </pre>
     </Container>
   );
 };

@@ -18,17 +18,17 @@ class PhotoAlbumsController {
   }
 
   public async getPhotoAlbum(req: NextApiRequest, res: NextApiResponse) {
-    const { id } = req.query;
+    const { albumId } = req.query;
 
-    if (!id) {
+    if (!albumId) {
       return res.status(400).json({ message: 'Missing id' });
     }
 
-    if (Array.isArray(id)) {
+    if (Array.isArray(albumId)) {
       return res.status(400).json({ message: 'Multiple ids not supported' });
     }
 
-    const result = await photoAlbumService.getPhotoAlbum(id);
+    const result = await photoAlbumService.getPhotoAlbum(albumId);
 
     return new OkResponse(result).toResponse(res);
   }

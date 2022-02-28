@@ -62,6 +62,14 @@ class PhotoUploadService {
 
     await f.save(file.buffer);
   }
+
+  public async deleteFromStorage(albumId: string, fileName: string) {
+    const bucket = this.getBucket();
+
+    const f = bucket.file(`${albumId}/${fileName}`);
+
+    await f.delete();
+  }
 }
 
 export default new PhotoUploadService();

@@ -16,4 +16,4 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(405).json({ message: 'Method not allowed' });
 };
 
-export default withDatabase(Handler);
+export default withApiAuthRequired(withDatabase(Handler));

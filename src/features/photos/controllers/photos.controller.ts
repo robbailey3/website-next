@@ -4,6 +4,9 @@ import photoUploadService from '../services/photoUpload.service';
 import photoService from '../services/photo.service';
 import { OkResponse } from '@/responses/ok-response';
 import photoAlbumService from '../services/photoAlbum.service';
+import { ServerErrorResponse } from '@/responses/server-error-response';
+import { NotFoundResponse } from '@/responses/not-found-response';
+import { BadRequestResponse } from '@/responses/bad-request-response';
 const upload = multer({ storage: multer.memoryStorage() });
 
 function runMiddleware(
@@ -24,12 +27,12 @@ function runMiddleware(
 
 class PhotosController {
   public async getPhotos(req: NextApiRequest, res: NextApiResponse) {
-    let { limit = 20, skip = 0, id } = req.query;
+    let { limit = 20, skip = 0, albumId } = req.query;
 
     limit = parseInt(limit as string, 10);
     skip = parseInt(skip as string, 10);
 
-    const photos = await photoService.getPhotos(id as string, limit, skip);
+    const photos = await photoService.getPhotos(albumId as string, limit, skip);
 
     return new OkResponse(photos).toResponse(res);
   }
@@ -43,42 +46,65 @@ class PhotosController {
 
       const { file } = req;
 
-      const { id } = req.query;
+      const { albumId } = req.query;
 
-      if (!id) {
-        return res.status(400).json({ message: 'Missing id' });
+      if (!albumId) {
+        return new BadRequestResponse('Missing id').toResponse(res);
       }
-      if (Array.isArray(id)) {
-        return res.status(400).json({ message: 'Multiple ids not supported' });
+      if (Array.isArray(albumId)) {
+        return new BadRequestResponse('id must be a string').toResponse(res);
       }
 
       if (!photoUploadService.isValidFile(file)) {
-        return res.status(400).json({ message: 'Invalid file' });
+        return new BadRequestResponse('Invalid file type').toResponse(res);
       }
 
-      const photoAlbum = await photoAlbumService.getPhotoAlbum(id);
+      const photoAlbum = await photoAlbumService.getPhotoAlbum(albumId);
 
       if (!photoAlbum) {
-        return res.status(404).json({ message: 'Photo album not found' });
+        return new NotFoundResponse().toResponse(res);
       }
 
       const fileName = photoUploadService.generateRandomFilename(file);
 
       file.originalName = fileName;
 
-      await photoUploadService.uploadToStorage(file, id);
+      await photoUploadService.uploadToStorage(file, albumId);
 
-      await photoService.createPhoto({
+      const insertedId = await photoService.createPhoto({
         caption: '',
-        url: `${process.env.GOOGLE_BUCKET_URL}/${id}/${fileName}`,
-        thumbnailUrl: `${process.env.GOOGLE_BUCKET_URL}/${id}/thumbnail_${fileName}`,
-        albumId: id,
+        url: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/${fileName}`,
+        thumbnailUrl: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/thumbnail_${fileName}`,
+        albumId,
       });
 
-      return res.status(200).json({ message: 'Success' });
+      return new OkResponse({ id: insertedId }).toResponse(res);
     } catch (error: any) {
-      return res.status(500).json({ message: error.message });
+      return new ServerErrorResponse(error).toResponse(res);
     }
+  }
+
+  public async deletePhoto(req: NextApiRequest, res: NextApiResponse) {
+    const { photoId, albumId } = req.query;
+
+    if (!photoId) {
+      return new BadRequestResponse('Missing id').toResponse(res);
+    }
+    if (Array.isArray(photoId)) {
+      return new BadRequestResponse('id must be a string').toResponse(res);
+    }
+    if (!albumId) {
+      return new BadRequestResponse('Missing albumId').toResponse(res);
+    }
+    if (Array.isArray(albumId)) {
+      return new BadRequestResponse('albumId must be a string').toResponse(res);
+    }
+
+    await photoService.deletePhoto(photoId);
+
+    await photoUploadService.deleteFromStorage(albumId, photoId);
+
+    return new OkResponse({}).toResponse(res);
   }
 }
 

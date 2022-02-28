@@ -44,6 +44,7 @@ const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUploadResults([]);
     const { files } = event.target;
     if (!files || files.length === 0) {
       return;
@@ -119,9 +120,11 @@ const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
   return (
     <Modal onClose={onClose}>
       <div className="p-4">
-        <form>
-          <div>
-            <label htmlFor="photos">Upload Photos</label>
+        <form className="mb-4">
+          <div className="py-4">
+            <label htmlFor="photos" className="block mb-4">
+              Upload Photos
+            </label>
             <input
               type="file"
               id="photos"
@@ -129,11 +132,12 @@ const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
               multiple
               onChange={handleFileChange}
               pattern="image/*"
+              className="block w-full border-2 border-gray-400 focus:outline-none focus:border-blue-500 rounded p-2"
             />
           </div>
           <Button onClick={handleSubmit}>Upload</Button>
         </form>
-        <div className="flex flex-wrap justify-around">
+        <div className="flex flex-wrap justify-start">
           {uploadResults.map((result: UploadFormResult, i: number) => (
             <AdminPhotoUploadPreviewItem
               previewSrc={result.previewSrc}

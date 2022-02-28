@@ -12,7 +12,7 @@ const AdminPhotoUploadPreviewItem = (
   const { previewSrc, isLoading } = props;
 
   return (
-    <div className="w-32 h-32 overflow-hidden">
+    <div className="w-32 h-32 rounded overflow-hidden">
       {isLoading && 'Loading...'}
       {!isLoading && previewSrc && (
         <img
