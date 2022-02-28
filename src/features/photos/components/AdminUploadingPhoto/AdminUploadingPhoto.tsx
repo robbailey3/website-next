@@ -1,4 +1,5 @@
-import { UploadFormResult } from '../AdminPhotoUploadModal/AdminPhotoUploadModal';
+import axios from 'axios';
+import React from 'react';
 
 export interface AdminUploadingPhotoProps {
   file: File;
@@ -6,15 +7,31 @@ export interface AdminUploadingPhotoProps {
   albumId: string;
 }
 
-const AdminUploadingPhotoProps = (props: AdminUploadingPhotoProps) => {
-  const { uploadingPhotos, albumId } = props;
+const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
+  const { file, previewSrc, albumId } = props;
 
-  const uploadPhoto = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const uploadPhoto = React.useCallback(async () => {
     const formdata = new FormData();
 
-    formdata.append('photo', uploadResult.file);
-    axios.post(`/api/photo-albums/${albumId}/upload`, formdata);
-  };
+    formdata.append('photo', file);
+    await axios.post(`/api/photo-albums/${albumId}/upload`, formdata);
+
+    setIsLoading(false);
+  }, [file, albumId]);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    uploadPhoto();
+  }, [uploadPhoto]);
+
+  return (
+    <div>
+      {isLoading && <div>Loading...</div>}
+      {previewSrc && <img src={previewSrc} alt="" />}
+    </div>
+  );
 };
 
-export default AdminUploadingPhotoProps;
+export default AdminUploadingPhoto;

@@ -1,6 +1,5 @@
 import databaseService from '@/services/database/database.service';
 import { PhotoModel } from '../models/photo';
-import { PhotoViewModel } from '../viewModels/photoViewModel';
 
 class PhotoService {
   public async getPhotos(

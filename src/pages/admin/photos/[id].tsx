@@ -3,10 +3,10 @@ import LazyImage from '@/components/common/LazyImage/LazyImage';
 import AdminPhotoUploadModal, {
   UploadFormResult,
 } from '@/features/photos/components/AdminPhotoUploadModal/AdminPhotoUploadModal';
+import AdminUploadingPhoto from '@/features/photos/components/AdminUploadingPhoto/AdminUploadingPhoto';
 import usePhotoAlbum from '@/features/photos/hooks/usePhotoAlbum';
 import usePhotos from '@/features/photos/hooks/usePhotos';
 import { PhotoViewModel } from '@/features/photos/viewModels/photoViewModel';
-import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -31,13 +31,7 @@ const PhotoAlbumPage = () => {
   };
 
   const handlePhotoSubmit = async (uploadResults: UploadFormResult[]) => {
-    let promises: Promise<AxiosResponse>[] = [];
-    uploadResults.forEach((uploadResult) => {
-      const formdata = new FormData();
-      formdata.append('photo', uploadResult.file);
-      promises.push(axios.post(`/api/photo-albums/${id}/upload`, formdata));
-    });
-    await Promise.all(promises);
+    setUploadFormResults(uploadResults);
   };
 
   return (
@@ -61,7 +55,15 @@ const PhotoAlbumPage = () => {
               />
             </div>
           ))}
-        {uploadFormResults && <div>{uploadFormResults.length}</div>}
+        {uploadFormResults &&
+          uploadFormResults.map((upload, i) => (
+            <AdminUploadingPhoto
+              previewSrc={upload.previewSrc!}
+              key={`upload_${i}`}
+              albumId={id as string}
+              file={upload.file}
+            />
+          ))}
       </div>
       <pre>
         {JSON.stringify(
