@@ -52,10 +52,15 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
           label={'Menu'}
         />
         {menuActive && (
-          <div className="absolute top-10 right-1 bg-white z-20 p-2">
+          <div className="absolute top-10 right-1 bg-white z-20 p-2 rounded shadow-xl">
             <ul>
               <li>
-                <button onClick={deletePhoto}>Delete</button>
+                <button
+                  onClick={deletePhoto}
+                  className="border-none outline-none focus:outline-none"
+                >
+                  Delete
+                </button>
               </li>
               <li></li>
             </ul>
