@@ -1,4 +1,5 @@
-import photosController from '@/features/photos/controllers/photos.controller';
+import UploadPhoto from '@/features/photos/controllers/photo/UploadPhoto';
+import { NotFoundResponse } from '@/responses/not-found-response';
 import { withDatabase } from '@/services/database/database.service';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -11,9 +12,9 @@ export const config = {
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    return await photosController.uploadPhotos(req, res);
+    return await UploadPhoto(req, res);
   }
-  return res.status(405).json({ message: 'Method not allowed' });
+  return new NotFoundResponse().toResponse(res);
 };
 
 export default withApiAuthRequired(withDatabase(Handler));

@@ -1,6 +1,7 @@
 import Container from '@/components/common/Container/Container';
 import LazyImage from '@/components/common/LazyImage/LazyImage';
 import Loader from '@/components/common/Loaders/Loader/Loader';
+import Pagination from '@/components/common/Pagination/Pagination';
 import AdminPhotoItem from '@/features/photos/components/AdminPhotoItem/AdminPhotoItem';
 import AdminPhotoUploadModal, {
   UploadFormResult,
@@ -13,13 +14,21 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 const PhotoAlbumPage = () => {
+  const PHOTOS_PER_PAGE = 20;
+
   const router = useRouter();
 
   const { albumId } = router.query;
 
   const albumsResponse = usePhotoAlbum(albumId as string);
 
-  const photosResponse = usePhotos(albumId as string);
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const photosResponse = usePhotos(
+    albumId as string,
+    PHOTOS_PER_PAGE,
+    (currentPage - 1) * PHOTOS_PER_PAGE
+  );
 
   const [isUploadModalOpen, setIsUploadModalOpen] = React.useState(false);
 
@@ -27,9 +36,13 @@ const PhotoAlbumPage = () => {
     UploadFormResult[]
   >([]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   React.useEffect(() => {
     setUploadFormResults([]);
-  }, [albumsResponse.album, photosResponse.photos]);
+  }, [albumsResponse.album, photosResponse.response]);
 
   const handleUploadModalClose = () => {
     setIsUploadModalOpen(false);
@@ -80,11 +93,17 @@ const PhotoAlbumPage = () => {
             />
           ))}
         {photosResponse &&
-          photosResponse.photos &&
-          photosResponse.photos.map((photo: PhotoViewModel) => (
+          photosResponse.response.photos &&
+          photosResponse.response.photos.map((photo: PhotoViewModel) => (
             <AdminPhotoItem photo={photo} key={photo._id} />
           ))}
       </div>
+      <Pagination
+        totalItems={photosResponse.response.count}
+        itemsPerPage={20}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </Container>
   );
 };

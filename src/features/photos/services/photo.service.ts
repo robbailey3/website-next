@@ -1,5 +1,6 @@
 import databaseService from '@/services/database/database.service';
-import { DeleteResult } from 'mongodb';
+import { ObjectID } from 'bson';
+import { DeleteResult, ModifyResult } from 'mongodb';
 import { PhotoModel } from '../models/photo';
 
 class PhotoService {
@@ -34,6 +35,26 @@ class PhotoService {
     const collection = databaseService.getCollection('photos');
 
     return await collection.deleteOne({ _id: photoId });
+  }
+
+  public async updatePhoto(
+    photoId: string,
+    caption: string
+  ): Promise<ModifyResult<PhotoModel>> {
+    const collection = databaseService.getCollection<PhotoModel>('photos');
+
+    return await collection.findOneAndUpdate(
+      { _id: ObjectID.createFromHexString(photoId) },
+      { $set: { updatedAt: new Date(), caption } }
+    );
+  }
+
+  public async getCount(albumId: string): Promise<number> {
+    const collection = databaseService.getCollection('photos');
+
+    const count = await collection.countDocuments({ albumId });
+
+    return count;
   }
 }
 
