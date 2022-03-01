@@ -2,7 +2,9 @@ import { BadRequestException } from '@/exceptions/BadRequestException';
 import { BadRequestResponse } from '@/responses/bad-request-response';
 import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
+import logger from '@/utils/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ApiError } from 'next/dist/server/api-utils';
 import photoService from '../../services/photo.service';
 import photoUploadService from '../../services/photoUpload.service';
 
@@ -28,13 +30,23 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { photoId, albumId } = req.query;
 
+    const photo = await photoService.getPhoto(photoId as string);
+
+    if (!photo) {
+      throw new BadRequestException('Photo not found');
+    }
+
     await photoService.deletePhoto(photoId as string);
 
-    await photoUploadService.deleteFromStorage(
-      albumId as string,
-      photoId as string
-    );
+    const imagePath = photo.url.split('/').pop();
+    const thumbPath = photo.thumbnailUrl.split('/').pop();
 
+    if (imagePath) {
+      await photoUploadService.deleteFromStorage(albumId as string, imagePath);
+    }
+    if (thumbPath) {
+      await photoUploadService.deleteFromStorage(albumId as string, thumbPath);
+    }
     return new OkResponse({}).toResponse(res);
   } catch (error: any) {
     if (error instanceof BadRequestException) {

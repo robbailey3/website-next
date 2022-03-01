@@ -1,5 +1,6 @@
+import logger from '@/utils/logger';
 import { Bucket, Storage } from '@google-cloud/storage';
-import { ObjectID, UUID } from 'bson';
+import { UUID } from 'bson';
 
 class PhotoUploadService {
   private storage = new Storage({
@@ -37,8 +38,17 @@ class PhotoUploadService {
     return file.size <= this.MAX_FILE_SIZE;
   }
 
-  private getBucket(): Bucket {
+  private getTempBucket(): Bucket {
     const bucketName = process.env.GOOGLE_BUCKET_NAME;
+    if (!bucketName) {
+      throw new Error('Bucket name is not defined');
+    }
+    return this.storage.bucket(bucketName);
+  }
+
+  private getBucket(): Bucket {
+    const bucketName = process.env.GOOGLE_LIVE_BUCKET_NAME;
+
     if (!bucketName) {
       throw new Error('Bucket name is not defined');
     }
@@ -56,7 +66,7 @@ class PhotoUploadService {
   }
 
   public async uploadToStorage(file: any, albumId: string) {
-    const bucket = this.getBucket();
+    const bucket = this.getTempBucket();
 
     const f = bucket.file(`${albumId}/${file.originalName}`);
 
@@ -68,7 +78,11 @@ class PhotoUploadService {
 
     const f = bucket.file(`${albumId}/${fileName}`);
 
-    await f.delete();
+    const [fileExists] = await f.exists();
+
+    if (fileExists) {
+      await f.delete();
+    }
   }
 }
 

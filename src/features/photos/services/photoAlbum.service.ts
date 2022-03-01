@@ -3,6 +3,7 @@ import databaseService from '@/services/database/database.service';
 import { ObjectID } from 'bson';
 import { PhotoModel } from '../models/photo';
 import { PhotoAlbumModel } from '../models/photoAlbum';
+import { UpdatePhotoAlbumRequest } from '../requests/UpdatePhotoAlbumRequest';
 
 class PhotoAlbumService {
   public async getPhotoAlbums(
@@ -75,7 +76,7 @@ class PhotoAlbumService {
 
   public async updatePhotoAlbum(
     id: string,
-    photoAlbum: PhotoAlbumModel
+    photoAlbum: UpdatePhotoAlbumRequest
   ): Promise<void> {
     if (!ObjectID.isValid(id)) {
       throw new BadRequestException('Invalid id');

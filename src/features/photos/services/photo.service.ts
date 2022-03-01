@@ -4,6 +4,14 @@ import { DeleteResult, ModifyResult } from 'mongodb';
 import { PhotoModel } from '../models/photo';
 
 class PhotoService {
+  public async getPhoto(photoId: string): Promise<PhotoModel | null> {
+    const photo = await databaseService
+      .getCollection<PhotoModel>('photos')
+      .findOne({ _id: new ObjectID(photoId) });
+
+    return photo;
+  }
+
   public async getPhotos(
     albumId: string,
     limit: number,
@@ -34,7 +42,9 @@ class PhotoService {
   public async deletePhoto(photoId: string): Promise<DeleteResult> {
     const collection = databaseService.getCollection('photos');
 
-    return await collection.deleteOne({ _id: photoId });
+    return await collection.deleteOne({
+      _id: ObjectID.createFromHexString(photoId),
+    });
   }
 
   public async updatePhoto(
