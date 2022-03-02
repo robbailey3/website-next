@@ -10,7 +10,7 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
   const { album } = props;
 
   return (
-    <div className="flex bg-gray-300 relative overflow-hidden w-32 h-32">
+    <div className="flex bg-gray-300 relative overflow-hidden w-48 h-48 mr-4 mb-4">
       {album.coverImage && (
         <div className="absolute top-0 left-0 w-full h-full object-cover flex items-center justify-center">
           <img
@@ -22,8 +22,7 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
       )}
       <div className="flex w-full h-full items-center justify-center bg-black bg-opacity-5 text-white relative z-10">
         <Link href={`/admin/photos/${album._id}`}>
-          <a href="">
-            <span>{album._id}</span>
+          <a href={`/admin/photos/${album._id}`}>
             <div>{album.name}</div>
           </a>
         </Link>

@@ -6,6 +6,8 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 const PhotoAdminPage = () => {
   const { albums, isLoading, error } = usePhotoAlbums();
 
+  console.log({ albums });
+
   return (
     <Container>
       {isLoading && <div>Loading...</div>}

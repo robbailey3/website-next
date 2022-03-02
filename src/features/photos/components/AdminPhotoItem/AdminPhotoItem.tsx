@@ -24,6 +24,28 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
     setMenuActive(!menuActive);
   };
 
+  const setImageAsAlbumCover = async (photo: PhotoViewModel) => {
+    try {
+      await axios.patch(`/api/photo-albums/${photo.albumId}`, {
+        coverImageId: photo._id,
+      });
+      addToast({
+        variant: 'success',
+        message: 'Cover image updated',
+        isActive: true,
+        duration: 5000,
+      });
+      toggleMenuActive();
+    } catch (error: any) {
+      addToast({
+        variant: 'error',
+        message: `Failed to set image as album cover: ${error.message}`,
+        isActive: true,
+        duration: 5000,
+      });
+    }
+  };
+
   const deletePhoto = async () => {
     try {
       await axios.delete(`/api/photo-albums/${photo.albumId}/${photo._id}`);
@@ -52,17 +74,24 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
           label={'Menu'}
         />
         {menuActive && (
-          <div className="absolute top-10 right-1 bg-white z-20 p-2 rounded shadow-xl">
+          <div className="absolute top-10 right-1 bg-white z-20 py-2 rounded shadow-xl w-40">
             <ul>
               <li>
                 <button
+                  onClick={() => setImageAsAlbumCover(photo)}
+                  className="border-none outline-none focus:outline-none text-left hover:bg-gray-100 block p-2 w-full"
+                >
+                  Set as album cover
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={deletePhoto}
-                  className="border-none outline-none focus:outline-none"
+                  className="border-none outline-none focus:outline-none text-left hover:bg-gray-100 block p-2 w-full"
                 >
                   Delete
                 </button>
               </li>
-              <li></li>
             </ul>
           </div>
         )}

@@ -3,11 +3,13 @@ import { BadRequestResponse } from '@/responses/bad-request-response';
 import { CreatedResponse } from '@/responses/CreatedResponse';
 import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import withApiAuthFactory from '@auth0/nextjs-auth0/dist/helpers/with-api-auth-required';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 
 const validateRequest = (req: NextApiRequest) => {
-  const { name } = req.query;
+  const { name } = req.body;
 
   if (!name) {
     throw new BadRequestException('Missing name');
@@ -20,9 +22,9 @@ const validateRequest = (req: NextApiRequest) => {
 
 const CreateAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { name } = req.body;
-
     validateRequest(req);
+
+    const { name } = req.body;
 
     const result = await photoAlbumService.createPhotoAlbum({ name } as any);
 
@@ -35,4 +37,4 @@ const CreateAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default CreateAlbum;
+export default withApiAuthRequired(CreateAlbum);

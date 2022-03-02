@@ -57,7 +57,9 @@ class PhotoAlbumService {
     return photoAlbum;
   }
 
-  public async createPhotoAlbum(photoAlbum: PhotoAlbumModel): Promise<any> {
+  public async createPhotoAlbum(
+    photoAlbum: PhotoAlbumModel
+  ): Promise<PhotoAlbumModel | null> {
     if (photoAlbum._id) {
       throw new BadRequestException('Id is not allowed');
     }
@@ -66,12 +68,16 @@ class PhotoAlbumService {
       databaseService.getCollection<PhotoAlbumModel>('photo_albums');
 
     const result = await collection.insertOne({
-      name: photoAlbum.name,
-      createdAt: new Date(),
+      ...photoAlbum,
       updatedAt: new Date(),
-    } as any);
+      createdAt: new Date(),
+    });
 
-    return result.insertedId;
+    const album = await collection.findOne<PhotoAlbumModel>({
+      _id: result.insertedId,
+    });
+
+    return album;
   }
 
   public async updatePhotoAlbum(
