@@ -1,6 +1,7 @@
 import visionDetectionApi from '@/features/vision-detection/services/vision-detection-api';
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
+import { logHttpRequest } from '@/utils/logger';
 const upload = multer({ storage: multer.memoryStorage() });
 
 const VALID_MIMETYPES = ['image/jpeg', 'image/png'];
@@ -52,6 +53,7 @@ const Handler = async (
   req: NextApiRequest & { [key: string]: any },
   res: NextApiResponse
 ) => {
+  logHttpRequest(req);
   if (req.method !== 'POST') {
     return;
   }
