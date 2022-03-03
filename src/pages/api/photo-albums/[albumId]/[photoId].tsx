@@ -17,4 +17,4 @@ const Handler = (req: NextApiRequest, res: NextApiResponse) => {
   return new NotFoundResponse().toResponse(res);
 };
 
-export default withApiAuthRequired(withDatabase(Handler));
+export default withDatabase(Handler);

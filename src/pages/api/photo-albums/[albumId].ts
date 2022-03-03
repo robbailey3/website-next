@@ -17,7 +17,6 @@ const Handler = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'DELETE') {
     return DeleteAlbum(req, res);
   }
-  console.log('HERE');
   return new NotFoundResponse().toResponse(res);
 };
 

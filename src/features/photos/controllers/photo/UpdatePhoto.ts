@@ -2,6 +2,7 @@ import { BadRequestException } from '@/exceptions/BadRequestException';
 import { BadRequestResponse } from '@/responses/bad-request-response';
 import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../../services/photo.service';
 
@@ -34,4 +35,4 @@ const UpdatePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default UpdatePhoto;
+export default withApiAuthRequired(UpdatePhoto);

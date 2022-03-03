@@ -6,6 +6,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../../services/photo.service';
 import photoUploadService from '../../services/photoUpload.service';
 import * as Sentry from '@sentry/nextjs';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 const validateRequest = (req: NextApiRequest) => {
   const { photoId, albumId } = req.query;
@@ -57,4 +58,4 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default Sentry.withSentry(DeletePhoto);
+export default withApiAuthRequired(DeletePhoto);
