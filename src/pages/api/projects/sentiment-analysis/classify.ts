@@ -1,8 +1,10 @@
 import sentimentAnalysis from '@/features/sentiment-analysis/services/sentimentAnalysis';
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as Sentry from '@sentry/node';
+import { logHttpRequest } from '@/utils/logger';
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  logHttpRequest(req);
   if (req.method !== 'POST') {
     return res.status(404).end();
   }

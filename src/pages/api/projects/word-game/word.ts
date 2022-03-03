@@ -1,4 +1,5 @@
 import wordlist from '@/features/word-game/data/wordlist';
+import { logHttpRequest } from '@/utils/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const random = () => {
@@ -10,6 +11,7 @@ const random = () => {
 };
 
 const Handle = (req: NextApiRequest, res: NextApiResponse) => {
+  logHttpRequest(req);
   if (req.method === 'GET') {
     const word = random();
     res.status(200).json({ word });
