@@ -32,7 +32,7 @@ const OverflowMenu = (props: OverflowMenuProps) => {
     <div className={clsx('relative', className)}>
       <IconButton
         onClick={handleClick}
-        className="bg-transparent shadow-none hover:bg-black hover:bg-opacity-20 focus:bg-black focus:bg-opacity-20"
+        className="shadow-none hover:bg-black hover:bg-opacity-20 focus:bg-black focus:bg-opacity-20 bg-transparent"
         icon={faEllipsisVertical}
         label="Toggle menu"
       />

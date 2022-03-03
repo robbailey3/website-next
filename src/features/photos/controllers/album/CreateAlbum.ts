@@ -1,10 +1,8 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
 import { BadRequestResponse } from '@/responses/bad-request-response';
 import { CreatedResponse } from '@/responses/CreatedResponse';
-import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import withApiAuthFactory from '@auth0/nextjs-auth0/dist/helpers/with-api-auth-required';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 
