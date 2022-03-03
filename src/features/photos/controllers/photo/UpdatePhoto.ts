@@ -4,7 +4,6 @@ import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../../services/photo.service';
-import photoUploadService from '../../services/photoUpload.service';
 
 const validateRequest = (req: NextApiRequest) => {
   const { photoId } = req.query;

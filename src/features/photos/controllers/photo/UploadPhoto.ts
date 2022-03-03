@@ -9,6 +9,7 @@ import photoService from '../../services/photo.service';
 import photoAlbumService from '../../services/photoAlbum.service';
 import photoUploadService from '../../services/photoUpload.service';
 const upload = multer({ storage: multer.memoryStorage() });
+import * as Sentry from '@sentry/nextjs';
 
 const UploadPhoto = async (
   req: NextApiRequest & {
@@ -55,8 +56,9 @@ const UploadPhoto = async (
 
     return new OkResponse({ id: insertedId }).toResponse(res);
   } catch (error: any) {
+    Sentry.captureException(error);
     return new ServerErrorResponse(error).toResponse(res);
   }
 };
 
-export default UploadPhoto;
+export default Sentry.withSentry(UploadPhoto);

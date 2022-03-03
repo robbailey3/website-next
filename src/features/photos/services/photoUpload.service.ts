@@ -3,18 +3,23 @@ import { Bucket, Storage } from '@google-cloud/storage';
 import { UUID } from 'bson';
 
 class PhotoUploadService {
-  private storage = new Storage({
-    credentials: {
-      private_key: process.env.GOOGLE_PRIVATE_KEY,
-      client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    },
-  });
+  private storage!: Storage;
 
   private validMimeTypes = ['image/jpeg', 'image/png'];
 
   private validFileExtensions = ['jpg', 'png', 'jpeg'];
 
   private MAX_FILE_SIZE = 30 * 1024 * 1024; // 30MB
+
+  constructor() {
+    this.storage = new Storage({
+      projectId: process.env.GOOGLE_PROJECT_ID,
+      credentials: {
+        private_key: process.env.GOOGLE_PRIVATE_KEY,
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+      },
+    });
+  }
 
   public isValidFile(file: any) {
     return (
@@ -82,6 +87,18 @@ class PhotoUploadService {
 
     if (fileExists) {
       await f.delete();
+    }
+  }
+
+  public async deleteAlbum(albumId: string) {
+    logger.info(`Deleting album ${albumId}`);
+    const bucket = this.getBucket();
+    const [files] = await bucket.getFiles({ prefix: `${albumId}/` });
+    if (files.length > 0) {
+      const deletePromises = files.map((file) =>
+        file.delete({ ignoreNotFound: true })
+      );
+      await Promise.all(deletePromises);
     }
   }
 }

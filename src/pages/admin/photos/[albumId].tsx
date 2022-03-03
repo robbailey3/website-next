@@ -1,5 +1,5 @@
+import Breadcrumbs from '@/components/common/Breadcrumbs/Breadcrumbs';
 import Container from '@/components/common/Container/Container';
-import LazyImage from '@/components/common/LazyImage/LazyImage';
 import Loader from '@/components/common/Loaders/Loader/Loader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import AdminPhotoItem from '@/features/photos/components/AdminPhotoItem/AdminPhotoItem';
@@ -10,6 +10,7 @@ import AdminUploadingPhoto from '@/features/photos/components/AdminUploadingPhot
 import usePhotoAlbum from '@/features/photos/hooks/usePhotoAlbum';
 import usePhotos from '@/features/photos/hooks/usePhotos';
 import { PhotoViewModel } from '@/features/photos/viewModels/photoViewModel';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -68,6 +69,10 @@ const PhotoAlbumPage = () => {
 
   return (
     <Container>
+      <Head>
+        <title>Admin / Rob Bailey</title>
+      </Head>
+      <Breadcrumbs />
       <div>
         {isUploadModalOpen && (
           <AdminPhotoUploadModal
@@ -95,15 +100,23 @@ const PhotoAlbumPage = () => {
         {photosResponse &&
           photosResponse.response.photos &&
           photosResponse.response.photos.map((photo: PhotoViewModel) => (
-            <AdminPhotoItem photo={photo} key={photo._id} />
+            <AdminPhotoItem
+              photo={photo}
+              key={photo._id}
+              album={albumsResponse.album}
+            />
           ))}
       </div>
-      <Pagination
-        totalItems={photosResponse.response.count}
-        itemsPerPage={20}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {photosResponse &&
+        photosResponse.response.photos &&
+        photosResponse.response.photos.length > PHOTOS_PER_PAGE && (
+          <Pagination
+            totalItems={photosResponse.response.count}
+            itemsPerPage={20}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
     </Container>
   );
 };

@@ -4,6 +4,7 @@ import { ObjectID } from 'bson';
 import { PhotoModel } from '../models/photo';
 import { PhotoAlbumModel } from '../models/photoAlbum';
 import { UpdatePhotoAlbumRequest } from '../requests/UpdatePhotoAlbumRequest';
+import photoUploadService from './photoUpload.service';
 
 class PhotoAlbumService {
   public async getPhotoAlbums(
@@ -93,6 +94,21 @@ class PhotoAlbumService {
       { _id: ObjectID.createFromHexString(id) },
       { $set: { ...photoAlbum, updatedAt: new Date() } }
     );
+  }
+
+  public async deleteAlbum(albumId: string) {
+    const collection = databaseService.getCollection('photo_albums');
+    const result = await collection.deleteOne({
+      _id: ObjectID.createFromHexString(albumId),
+    });
+
+    if (result.deletedCount === 0) {
+      throw new BadRequestException('Album not found');
+    }
+
+    await photoUploadService.deleteAlbum(albumId);
+
+    return;
   }
 }
 

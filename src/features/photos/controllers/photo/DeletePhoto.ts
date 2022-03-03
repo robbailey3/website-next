@@ -2,11 +2,10 @@ import { BadRequestException } from '@/exceptions/BadRequestException';
 import { BadRequestResponse } from '@/responses/bad-request-response';
 import { OkResponse } from '@/responses/ok-response';
 import { ServerErrorResponse } from '@/responses/server-error-response';
-import logger from '@/utils/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ApiError } from 'next/dist/server/api-utils';
 import photoService from '../../services/photo.service';
 import photoUploadService from '../../services/photoUpload.service';
+import * as Sentry from '@sentry/nextjs';
 
 const validateRequest = (req: NextApiRequest) => {
   const { photoId, albumId } = req.query;
@@ -36,8 +35,6 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new BadRequestException('Photo not found');
     }
 
-    await photoService.deletePhoto(photoId as string);
-
     const imagePath = photo.url.split('/').pop();
     const thumbPath = photo.thumbnailUrl.split('/').pop();
 
@@ -47,13 +44,17 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
     if (thumbPath) {
       await photoUploadService.deleteFromStorage(albumId as string, thumbPath);
     }
+
+    await photoService.deletePhoto(photoId as string);
+
     return new OkResponse({}).toResponse(res);
   } catch (error: any) {
     if (error instanceof BadRequestException) {
       return new BadRequestResponse(error.message).toResponse(res);
     }
+    Sentry.captureException(error);
     return new ServerErrorResponse(error).toResponse(res);
   }
 };
 
-export default DeletePhoto;
+export default withSentry(DeletePhoto);

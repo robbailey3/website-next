@@ -1,18 +1,18 @@
-import { IconButton } from '@/components/common/Buttons';
 import LazyImage from '@/components/common/LazyImage/LazyImage';
-import Toast from '@/components/common/Toast/Toast';
+import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
 import { PhotoViewModel } from '../../viewModels/photoViewModel';
 
 export interface AdminPhotoItemProps {
   photo: PhotoViewModel;
+  album: PhotoAlbumViewModel;
 }
 
 const AdminPhotoItem = (props: AdminPhotoItemProps) => {
-  const { photo } = props;
+  const { photo, album } = props;
 
   const { addToast } = useContext(ToastContext);
 
@@ -24,10 +24,11 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
     setMenuActive(!menuActive);
   };
 
-  const setImageAsAlbumCover = async (photo: PhotoViewModel) => {
+  const setImageAsAlbumCover = async () => {
     try {
       await axios.patch(`/api/photo-albums/${photo.albumId}`, {
         coverImageId: photo._id,
+        name: album.name,
       });
       addToast({
         variant: 'success',
@@ -66,35 +67,19 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
 
   return (
     <div className="w-48 h-48 mr-4 mb-4 rounded overflow-hidden flex relative">
-      <div className="absolute top-1 right-1 z-20">
-        <IconButton
-          className="absolute top-0 right-0 bg-transparent shadow-none hover:bg-black hover:bg-opacity-20"
-          icon={faEllipsisVertical}
-          onClick={toggleMenuActive}
-          label={'Menu'}
+      <div className="absolute top-4 right-4 z-20">
+        <OverflowMenu
+          actions={[
+            {
+              label: 'Set as album cover',
+              clickHandler: setImageAsAlbumCover,
+            },
+            {
+              label: 'Delete',
+              clickHandler: deletePhoto,
+            },
+          ]}
         />
-        {menuActive && (
-          <div className="absolute top-10 right-1 bg-white z-20 py-2 rounded shadow-xl w-40">
-            <ul>
-              <li>
-                <button
-                  onClick={() => setImageAsAlbumCover(photo)}
-                  className="border-none outline-none focus:outline-none text-left hover:bg-gray-100 block p-2 w-full"
-                >
-                  Set as album cover
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={deletePhoto}
-                  className="border-none outline-none focus:outline-none text-left hover:bg-gray-100 block p-2 w-full"
-                >
-                  Delete
-                </button>
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
       <LazyImage
         src={photo.url}

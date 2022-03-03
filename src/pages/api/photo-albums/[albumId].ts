@@ -1,3 +1,4 @@
+import DeleteAlbum from '@/features/photos/controllers/album/DeleteAlbum';
 import GetAlbum from '@/features/photos/controllers/album/GetAlbum';
 import UpdateAlbum from '@/features/photos/controllers/album/UpdateAlbum';
 import { NotFoundResponse } from '@/responses/not-found-response';
@@ -13,6 +14,10 @@ const Handler = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'PATCH') {
     return UpdateAlbum(req, res);
   }
+  if (req.method === 'DELETE') {
+    return DeleteAlbum(req, res);
+  }
+  console.log('HERE');
   return new NotFoundResponse().toResponse(res);
 };
 

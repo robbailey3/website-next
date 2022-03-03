@@ -1,5 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
+import axios from 'axios';
 import Link from 'next/link';
+import { mutate } from 'swr';
 import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
 
 export interface AdminPhotoAlbumProps {
@@ -9,8 +12,15 @@ export interface AdminPhotoAlbumProps {
 const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
   const { album } = props;
 
+  const deleteAlbum = async () => {
+    try {
+      await axios.delete(`/api/photo-albums/${album._id}`);
+      mutate(`/api/photo-albums`);
+    } catch (error: any) {}
+  };
+
   return (
-    <div className="flex bg-gray-300 relative overflow-hidden w-48 h-48 mr-4 mb-4">
+    <div className="flex bg-gray-300 relative overflow-hidden w-48 h-48 mr-4 mb-4 rounded-md shadow-md">
       {album.coverImage && (
         <div className="absolute top-0 left-0 w-full h-full object-cover flex items-center justify-center">
           <img
@@ -20,10 +30,20 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
           />
         </div>
       )}
-      <div className="flex w-full h-full items-center justify-center bg-black bg-opacity-5 text-white relative z-10">
+      <div className="flex w-full h-full items-center justify-center bg-black bg-opacity-20  relative z-10">
+        <div className="absolute top-4 right-4">
+          <OverflowMenu
+            actions={[
+              {
+                label: 'Delete',
+                clickHandler: () => deleteAlbum(),
+              },
+            ]}
+          />
+        </div>
         <Link href={`/admin/photos/${album._id}`}>
-          <a href={`/admin/photos/${album._id}`}>
-            <div>{album.name}</div>
+          <a href={`/admin/photos/${album._id}`} className="text-white text-xl">
+            <span>{album.name || 'Unknown'}</span>
           </a>
         </Link>
       </div>
