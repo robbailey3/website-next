@@ -57,4 +57,4 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default withSentry(DeletePhoto);
+export default Sentry.withSentry(DeletePhoto);
