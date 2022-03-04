@@ -1,3 +1,4 @@
+import Card from '@/components/common/Card/Card';
 import LazyImage from '@/components/common/LazyImage/LazyImage';
 import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
@@ -5,6 +6,7 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
 import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import AdminPhotoCaptionEditor from '../AdminPhotoCaptionEditor/AdminPhotoCaptionEditor';
 
 export interface AdminPhotoItemProps {
   photo: PhotoViewModel;
@@ -66,7 +68,7 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
   }
 
   return (
-    <div className="w-48 h-48 mr-4 mb-4 rounded overflow-hidden flex relative">
+    <Card className="w-48 mr-4 mb-4 rounded overflow-hidden relative">
       <div className="absolute top-4 right-4 z-20">
         <OverflowMenu
           actions={[
@@ -81,13 +83,16 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
           ]}
         />
       </div>
-      <LazyImage
-        src={photo.url}
-        thumbnailSrc={photo.thumbnailUrl}
-        alt={photo.caption}
-        className="w-full h-full object-cover"
-      />
-    </div>
+      <div className="w-48 h-48">
+        <LazyImage
+          src={photo.url}
+          thumbnailSrc={photo.thumbnailUrl}
+          alt={photo.caption}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <AdminPhotoCaptionEditor photo={photo} />
+    </Card>
   );
 };
 
