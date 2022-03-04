@@ -53,7 +53,7 @@ const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
   };
 
   return (
-    <div className="">
+    <div>
       <label htmlFor={inputId} className="sr-only">
         Edit caption
       </label>
