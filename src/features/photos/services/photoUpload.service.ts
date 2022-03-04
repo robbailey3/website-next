@@ -9,7 +9,7 @@ class PhotoUploadService {
 
   private validFileExtensions = ['jpg', 'png', 'jpeg'];
 
-  private MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  private MAX_FILE_SIZE = 5000000; // 5MB
 
   constructor() {
     this.storage = new Storage({
