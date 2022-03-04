@@ -108,8 +108,8 @@ const PhotoAlbumPage = () => {
           ))}
       </div>
       {photosResponse &&
-        photosResponse.response.photos &&
-        photosResponse.response.photos.length > PHOTOS_PER_PAGE && (
+        photosResponse.response &&
+        photosResponse.response.count > PHOTOS_PER_PAGE && (
           <Pagination
             totalItems={photosResponse.response.count}
             itemsPerPage={20}
