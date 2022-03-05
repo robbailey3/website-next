@@ -47,13 +47,16 @@ const WordGameActions = (props: WordGameActionsProps) => {
     <div className="fixed max-w-2xl bottom-0 w-full left-1/2 -translate-x-1/2 bg-white shadow rounded-t-lg">
       <div className="flex flex-wrap justify-center space-x-4 p-4">
         {letterRows.map((row, i) => (
-          <div className="flex w-full justify-center" key={`letter-row-${i}`}>
+          <div
+            className="flex w-full justify-center my-1"
+            key={`letter-row-${i}`}
+          >
             {row.map((letter) => (
               <WordGameLetterButton
                 key={`letter-${letter}`}
                 letter={letter}
                 disabled={incorrectLetters.includes(letter)}
-                onClick={() => handleLetterClick(letter)}
+                onClick={() => handleLetterClick(letter.toUpperCase())}
               />
             ))}
           </div>

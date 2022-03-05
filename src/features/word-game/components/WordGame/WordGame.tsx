@@ -83,7 +83,15 @@ const WordGame = () => {
   };
 
   const handleLetterChoose = (letter: string) => {
-    console.log(letter);
+    const firstEmptyIndex = currentGuess.letters.findIndex(
+      (letter) => letter === ''
+    );
+    if (firstEmptyIndex === -1) {
+      return;
+    }
+    currentGuess.letters[firstEmptyIndex] = letter;
+    handleGuessChange(currentGuess);
+    console.log(currentGuess);
   };
 
   const handleGuessClear = () => {
