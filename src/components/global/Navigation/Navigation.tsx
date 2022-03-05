@@ -119,6 +119,16 @@ const Navigation = () => {
                 href="/admin/photos"
                 onClick={handleNavLinkClick}
               />
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a
+                href="/api/auth/logout"
+                onClick={handleNavLinkClick}
+                className={clsx(
+                  'px-4 py-2 rounded-full block duration-200 hover:bg-gray-100'
+                )}
+              >
+                Logout
+              </a>
             </>
           ) : (
             <>
