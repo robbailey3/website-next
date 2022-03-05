@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import clsx from 'clsx';
 import React from 'react';
 import {
@@ -14,8 +15,14 @@ const Navigation = () => {
 
   const [isOpen, setIsOpen] = React.useState(true);
 
+  const { user } = useUser();
+
   const toggleNavigation = () => {
     setIsOpen(!isOpen);
+  };
+
+  const isLoggedIn = (): boolean => {
+    return !!user;
   };
 
   const handleNavLinkClick = () => {
@@ -100,18 +107,43 @@ const Navigation = () => {
             hidden: !isOpen && isMobile,
           })}
         >
-          <NavigationLink text="Home" href="/" onClick={handleNavLinkClick} />
-          <NavigationLink
-            text="GitHub"
-            href="/github/robbailey3"
-            onClick={handleNavLinkClick}
-          />
-          <NavigationLink
-            text="Projects"
-            href="/projects"
-            onClick={handleNavLinkClick}
-          />
-          <NavigationLink text="CV" href="/cv" onClick={handleNavLinkClick} />
+          {isLoggedIn() ? (
+            <>
+              <NavigationLink
+                text="Admin Home"
+                href="/admin"
+                onClick={handleNavLinkClick}
+              />
+              <NavigationLink
+                text="Photos"
+                href="/admin/photos"
+                onClick={handleNavLinkClick}
+              />
+            </>
+          ) : (
+            <>
+              <NavigationLink
+                text="Home"
+                href="/"
+                onClick={handleNavLinkClick}
+              />
+              <NavigationLink
+                text="GitHub"
+                href="/github/robbailey3"
+                onClick={handleNavLinkClick}
+              />
+              <NavigationLink
+                text="Projects"
+                href="/projects"
+                onClick={handleNavLinkClick}
+              />
+              <NavigationLink
+                text="CV"
+                href="/cv"
+                onClick={handleNavLinkClick}
+              />
+            </>
+          )}
         </ul>
       </nav>
     </section>
