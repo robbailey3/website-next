@@ -81,9 +81,9 @@ const PhotoAlbumPage = () => {
           />
         )}
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap items-stretch">
         <button
-          className="w-48 h-48 mr-4 mb-4 relative flex justify-center items-center bg-gray-100 border-2 border-gray-500 rounded"
+          className="w-48 mr-4 mb-4 relative flex justify-center items-center bg-gray-100 border-2 border-gray-500 rounded"
           onClick={openModal}
         >
           Add Photos
@@ -108,8 +108,8 @@ const PhotoAlbumPage = () => {
           ))}
       </div>
       {photosResponse &&
-        photosResponse.response.photos &&
-        photosResponse.response.photos.length > PHOTOS_PER_PAGE && (
+        photosResponse.response &&
+        photosResponse.response.count > PHOTOS_PER_PAGE && (
           <Pagination
             totalItems={photosResponse.response.count}
             itemsPerPage={20}
