@@ -82,6 +82,10 @@ const WordGame = () => {
     setShowSuccessPopup(false);
   };
 
+  const handleLetterChoose = (letter: string) => {
+    console.log(letter);
+  };
+
   const handleGuessClear = () => {
     setCurrentGuess(new Guess(CONFIG.lettersPerWord));
   };
@@ -153,10 +157,11 @@ const WordGame = () => {
         {currentGuess && (
           <WordGameActions
             currentGuess={currentGuess}
-            attemptNumber={attemptNumber}
+            incorrectLetters={incorrectLetters}
             numberOfLetters={CONFIG.lettersPerWord}
             onSubmit={handleGuessSubmit}
             onClear={handleGuessClear}
+            onLetterChoose={handleLetterChoose}
           />
         )}
       </section>
