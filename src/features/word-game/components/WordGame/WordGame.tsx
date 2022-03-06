@@ -82,6 +82,17 @@ const WordGame = () => {
     setShowSuccessPopup(false);
   };
 
+  const handleLetterChoose = (letter: string) => {
+    const firstEmptyIndex = currentGuess.letters.findIndex(
+      (letter) => letter === ''
+    );
+    if (firstEmptyIndex === -1) {
+      return;
+    }
+    currentGuess.letters[firstEmptyIndex] = letter;
+    handleGuessChange(currentGuess);
+  };
+
   const handleGuessClear = () => {
     setCurrentGuess(new Guess(CONFIG.lettersPerWord));
   };
@@ -153,10 +164,11 @@ const WordGame = () => {
         {currentGuess && (
           <WordGameActions
             currentGuess={currentGuess}
-            attemptNumber={attemptNumber}
+            incorrectLetters={incorrectLetters}
             numberOfLetters={CONFIG.lettersPerWord}
             onSubmit={handleGuessSubmit}
             onClear={handleGuessClear}
+            onLetterChoose={handleLetterChoose}
           />
         )}
       </section>
