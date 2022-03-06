@@ -48,13 +48,13 @@ const WordGameActions = (props: WordGameActionsProps) => {
       <div className="flex flex-wrap justify-center space-x-4 p-4 items-center">
         <button
           disabled={!canSubmit()}
-          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
+          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap order-3 md:order-1"
           onClick={onSubmit}
         >
           <span className="w-full">Submit</span>
           <FontAwesomeIcon icon={faCheck} />
         </button>
-        <div>
+        <div className="order-2">
           {letterRows.map((row, i) => (
             <div
               className="flex grow justify-center my-1"
@@ -73,7 +73,7 @@ const WordGameActions = (props: WordGameActionsProps) => {
         </div>
         <button
           disabled={currentGuess.isSubmitted}
-          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
+          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap order-3"
           onClick={onClear}
         >
           <span className="w-full">Clear</span>

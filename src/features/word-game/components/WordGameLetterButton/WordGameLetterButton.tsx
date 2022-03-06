@@ -13,7 +13,7 @@ const WordGameLetterButton = (props: WordGameLetterButton) => {
     <button
       onClick={onClick}
       className={clsx(
-        'p-2 border-none bg-gray-100 shadow mr-2 hover:bg-gray-200 duration-200',
+        'p-1 md:p-2 border-none bg-gray-100 shadow mr-2 hover:bg-gray-200 duration-200',
         {
           'bg-gray-300 text-gray-400': disabled,
         }
