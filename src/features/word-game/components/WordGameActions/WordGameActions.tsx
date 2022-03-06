@@ -27,9 +27,9 @@ const WordGameActions = (props: WordGameActionsProps) => {
   } = props;
 
   const letterRows: string[][] = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
   ];
 
   const canSubmit = () => {
@@ -44,34 +44,36 @@ const WordGameActions = (props: WordGameActionsProps) => {
   };
 
   return (
-    <div className="fixed max-w-2xl bottom-0 w-full left-1/2 -translate-x-1/2 bg-white shadow rounded-t-lg">
-      <div className="flex flex-wrap justify-center space-x-4 p-4">
-        {letterRows.map((row, i) => (
-          <div
-            className="flex w-full justify-center my-1"
-            key={`letter-row-${i}`}
-          >
-            {row.map((letter) => (
-              <WordGameLetterButton
-                key={`letter-${letter}`}
-                letter={letter}
-                disabled={incorrectLetters.includes(letter)}
-                onClick={() => handleLetterClick(letter.toUpperCase())}
-              />
-            ))}
-          </div>
-        ))}
+    <div className="fixed bottom-0 w-full left-1/2 -translate-x-1/2 bg-white shadow rounded-t-lg">
+      <div className="flex flex-wrap justify-center space-x-4 p-4 items-center">
         <button
           disabled={!canSubmit()}
-          className="h-24 w-24 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
+          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
           onClick={onSubmit}
         >
           <span className="w-full">Submit</span>
           <FontAwesomeIcon icon={faCheck} />
         </button>
+        <div>
+          {letterRows.map((row, i) => (
+            <div
+              className="flex grow justify-center my-1"
+              key={`letter-row-${i}`}
+            >
+              {row.map((letter) => (
+                <WordGameLetterButton
+                  key={`letter-${letter}`}
+                  letter={letter}
+                  disabled={incorrectLetters.includes(letter)}
+                  onClick={() => handleLetterClick(letter)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
         <button
           disabled={currentGuess.isSubmitted}
-          className="h-24 w-24 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
+          className="p-2 flex justify-center items-center bg-slate-50 disabled:bg-slate-200 disabled:text-slate-300 disabled:cursor-not-allowed rounded-lg flex-wrap"
           onClick={onClear}
         >
           <span className="w-full">Clear</span>

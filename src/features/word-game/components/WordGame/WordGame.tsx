@@ -91,7 +91,6 @@ const WordGame = () => {
     }
     currentGuess.letters[firstEmptyIndex] = letter;
     handleGuessChange(currentGuess);
-    console.log(currentGuess);
   };
 
   const handleGuessClear = () => {
