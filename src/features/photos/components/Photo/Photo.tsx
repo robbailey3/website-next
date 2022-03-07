@@ -1,21 +1,26 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import LazyImage from '@/components/common/LazyImage/LazyImage';
-import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import { PhotoModel } from '../../models/photo';
 
 export interface PhotoProps {
-  photo: PhotoViewModel;
+  photo: PhotoModel;
+  onClick: () => void;
 }
 
 const Photo = (props: PhotoProps) => {
-  const { photo } = props;
+  const { photo, onClick } = props;
 
   return (
-    <div className="w-full mr-4 mb-4 rounded shadow bg-slate-500 overflow-hidden relative">
-      <LazyImage
-        src={photo.url}
-        thumbnailSrc={photo.thumbnailUrl}
-        alt={photo.caption}
-        className="w-full h-full object-cover"
-      />
+    <div className="w-full max-w-screen-md mr-4 mb-4 rounded shadow bg-slate-500 overflow-hidden relative">
+      <span onClick={onClick}>
+        <LazyImage
+          src={photo.url}
+          thumbnailSrc={photo.thumbnailUrl}
+          alt={photo.caption}
+          className="w-full h-full object-cover"
+        />
+      </span>
     </div>
   );
 };

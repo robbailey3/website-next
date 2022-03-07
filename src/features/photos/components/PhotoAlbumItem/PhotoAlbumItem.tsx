@@ -1,9 +1,9 @@
 import LazyImage from '@/components/common/LazyImage/LazyImage';
 import Link from 'next/link';
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 
 export interface PhotoAlbumItemProps {
-  album: PhotoAlbumViewModel;
+  album: PhotoAlbumModel;
 }
 
 const PhotoAlbumItem = (props: PhotoAlbumItemProps) => {

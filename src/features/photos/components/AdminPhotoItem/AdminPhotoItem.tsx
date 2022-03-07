@@ -4,13 +4,13 @@ import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
-import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
+import { PhotoModel } from '../../models/photo';
 import AdminPhotoCaptionEditor from '../AdminPhotoCaptionEditor/AdminPhotoCaptionEditor';
 
 export interface AdminPhotoItemProps {
-  photo: PhotoViewModel;
-  album: PhotoAlbumViewModel;
+  photo: PhotoModel;
+  album: PhotoAlbumModel;
 }
 
 const AdminPhotoItem = (props: AdminPhotoItemProps) => {

@@ -1,10 +1,10 @@
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import { PhotoModel } from '../../models/photo';
 
 export interface AdminPhotoCaptionEditorProps {
-  photo: PhotoViewModel;
+  photo: PhotoModel;
 }
 
 const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {

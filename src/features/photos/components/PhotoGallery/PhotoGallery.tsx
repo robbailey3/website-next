@@ -1,10 +1,10 @@
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
-import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import { PhotoModel } from '../../models/photo';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 import PhotoList from '../PhotoList/PhotoList';
 
 export interface PhotoGalleryProps {
-  album: PhotoAlbumViewModel;
-  photos: PhotoViewModel[];
+  album: PhotoAlbumModel;
+  photos: PhotoModel[];
 }
 
 const PhotoGallery = (props: PhotoGalleryProps) => {

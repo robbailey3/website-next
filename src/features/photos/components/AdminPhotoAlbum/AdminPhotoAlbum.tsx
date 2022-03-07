@@ -3,10 +3,10 @@ import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import axios from 'axios';
 import Link from 'next/link';
 import { mutate } from 'swr';
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 
 export interface AdminPhotoAlbumProps {
-  album: PhotoAlbumViewModel;
+  album: PhotoAlbumModel;
 }
 
 const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {

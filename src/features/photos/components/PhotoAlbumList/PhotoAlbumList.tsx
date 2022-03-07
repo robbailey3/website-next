@@ -1,8 +1,8 @@
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 import PhotoAlbumItem from '../PhotoAlbumItem/PhotoAlbumItem';
 
 export interface PhotoAlbumListProps {
-  albums: PhotoAlbumViewModel[];
+  albums: PhotoAlbumModel[];
 }
 
 const PhotoAlbumList = (props: PhotoAlbumListProps) => {
@@ -15,7 +15,7 @@ const PhotoAlbumList = (props: PhotoAlbumListProps) => {
   return (
     <section className="flex flex-wrap mt-8 justify-center md:justify-around">
       {albums.map((album) => (
-        <PhotoAlbumItem key={album._id} album={album} />
+        <PhotoAlbumItem key={album._id as string} album={album} />
       ))}
     </section>
   );

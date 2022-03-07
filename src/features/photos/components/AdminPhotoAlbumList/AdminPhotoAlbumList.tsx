@@ -2,12 +2,12 @@ import Modal from '@/components/common/Modal/Modal';
 import axios from 'axios';
 import React from 'react';
 import { mutate } from 'swr';
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 import AdminPhotoAlbum from '../AdminPhotoAlbum/AdminPhotoAlbum';
 import AdminPhotoAlbumForm from '../AdminPhotoAlbumForm/AdminPhotoAlbumForm';
 
 export interface AdminPhotoAlbumListProps {
-  albums: PhotoAlbumViewModel[];
+  albums: PhotoAlbumModel[];
 }
 
 const AdminPhotoAlbumList = (props: AdminPhotoAlbumListProps) => {
@@ -45,7 +45,7 @@ const AdminPhotoAlbumList = (props: AdminPhotoAlbumListProps) => {
           </button>
         </div>
         {albums.map((album) => (
-          <AdminPhotoAlbum key={album._id} album={album} />
+          <AdminPhotoAlbum key={album._id as string} album={album} />
         ))}
       </div>
       {isCreateModalOpen && (
