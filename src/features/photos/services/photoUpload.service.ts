@@ -1,6 +1,7 @@
 import logger from '@/utils/logger';
 import { Bucket, Storage } from '@google-cloud/storage';
 import { UUID } from 'bson';
+import exifr from 'exifr';
 
 class PhotoUploadService {
   private storage!: Storage;
@@ -10,6 +11,28 @@ class PhotoUploadService {
   private validFileExtensions = ['jpg', 'png', 'jpeg'];
 
   private MAX_FILE_SIZE = 5000000; // 5MB
+
+  private exifOptions = {
+    pick: [
+      'ImageWidth',
+      'ImageHeight',
+      'Make',
+      'Model',
+      'ExposureTime',
+      'FocalLength',
+      'FNumber',
+      'ISO',
+      'LensModel',
+      'LensMake',
+      'latitude',
+      'longitude',
+      'DateTimeOriginal',
+      'GPSLatitudeRef',
+      'GPSLatitude',
+      'GPSLongitudeRef',
+      'GPSLongitude',
+    ],
+  };
 
   constructor() {
     this.storage = new Storage({
@@ -27,6 +50,10 @@ class PhotoUploadService {
       this.isValidFileExtension(file) &&
       this.isValidFileSize(file)
     );
+  }
+
+  public async readExif(file: any) {
+    return await exifr.parse(file.buffer, this.exifOptions);
   }
 
   private isValidMimeType(file: any): boolean {
