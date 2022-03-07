@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { UUID } from 'bson';
 
 class WordGameService {
   public async getWord(): Promise<string> {

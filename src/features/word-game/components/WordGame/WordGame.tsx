@@ -105,6 +105,7 @@ const WordGame = () => {
     const startTimer = () => {
       setStartTime(new Date());
     };
+
     const getWord = async () => {
       setIsLoading(true);
       try {
@@ -142,10 +143,8 @@ const WordGame = () => {
             key={`word-game_attempt_${i}`}
             attemptNumber={attemptNumber}
             numberOfLetters={CONFIG.lettersPerWord}
-            onGuessChange={handleGuessChange}
             guess={guess}
             targetWord={targetWord}
-            incorrectLetters={incorrectLetters}
           />
         ))}
       </section>
@@ -154,10 +153,8 @@ const WordGame = () => {
           key={`word-game_attempt_${attemptNumber}`}
           attemptNumber={attemptNumber}
           numberOfLetters={CONFIG.lettersPerWord}
-          onGuessChange={handleGuessChange}
           guess={currentGuess}
           targetWord={targetWord}
-          incorrectLetters={incorrectLetters}
         />
       </section>
       <section>
