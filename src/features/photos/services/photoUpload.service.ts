@@ -23,6 +23,7 @@ class PhotoUploadService {
       'FNumber',
       'ISO',
       'LensModel',
+      'LensMake',
       'latitude',
       'longitude',
       'DateTimeOriginal',
@@ -53,10 +54,6 @@ class PhotoUploadService {
 
   public async readExif(file: any) {
     return await exifr.parse(file.buffer, this.exifOptions);
-  }
-
-  public async getPhotoLocation(file: any) {
-    return await exifr.gps(file.buffer);
   }
 
   private isValidMimeType(file: any): boolean {

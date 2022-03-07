@@ -64,6 +64,7 @@ const UploadPhoto = async (
         fNumber: photoExif.FNumber,
         iso: photoExif.ISO,
         lensModel: photoExif.LensModel,
+        lensMake: photoExif.LensMake,
         focalLength: photoExif.FocalLength,
         dateTimeOriginal: photoExif.DateTimeOriginal,
       },

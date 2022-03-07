@@ -23,6 +23,7 @@ export interface PhotoMeta {
   dateTimeOriginal?: Date;
   focalLength?: number;
   lensModel?: string;
+  lensMake?: string;
 }
 
 export interface PhotoLocation {
