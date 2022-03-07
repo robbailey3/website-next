@@ -1,5 +1,6 @@
 import { Button } from '@/components/common/Buttons';
 import Modal from '@/components/common/Modal/Modal';
+import { ToastContext } from '@/context/ToastContext/ToastContext';
 import React from 'react';
 import AdminPhotoUploadPreviewItem from '../AdminPhotoUploadPreviewItem/AdminPhotoUploadPreviewItem';
 
@@ -17,6 +18,8 @@ export interface AdminPhotoUploadModalProps {
 
 const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
   const { onClose, onSubmit } = props;
+
+  const { addToast } = React.useContext(ToastContext);
 
   const VALID_FILE_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 
@@ -64,7 +67,12 @@ const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
       });
       updateFiles(files);
     } else {
-      alert('Please select a valid image file');
+      addToast({
+        variant: 'error',
+        message: 'Invalid file',
+        isActive: true,
+        duration: 10000,
+      });
     }
   };
 
@@ -85,7 +93,7 @@ const AdminPhotoUploadModal = (props: AdminPhotoUploadModalProps) => {
     if (!file) {
       return false;
     }
-    if (file.size > 25 * 1000000) {
+    if (file.size > 5 * 1000000) {
       return false;
     }
     if (!file.type.startsWith('image/')) {

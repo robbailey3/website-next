@@ -21,11 +21,8 @@ const Breadcrumbs = () => {
     <div className="my-4">
       {segments.map((segment, i) => {
         return (
-          <>
-            <Link
-              href={`/${segments.slice(0, i + 1).join('/')}`}
-              key={`segment_${segment}_${i}`}
-            >
+          <span key={`segment_${segment}_${i}`}>
+            <Link href={`/${segments.slice(0, i + 1).join('/')}`}>
               <a
                 href={`/${segments.slice(0, i + 1).join('/')}`}
                 className="text-gray-400 italic"
@@ -36,7 +33,7 @@ const Breadcrumbs = () => {
             {i < segments.length - 1 && (
               <span className="text-blue-500 mx-2">/</span>
             )}
-          </>
+          </span>
         );
       })}
     </div>
