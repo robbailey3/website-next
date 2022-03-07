@@ -4,6 +4,7 @@ import { ObjectID } from 'bson';
 import { PhotoModel } from '../models/photo';
 import { PhotoAlbumModel } from '../models/photoAlbum';
 import { UpdatePhotoAlbumRequest } from '../requests/UpdatePhotoAlbumRequest';
+import photoService from './photo.service';
 import photoUploadService from './photoUpload.service';
 
 class PhotoAlbumService {
@@ -101,6 +102,8 @@ class PhotoAlbumService {
     const result = await collection.deleteOne({
       _id: ObjectID.createFromHexString(albumId),
     });
+
+    await photoService.deletePhotosInAlbum(albumId);
 
     if (result.deletedCount === 0) {
       throw new BadRequestException('Album not found');

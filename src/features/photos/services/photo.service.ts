@@ -26,9 +26,8 @@ class PhotoService {
     return photos;
   }
 
-  public async createPhoto(photo: Partial<PhotoModel>): Promise<string> {
-    const collection =
-      databaseService.getCollection<Partial<PhotoModel>>('photos');
+  public async createPhoto(photo: PhotoModel): Promise<string> {
+    const collection = databaseService.getCollection<PhotoModel>('photos');
 
     const result = await collection.insertOne({
       ...photo,
@@ -36,7 +35,7 @@ class PhotoService {
       updatedAt: new Date(),
     });
 
-    return result.insertedId.toHexString();
+    return (result.insertedId as ObjectID).toHexString();
   }
 
   public async deletePhoto(photoId: string): Promise<DeleteResult> {
@@ -45,6 +44,12 @@ class PhotoService {
     return await collection.deleteOne({
       _id: ObjectID.createFromHexString(photoId),
     });
+  }
+
+  public async deletePhotosInAlbum(albumId: string): Promise<DeleteResult> {
+    const collection = databaseService.getCollection('photos');
+
+    return await collection.deleteMany({ albumId });
   }
 
   public async updatePhoto(

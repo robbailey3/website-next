@@ -46,6 +46,8 @@ const UploadPhoto = async (
 
     file.originalName = fileName;
 
+    const photoExif = await photoUploadService.readExif(file);
+
     await photoUploadService.uploadToStorage(file, albumId);
 
     const insertedId = await photoService.createPhoto({
@@ -53,6 +55,25 @@ const UploadPhoto = async (
       url: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/${fileName}`,
       thumbnailUrl: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/thumbnail_${fileName}`,
       albumId,
+      metadata: photoExif && {
+        imageWidth: photoExif.ImageWidth,
+        imageHeight: photoExif.ImageHeight,
+        make: photoExif.Make,
+        model: photoExif.Model,
+        exposureTime: photoExif.ExposureTime,
+        fNumber: photoExif.FNumber,
+        iso: photoExif.ISO,
+        lensModel: photoExif.LensModel,
+        focalLength: photoExif.FocalLength,
+        dateTimeOriginal: photoExif.DateTimeOriginal,
+      },
+      location:
+        photoExif && photoExif.longitude && photoExif.latitude
+          ? {
+              type: 'Point',
+              coordinates: [photoExif.longitude, photoExif.latitude],
+            }
+          : undefined,
     });
 
     return new OkResponse({ id: insertedId }).toResponse(res);
