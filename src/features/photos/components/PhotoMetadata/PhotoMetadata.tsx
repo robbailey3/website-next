@@ -1,6 +1,6 @@
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { PhotoModel } from '../../models/photo';
+import PhotoLocation from '../PhotoLocation/PhotoLocation';
+import PhotoMetaItem from '../PhotoMetaItem/PhotoMetaItem';
 
 export interface PhotoMetadataProps {
   photo: PhotoModel;
@@ -12,37 +12,43 @@ const PhotoMetadata = (props: PhotoMetadataProps) => {
   return (
     <div className="pt-20 px-4">
       <div>
+        {photo.caption && <p>{photo.caption}</p>}
         <div>
-          {photo.metadata?.make && photo.metadata?.model && (
-            <div className="flex items-center text-white">
-              <div>
-                <span className="material-icons">photo_camera</span>
-              </div>
-              <div>
-                <span className="ml-2 block">{photo.metadata.make}</span>
-                <span className="ml-2 block">{photo.metadata.model}</span>
-              </div>
-            </div>
-          )}
-          {photo.metadata?.focalLength &&
-            photo.metadata?.fNumber &&
-            photo.metadata?.iso && (
-              <div className="flex items-center text-white">
-                <div>
-                  <span className="material-icons">camera</span>
-                </div>
-                <div>
-                  <span className="ml-2 block">
-                    {photo.metadata.focalLength}mm
-                  </span>
-                  <span className="ml-2 block">f{photo.metadata.fNumber}</span>
-                  <span className="ml-2 block">f{photo.metadata.iso}</span>
-                </div>
-              </div>
-            )}
+          <PhotoMetaItem
+            icon={<span className="material-icons">photo_camera</span>}
+            values={{
+              'Camera Make': photo.metadata?.make,
+              'Camera Model': photo.metadata?.model,
+              'Lens Make': photo.metadata?.lensMake,
+              'Lens Model': photo.metadata?.lensModel,
+            }}
+          />
+          <PhotoMetaItem
+            icon={<span className="material-icons">camera</span>}
+            values={{
+              'Focal Length': photo.metadata?.focalLength
+                ? `${photo.metadata.focalLength}mm`
+                : undefined,
+              Aperture: photo.metadata?.fNumber
+                ? `f/${photo.metadata.fNumber}`
+                : undefined,
+              ISO: photo.metadata?.iso?.toString(),
+              'Exposure Time': photo.metadata?.exposureTime
+                ? `1/${(1 / photo.metadata.exposureTime).toPrecision(3)}s`
+                : undefined,
+            }}
+          />
         </div>
+        {/* <pre>{JSON.stringify(photo.location, null, 4)}</pre> */}
+        {photo.location && (
+          <PhotoLocation
+            location={{
+              lat: photo.location.coordinates[0],
+              lng: photo.location.coordinates[1],
+            }}
+          />
+        )}
       </div>
-      <pre>{JSON.stringify(photo.location, null, 4)}</pre>
     </div>
   );
 };
