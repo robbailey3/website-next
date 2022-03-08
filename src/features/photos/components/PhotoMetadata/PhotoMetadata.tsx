@@ -12,7 +12,7 @@ const PhotoMetadata = (props: PhotoMetadataProps) => {
   return (
     <div className="pt-20 px-4">
       <div>
-        {photo.caption && <p>{photo.caption}</p>}
+        {photo.caption && <p className="p-4 text-white">{photo.caption}</p>}
         <div>
           <PhotoMetaItem
             icon={<span className="material-icons">photo_camera</span>}

@@ -65,6 +65,7 @@ const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
         value={caption}
         onChange={handleInputChange}
         onKeyUp={handleKeyUp}
+        onBlur={submitChange}
       />
     </div>
   );
