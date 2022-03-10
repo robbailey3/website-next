@@ -14,8 +14,8 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
 
   const deleteAlbum = async () => {
     try {
-      await axios.delete(`/api/photo-albums/${album._id}`);
-      mutate(`/api/photo-albums`);
+      await axios.delete(`/api/photos/${album._id}`);
+      mutate(`/api/photos`);
     } catch (error: any) {}
   };
 

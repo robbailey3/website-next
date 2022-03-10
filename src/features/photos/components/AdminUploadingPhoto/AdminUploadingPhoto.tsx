@@ -17,7 +17,7 @@ const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
     const formdata = new FormData();
 
     formdata.append('photo', file);
-    await axios.post(`/api/photo-albums/${albumId}/upload`, formdata);
+    await axios.post(`/api/photos/${albumId}/upload`, formdata);
 
     setIsLoading(false);
   }, [file, albumId]);
