@@ -1,5 +1,6 @@
 import Container from '@/components/common/Container/Container';
 import PhotoGallery from '@/features/photos/components/PhotoGallery/PhotoGallery';
+import PhotosNotFound from '@/features/photos/components/PhotosNoneFound/PhotosNoneFound';
 import { PhotoModel } from '@/features/photos/models/photo';
 import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
 import photoService from '@/features/photos/services/photo.service';
@@ -53,7 +54,11 @@ const PhotoAlbumPage = (props: {
           content="Photos of all sorts of things taken by Rob Bailey"
         />
       </Head>
-      <PhotoGallery photos={photos} album={album} />
+      {photos.length > 0 ? (
+        <PhotoGallery photos={photos} album={album} />
+      ) : (
+        <PhotosNotFound type="photos" />
+      )}
     </Container>
   );
 };
