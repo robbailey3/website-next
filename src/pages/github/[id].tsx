@@ -15,7 +15,7 @@ export async function getServerSideProps(context: NextPageContext) {
       perPage = 25,
       page = 1,
       id,
-      sort = 'created',
+      sort = 'pushed',
       order = 'desc',
     } = context.query;
 

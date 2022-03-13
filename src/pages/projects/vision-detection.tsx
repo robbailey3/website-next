@@ -9,7 +9,7 @@ import React, { useContext } from 'react';
 import * as vision from '@google-cloud/vision';
 import ImageAnalysisResult from '@/features/vision-detection/components/ImageAnalysisResult/ImageAnalysisResult';
 import ImageResultSelector from '@/features/vision-detection/components/ImageResultSelector/ImageResultSelector';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/nextjs';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import { ToastModel } from '@/models/ToastModel';
 import { IconButton } from '@/components/common/Buttons';
