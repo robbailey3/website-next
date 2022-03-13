@@ -3,10 +3,10 @@ import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import axios from 'axios';
 import Link from 'next/link';
 import { mutate } from 'swr';
-import { PhotoAlbumViewModel } from '../../viewModels/photoAlbumViewModel';
+import { PhotoAlbumModel } from '../../models/photoAlbum';
 
 export interface AdminPhotoAlbumProps {
-  album: PhotoAlbumViewModel;
+  album: PhotoAlbumModel;
 }
 
 const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
@@ -14,8 +14,8 @@ const AdminPhotoAlbum = (props: AdminPhotoAlbumProps) => {
 
   const deleteAlbum = async () => {
     try {
-      await axios.delete(`/api/photo-albums/${album._id}`);
-      mutate(`/api/photo-albums`);
+      await axios.delete(`/api/photos/${album._id}`);
+      mutate(`/api/photos`);
     } catch (error: any) {}
   };
 

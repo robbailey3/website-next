@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 const usePhotoAlbum = (albumId: string) => {
   const { data, error } = useSWR(
-    albumId ? `/api/photo-albums/${albumId}` : null,
+    albumId ? `/api/photos/${albumId}` : null,
     fetcher
   );
 

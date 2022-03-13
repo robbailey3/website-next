@@ -1,10 +1,10 @@
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { PhotoViewModel } from '../../viewModels/photoViewModel';
+import { PhotoModel } from '../../models/photo';
 
 export interface AdminPhotoCaptionEditorProps {
-  photo: PhotoViewModel;
+  photo: PhotoModel;
 }
 
 const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
@@ -18,7 +18,7 @@ const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
 
   const submitChange = async () => {
     try {
-      await axios.patch(`/api/photo-albums/${photo.albumId}/${photo._id}`, {
+      await axios.patch(`/api/photos/${photo.albumId}/${photo._id}`, {
         caption,
       });
 
@@ -65,6 +65,7 @@ const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
         value={caption}
         onChange={handleInputChange}
         onKeyUp={handleKeyUp}
+        onBlur={submitChange}
       />
     </div>
   );
