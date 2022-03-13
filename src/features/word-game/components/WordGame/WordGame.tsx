@@ -3,7 +3,7 @@ import { Guess } from '../../models/guess';
 import WordGameActions from '../WordGameActions/WordGameActions';
 import WordGameAttemptRow from '../WordGameAttemptRow/WordGameAttemptRow';
 import wordGameService from '../../services/word-game';
-import Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/nextjs';
 import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
 import wordlist from '../../data/wordlist';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
