@@ -50,29 +50,29 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
 
   return (
     <div className="fixed w-full h-full bg-black bg-opacity-75 top-0 left-0 z-40 max-h-screen">
-      <div className="absolute top-0 right-0 flex justify-end p-4 space-x-2">
-        <IconButton
-          onClick={handleInfoClick}
-          variant="secondary"
-          icon={faInfo}
-          label={'Toggle Info'}
-          size={'large'}
-        />
-        <IconButton
-          onClick={handleCloseClick}
-          variant="secondary"
-          icon={faTimes}
-          label={'Close'}
-          size={'large'}
-          className="text-white"
-        />
-      </div>
-      <div className="flex h-full">
+      <div className="flex h-full relative">
         <LayoutGroup>
           <motion.div
-            className="grow flex p-4 justify-center items-center duration-500"
+            className="flex p-4 justify-center items-center duration-500 md:relative grow"
             layout
           >
+            <div className="absolute top-0 right-0 flex justify-end p-4 w-full bg-gradient-to-b from-black to-transparent space-x-2 z-30">
+              <IconButton
+                onClick={handleInfoClick}
+                variant="ghost"
+                icon={faInfo}
+                label={'Toggle Info'}
+                size={'large'}
+              />
+              <IconButton
+                onClick={handleCloseClick}
+                variant="ghost"
+                icon={faTimes}
+                label={'Close'}
+                size={'large'}
+                className="text-white"
+              />
+            </div>
             <LazyImage
               src={photo.url}
               thumbnailSrc={photo.thumbnailUrl}
@@ -83,10 +83,10 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
           <AnimatePresence>
             {metadataActive && (
               <motion.div
-                className="h-full"
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: '30%' }}
-                exit={{ opacity: 0, width: 0 }}
+                className="h-full fixed md:relative top-0 right-0 md:top-auto md:right-auto"
+                initial={{ opacity: 0, width: 0, originX: 0 }}
+                animate={{ opacity: 1, width: 340, originX: 0 }}
+                exit={{ opacity: 0, width: 0, originX: 0 }}
               >
                 <PhotoMetadata photo={photo} />
               </motion.div>

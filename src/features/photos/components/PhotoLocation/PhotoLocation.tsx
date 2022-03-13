@@ -8,10 +8,11 @@ const PhotoLocation = (props: PhotoLocationProps) => {
   const { location } = props;
 
   return (
-    <div className="flex">
+    <div className="flex justify-center items-center">
       <img
         src={`https://maps.googleapis.com/maps/api/staticmap?size=300x300&zoom=10&markers=color:red|${location.lng},${location.lat}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
         alt="Map of photo location"
+        className="w-full"
       />
     </div>
   );

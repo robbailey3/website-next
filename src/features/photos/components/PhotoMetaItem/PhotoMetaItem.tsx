@@ -14,7 +14,7 @@ const PhotoMetaItem = (props: PhotoMetaItemProps) => {
     return null;
   }
   return (
-    <div className="text-white mb-4 flex items-start">
+    <div className="mb-4 flex items-start">
       <div className="px-4">{icon}</div>
       <div className="grow">
         {Object.entries(values).map(([key, value]) => {
