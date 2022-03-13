@@ -11,13 +11,21 @@ import Head from 'next/head';
 
 export async function getServerSideProps(context: NextPageContext) {
   try {
-    const { perPage = 25, page = 1, id } = context.query;
+    const {
+      perPage = 25,
+      page = 1,
+      id,
+      sort = 'created',
+      order = 'desc',
+    } = context.query;
 
     const user = await githubService.GetUser(id as string);
 
     const repos = await githubService.GetUserRepositories(id as string, {
       per_page: parseInt(perPage as string, 10),
       page: parseInt(page as string, 10),
+      sort: sort as any,
+      order: order as any,
     });
 
     return {
