@@ -2,7 +2,6 @@ import Container from '@/components/common/Container/Container';
 import PhotoAlbumList from '@/features/photos/components/PhotoAlbumList/PhotoAlbumList';
 import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
 import photoAlbumService from '@/features/photos/services/photoAlbum.service';
-import { PhotoAlbumViewModel } from '@/features/photos/viewModels/photoAlbumViewModel';
 import databaseService from '@/services/database/database.service';
 import Head from 'next/head';
 
@@ -25,7 +24,7 @@ export async function getServerSideProps() {
   }
 }
 
-const PhotosPage = (props: { albums: PhotoAlbumViewModel[] }) => {
+const PhotosPage = (props: { albums: PhotoAlbumModel[] }) => {
   const { albums } = props;
   return (
     <>

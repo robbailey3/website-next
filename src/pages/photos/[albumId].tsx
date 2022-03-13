@@ -1,9 +1,9 @@
 import Container from '@/components/common/Container/Container';
 import PhotoGallery from '@/features/photos/components/PhotoGallery/PhotoGallery';
+import { PhotoModel } from '@/features/photos/models/photo';
+import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
 import photoService from '@/features/photos/services/photo.service';
 import photoAlbumService from '@/features/photos/services/photoAlbum.service';
-import { PhotoAlbumViewModel } from '@/features/photos/viewModels/photoAlbumViewModel';
-import { PhotoModel } from '@/features/photos/viewModels/PhotoModel';
 import databaseService from '@/services/database/database.service';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
@@ -39,7 +39,7 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const PhotoAlbumPage = (props: {
-  album: PhotoAlbumViewModel;
+  album: PhotoAlbumModel;
   photos: PhotoModel[];
 }) => {
   const { album, photos } = props;

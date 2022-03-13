@@ -9,7 +9,7 @@ import AdminPhotoUploadModal, {
 import AdminUploadingPhoto from '@/features/photos/components/AdminUploadingPhoto/AdminUploadingPhoto';
 import usePhotoAlbum from '@/features/photos/hooks/usePhotoAlbum';
 import usePhotos from '@/features/photos/hooks/usePhotos';
-import { PhotoModel } from '@/features/photos/viewModels/PhotoModel';
+import { PhotoModel } from '@/features/photos/models/photo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -102,7 +102,7 @@ const PhotoAlbumPage = () => {
           photosResponse.response.photos.map((photo: PhotoModel) => (
             <AdminPhotoItem
               photo={photo}
-              key={photo._id}
+              key={photo._id as string}
               album={albumsResponse.album}
             />
           ))}
