@@ -21,8 +21,8 @@ const AdminPhotoAlbumList = (props: AdminPhotoAlbumListProps) => {
 
   const createAlbum = async (album: { name: string }) => {
     try {
-      const response = await axios.post('/api/photo-albums', album);
-      mutate('/api/photo-albums', [response.data.result, ...albums], false);
+      const response = await axios.post('/api/photos', album);
+      mutate('/api/photos', [response.data.result, ...albums], false);
     } catch (error: any) {
       console.error(error);
     }

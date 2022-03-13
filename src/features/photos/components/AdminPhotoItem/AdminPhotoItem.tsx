@@ -28,7 +28,7 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
 
   const setImageAsAlbumCover = async () => {
     try {
-      await axios.patch(`/api/photo-albums/${photo.albumId}`, {
+      await axios.patch(`/api/photos/${photo.albumId}`, {
         coverImageId: photo._id,
         name: album.name,
       });
@@ -51,7 +51,7 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
 
   const deletePhoto = async () => {
     try {
-      await axios.delete(`/api/photo-albums/${photo.albumId}/${photo._id}`);
+      await axios.delete(`/api/photos/${photo.albumId}/${photo._id}`);
       setIsDeleted(true);
     } catch (error: any) {
       addToast({
