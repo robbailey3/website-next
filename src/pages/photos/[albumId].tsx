@@ -6,6 +6,7 @@ import { PhotoAlbumViewModel } from '@/features/photos/viewModels/photoAlbumView
 import { PhotoModel } from '@/features/photos/viewModels/PhotoModel';
 import databaseService from '@/services/database/database.service';
 import { NextPageContext } from 'next';
+import Head from 'next/head';
 
 export async function getServerSideProps(context: NextPageContext) {
   const { albumId, limit, skip } = context.query;
@@ -45,6 +46,13 @@ const PhotoAlbumPage = (props: {
 
   return (
     <Container>
+      <Head>
+        <title>{`${album.name} / Photos / Rob Bailey`}</title>
+        <meta
+          name="description"
+          content="Photos of all sorts of things taken by Rob Bailey"
+        />
+      </Head>
       <PhotoGallery photos={photos} album={album} />
     </Container>
   );
