@@ -143,6 +143,11 @@ const Navigation = () => {
                 onClick={handleNavLinkClick}
               />
               <NavigationLink
+                text="Photos"
+                href="/photos"
+                onClick={handleNavLinkClick}
+              />
+              <NavigationLink
                 text="Projects"
                 href="/projects"
                 onClick={handleNavLinkClick}

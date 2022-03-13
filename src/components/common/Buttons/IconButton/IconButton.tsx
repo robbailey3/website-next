@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 export interface IconButtonProps {
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'link' | 'ghost';
   size?: 'small' | 'medium' | 'large';
   label: string;
   onClick?: () => void;
@@ -50,6 +50,8 @@ const IconButton = (props: IconButtonProps) => {
         return 'bg-red-900 text-white hover:bg-red-800 focus:bg-red-800';
       case 'link':
         return 'text-blue-500 hover:text-blue-600 hover:bg-gray-50 focus:text-blue-600 focus:bg-gray-50';
+      case 'ghost':
+        return 'text-gray-200 hover:text-gray-100 hover:bg-gray-50 hover:bg-opacity-10 focus:text-gray-100 focus:bg-gray-50 focus:bg-opacity-10 shadow-none';
       default:
         return 'bg-blue-500 text-white hover:bg-blue-600 focus:bg-blue-600';
     }
