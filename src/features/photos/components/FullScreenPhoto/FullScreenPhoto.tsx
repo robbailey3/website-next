@@ -3,7 +3,23 @@ import LazyImage from '@/components/common/LazyImage/LazyImage';
 import { faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AnimatePresence, motion, LayoutGroup } from 'framer-motion';
 import React from 'react';
-import { fromEvent } from 'rxjs';
+import {
+  concatMap,
+  filter,
+  first,
+  fromEvent,
+  map,
+  mergeMap,
+  scan,
+  switchMap,
+  switchMapTo,
+  take,
+  takeLast,
+  takeUntil,
+  tap,
+  withLatestFrom,
+  zipWith,
+} from 'rxjs';
 import { PhotoModel } from '../../models/photo';
 import PhotoMetadata from '../PhotoMetadata/PhotoMetadata';
 
@@ -17,6 +33,8 @@ export interface FullScreenPhotoProps {
 const FullScreenPhoto = (props: FullScreenPhotoProps) => {
   const { photo, onNext, onPrevious, onClose } = props;
 
+  const PHOTO_SWIPE_THRESHOLD = 0.1 * window.innerWidth;
+
   const [metadataActive, setMetadataActive] = React.useState(false);
 
   const handleCloseClick = () => {
@@ -28,6 +46,30 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
   };
 
   React.useEffect(() => {
+    const $touchStart = fromEvent<TouchEvent>(document, 'touchstart');
+
+    const $touchEnd = fromEvent<TouchEvent>(document, 'touchend');
+
+    const $touchSubscription = $touchStart
+      .pipe(
+        map((evt) => evt.touches[0].clientX),
+        switchMap((x) =>
+          $touchEnd.pipe(
+            take(1),
+            map((evt) => evt.changedTouches[0].clientX - x)
+          )
+        )
+      )
+      .subscribe((deltaX) => {
+        if (Math.abs(deltaX) > PHOTO_SWIPE_THRESHOLD) {
+          if (deltaX > 0) {
+            onPrevious();
+          } else {
+            onNext();
+          }
+        }
+      });
+
     const $keyupSubscription = fromEvent<KeyboardEvent>(
       window,
       'keyup'
@@ -45,6 +87,7 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
 
     return () => {
       $keyupSubscription && $keyupSubscription.unsubscribe();
+      $touchSubscription && $touchSubscription.unsubscribe();
     };
   });
 
