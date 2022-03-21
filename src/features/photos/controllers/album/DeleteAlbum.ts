@@ -7,25 +7,27 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 import * as Sentry from '@sentry/nextjs';
+import { IsString } from 'class-validator';
+import validationService from '@/services/validation/validation.service';
 
-const validateRequest = (req: NextApiRequest): void => {
-  if (!req.query.albumId) {
-    throw new BadRequestException('Id is required');
-  }
-  if (Array.isArray(req.query.albumId)) {
-    throw new BadRequestException('Multiple Ids are not allowed');
-  }
-};
+// TODO: Remove these inline classes
+class DeleteAlbumQuery {
+  @IsString()
+  public albumId!: string;
+}
 
 const DeleteAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    validateRequest(req);
-    await photoAlbumService.deleteAlbum(req.query.albumId as string);
+    const query = await validationService.validateQuery(DeleteAlbumQuery, req);
+
+    await photoAlbumService.deleteAlbum(query.albumId);
 
     return new AcceptedResponse().toResponse(res);
   } catch (error: any) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message).toResponse(res);
+      return new BadRequestResponse(error.message, error.errors).toResponse(
+        res
+      );
     }
     Sentry.captureException(error);
     return new ServerErrorResponse(error).toResponse(res);
