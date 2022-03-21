@@ -5,17 +5,19 @@ import { ServerErrorResponse } from '@/responses/server-error-response';
 import validationService from '@/services/validation/validation.service';
 import logger from '@/utils/logger';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsNumberString } from 'class-validator';
+import { IsNumber, IsNumberString, ValidateIf } from 'class-validator';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 
 class GetAlbumsQuery {
   @IsNumberString()
-  @Transform((value) => parseInt(value.value, 10))
+  @Transform((value) => (value ? parseInt(value.value, 10) : 10))
+  @ValidateIf((o) => o.limit)
   public limit!: number;
 
   @IsNumberString()
-  @Transform((value) => parseInt(value.value, 10))
+  @Transform((value) => (value ? parseInt(value.value, 10) : 10))
+  @ValidateIf((o) => o.skip)
   public skip!: number;
 }
 
@@ -24,16 +26,14 @@ const GetAlbums = async (
   res: NextApiResponse
 ): Promise<void> => {
   try {
-    const query = await validationService.validateQuery(GetAlbumsQuery, req);
-
-    logger.info(
-      `Getting photo albums with limit: ${query.limit} and skip: ${query.skip}`
+    const { limit = 10, skip = 0 } = await validationService.validateQuery(
+      GetAlbumsQuery,
+      req
     );
 
-    const result = await photoAlbumService.getPhotoAlbums(
-      query.limit,
-      query.skip
-    );
+    logger.info(`Getting photo albums with limit: ${limit} and skip: ${skip}`);
+
+    const result = await photoAlbumService.getPhotoAlbums(limit, skip);
 
     return new OkResponse(result).toResponse(res);
   } catch (e: any) {
