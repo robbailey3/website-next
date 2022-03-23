@@ -11,16 +11,16 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 const validateRequest = (req: NextApiRequest) => {
   const { photoId, albumId } = req.query;
   if (!photoId) {
-    throw new BadRequestException('Photo id is required');
+    throw new BadRequestException([]);
   }
   if (Array.isArray(photoId)) {
-    throw new BadRequestException('Photo id must be a string');
+    throw new BadRequestException([]);
   }
   if (!albumId) {
-    throw new BadRequestException('Album id is required');
+    throw new BadRequestException([]);
   }
   if (Array.isArray(albumId)) {
-    throw new BadRequestException('Album id must be a string');
+    throw new BadRequestException([]);
   }
 };
 
@@ -33,7 +33,7 @@ const DeletePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
     const photo = await photoService.getPhoto(photoId as string);
 
     if (!photo) {
-      throw new BadRequestException('Photo not found');
+      throw new BadRequestException([]);
     }
 
     const imagePath = photo.url.split('/').pop();
