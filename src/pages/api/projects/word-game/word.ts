@@ -1,5 +1,7 @@
+import { Get } from '@/features/api/decorators/HttpVerbs';
+import { generateHttpHandler } from '@/features/api/utils/generateHttpHandler';
 import wordlist from '@/features/word-game/data/wordlist';
-import { logHttpRequest } from '@/utils/logger';
+import { OkResponse } from '@/responses/OkResponse';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const random = () => {
@@ -10,12 +12,12 @@ const random = () => {
   ];
 };
 
-const Handle = (req: NextApiRequest, res: NextApiResponse) => {
-  logHttpRequest(req);
-  if (req.method === 'GET') {
+class WordGameHandler {
+  @Get()
+  public getWord(req: NextApiRequest, res: NextApiResponse) {
     const word = random();
-    res.status(200).json({ word });
+    return new OkResponse(res, { word }).send();
   }
-};
+}
 
-export default Handle;
+export default generateHttpHandler(WordGameHandler);
