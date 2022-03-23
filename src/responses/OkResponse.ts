@@ -1,10 +1,11 @@
 import { HttpStatus } from '@/enums/HttpStatus';
+import { NextApiResponse } from 'next';
 import { HttpResponse } from './HttpResponse';
 
-export class CreatedResponse implements HttpResponse {
-  public status = HttpStatus.CREATED;
+export class OkResponse implements HttpResponse {
+  public status: HttpStatus = HttpStatus.OK;
 
-  constructor(public res: any, public data?: any) {}
+  constructor(public res: NextApiResponse, public data?: any) {}
 
   public send() {
     return this.res.status(this.status).json({

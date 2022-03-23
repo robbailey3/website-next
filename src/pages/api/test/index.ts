@@ -1,12 +1,13 @@
 import {
   Get,
-  generateHandler,
-  Post,
   Put,
-  Delete,
   Patch,
-  withBodyValidation,
-} from '@/utils/http/decorators/httpMethod';
+  Post,
+  Delete,
+} from '@/features/api/decorators/HttpVerbs';
+import { withBodyValidation } from '@/features/api/decorators/Validation';
+import { generateHttpHandler } from '@/features/api/utils/generateHttpHandler';
+import { OkResponse } from '@/responses/OkResponse';
 import { IsString } from 'class-validator';
 
 class TestBody {
@@ -17,8 +18,7 @@ class TestBody {
 class HttpHandlers {
   @Get()
   public get(req: any, res: any) {
-    console.log({ req, res });
-    return Promise.resolve({ method: 'GET' });
+    return new OkResponse(res).send();
   }
 
   @Put()
@@ -28,7 +28,7 @@ class HttpHandlers {
   }
 
   @Patch()
-  public patch() {
+  public patch(req: any, res: any) {
     console.log({ req, res });
     return Promise.resolve({ method: 'PATCH' });
   }
@@ -44,4 +44,4 @@ class HttpHandlers {
     return Promise.resolve({ method: 'DELETE' });
   }
 }
-export default generateHandler(HttpHandlers);
+export default generateHttpHandler(HttpHandlers);

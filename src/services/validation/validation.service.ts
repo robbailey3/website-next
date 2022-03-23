@@ -18,6 +18,7 @@ class ValidationService {
     schema: ClassConstructor<T>,
     req: NextApiRequest
   ): Promise<T> {
+    console.log(req.query, schema);
     return await this.validate<T>(schema, req.query);
   }
 

@@ -1,7 +1,5 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { OkResponse } from '@/responses/ok-response';
-import { ServerErrorResponse } from '@/responses/server-error-response';
+import { OkResponse } from '@/responses/OkResponse';
 import validationService from '@/services/validation/validation.service';
 import logger from '@/utils/logger';
 import { Transform } from 'class-transformer';
@@ -25,23 +23,16 @@ const GetAlbums = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  try {
-    const { limit = 10, skip = 0 } = await validationService.validateQuery(
-      GetAlbumsQuery,
-      req
-    );
+  const { limit = 10, skip = 0 } = await validationService.validateQuery(
+    GetAlbumsQuery,
+    req
+  );
 
-    logger.info(`Getting photo albums with limit: ${limit} and skip: ${skip}`);
+  logger.info(`Getting photo albums with limit: ${limit} and skip: ${skip}`);
 
-    const result = await photoAlbumService.getPhotoAlbums(limit, skip);
+  const result = await photoAlbumService.getPhotoAlbums(limit, skip);
 
-    return new OkResponse(result).toResponse(res);
-  } catch (e: any) {
-    if (e instanceof BadRequestException) {
-      return new BadRequestResponse(e.message, e.errors).toResponse(res);
-    }
-    return new ServerErrorResponse(e).toResponse(res);
-  }
+  return new OkResponse(res, result).send();
 };
 
 export default GetAlbums;
