@@ -1,4 +1,4 @@
-import { OkResponse } from '@/responses/ok-response';
+import { OkResponse } from '@/responses/OkResponse';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../../services/photo.service';
 
@@ -12,7 +12,7 @@ const GetPhotos = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const count = await photoService.getCount(albumId as string);
 
-  return new OkResponse({ photos, count }).toResponse(res);
+  return OkResponse(res, { photos, count });
 };
 
 export default GetPhotos;

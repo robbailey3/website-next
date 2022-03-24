@@ -1,7 +1,3 @@
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { NotFoundResponse } from '@/responses/not-found-response';
-import { OkResponse } from '@/responses/ok-response';
-import { ServerErrorResponse } from '@/responses/server-error-response';
 import { runMiddleware } from '@/utils/run-middleware';
 import multer from 'multer';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -11,6 +7,11 @@ import photoUploadService from '../../services/photoUpload.service';
 const upload = multer({ storage: multer.memoryStorage() });
 import * as Sentry from '@sentry/nextjs';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
+import { OkResponse } from '@/responses/OkResponse';
+import { NotFoundResponse } from '@/responses/NotFoundResponse';
+import { BadRequestException } from '@/exceptions/BadRequestException';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
 
 const UploadPhoto = async (
   req: NextApiRequest & {
@@ -26,20 +27,22 @@ const UploadPhoto = async (
     const { albumId } = req.query;
 
     if (!albumId) {
-      return new BadRequestResponse('Missing id').toResponse(res);
+      throw new BadRequestException([{ albumId: ['Album ID is required'] }]);
     }
     if (Array.isArray(albumId)) {
-      return new BadRequestResponse('id must be a string').toResponse(res);
+      throw new BadRequestException([
+        { albumId: ['Album ID must be a string'] },
+      ]);
     }
 
     if (!photoUploadService.isValidFile(file)) {
-      return new BadRequestResponse('Invalid file type').toResponse(res);
+      throw new BadRequestException([{ file: ['Invalid file'] }]);
     }
 
     const photoAlbum = await photoAlbumService.getPhotoAlbum(albumId);
 
     if (!photoAlbum) {
-      return new NotFoundResponse().toResponse(res);
+      return NotFoundResponse(res);
     }
 
     const fileName = photoUploadService.generateRandomFilename(file);
@@ -77,10 +80,13 @@ const UploadPhoto = async (
           : undefined,
     });
 
-    return new OkResponse({ id: insertedId }).toResponse(res);
+    return OkResponse(res, { id: insertedId });
   } catch (error: any) {
+    if (error instanceof BadRequestException) {
+      return BadRequestResponse(res, error.errors);
+    }
     Sentry.captureException(error);
-    return new ServerErrorResponse(error).toResponse(res);
+    return ServerErrorResponse(res, error);
   }
 };
 

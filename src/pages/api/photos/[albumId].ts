@@ -1,7 +1,7 @@
 import DeleteAlbum from '@/features/photos/controllers/album/DeleteAlbum';
 import GetAlbum from '@/features/photos/controllers/album/GetAlbum';
 import UpdateAlbum from '@/features/photos/controllers/album/UpdateAlbum';
-import { NotFoundResponse } from '@/responses/not-found-response';
+import { NotFoundResponse } from '@/responses/NotFoundResponse';
 import { withDatabase } from '@/services/database/database.service';
 import { logHttpRequest } from '@/utils/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -17,7 +17,7 @@ const Handler = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'DELETE') {
     return DeleteAlbum(req, res);
   }
-  return new NotFoundResponse().toResponse(res);
+  return NotFoundResponse(res);
 };
 
 export default withDatabase(Handler);
