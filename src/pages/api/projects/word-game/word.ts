@@ -16,7 +16,7 @@ class WordGameHandler {
   @Get()
   public getWord(req: NextApiRequest, res: NextApiResponse) {
     const word = random();
-    return new OkResponse(res, { word }).send();
+    return OkResponse(res, { word });
   }
 }
 

@@ -1,7 +1,7 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
 import { CreatedResponse } from '@/responses/CreatedResponse';
-import { ServerErrorResponse } from '@/responses/server-error-response';
+import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
 import validationService from '@/services/validation/validation.service';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -14,16 +14,14 @@ const CreateAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { name } = req.body;
 
-    const result = await photoAlbumService.createPhotoAlbum({ name } as any);
+    await photoAlbumService.createPhotoAlbum({ name } as any);
 
-    return new CreatedResponse({}).toResponse(res);
+    return CreatedResponse(res);
   } catch (error) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message, error.errors).toResponse(
-        res
-      );
+      return BadRequestResponse(res, error.errors);
     }
-    return new ServerErrorResponse(error).toResponse(res);
+    return ServerErrorResponse(res, error);
   }
 };
 

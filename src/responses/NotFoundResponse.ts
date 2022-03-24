@@ -1,13 +1,9 @@
 import { HttpStatus } from '@/enums/HttpStatus';
 import { NextApiResponse } from 'next';
-import { HttpResponse } from './HttpResponse';
 
-export class NotFoundResponse implements HttpResponse {
-  public status = HttpStatus.NOT_FOUND;
-
-  constructor(public res: NextApiResponse) {}
-
-  public send() {
-    return this.res.status(this.status).json({});
-  }
-}
+export const NotFoundResponse = (res: NextApiResponse) => {
+  return res.status(HttpStatus.NOT_FOUND).json({
+    timestamp: Date.now(),
+    statusCode: HttpStatus.NOT_FOUND,
+  });
+};

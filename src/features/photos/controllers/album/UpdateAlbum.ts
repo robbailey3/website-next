@@ -1,7 +1,7 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { OkResponse } from '@/responses/ok-response';
-import { ServerErrorResponse } from '@/responses/server-error-response';
+import { AcceptedResponse } from '@/responses/AcceptedResponse';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
+import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
 import validationService from '@/services/validation/validation.service';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { IsString } from 'class-validator';
@@ -31,14 +31,12 @@ const UpdateAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
       ...request,
     });
 
-    return new OkResponse({}).toResponse(res);
+    return AcceptedResponse(res);
   } catch (error: any) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message, error.errors).toResponse(
-        res
-      );
+      return BadRequestResponse(res, error.errors);
     }
-    return new ServerErrorResponse(error).toResponse(res);
+    return ServerErrorResponse(res, error);
   }
 };
 

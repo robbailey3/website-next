@@ -1,4 +1,5 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
+import { NotFoundException } from '@/exceptions/NotFoundException';
 import databaseService from '@/services/database/database.service';
 import { ObjectID } from 'bson';
 import { PhotoModel } from '../models/photo';
@@ -37,7 +38,7 @@ class PhotoAlbumService {
 
   public async getPhotoAlbum(id: string): Promise<PhotoAlbumModel | null> {
     if (!ObjectID.isValid(id)) {
-      throw new BadRequestException('Invalid id');
+      throw new BadRequestException([{ albumId: ['Invalid id'] }]);
     }
 
     const collection = databaseService.getCollection('photo_albums');
@@ -63,7 +64,7 @@ class PhotoAlbumService {
     photoAlbum: PhotoAlbumModel
   ): Promise<PhotoAlbumModel | null> {
     if (photoAlbum._id) {
-      throw new BadRequestException('Id is not allowed');
+      throw new BadRequestException([{ _id: ['Id must be empty'] }]);
     }
 
     const collection =
@@ -87,7 +88,7 @@ class PhotoAlbumService {
     photoAlbum: UpdatePhotoAlbumRequest
   ): Promise<void> {
     if (!ObjectID.isValid(id)) {
-      throw new BadRequestException('Invalid id');
+      throw new BadRequestException([{ albumId: ['Invalid id'] }]);
     }
     const collection = databaseService.getCollection('photo_albums');
 
@@ -106,7 +107,7 @@ class PhotoAlbumService {
     await photoService.deletePhotosInAlbum(albumId);
 
     if (result.deletedCount === 0) {
-      throw new BadRequestException('Album not found');
+      throw new NotFoundException('Album not found');
     }
 
     await photoUploadService.deleteAlbum(albumId);

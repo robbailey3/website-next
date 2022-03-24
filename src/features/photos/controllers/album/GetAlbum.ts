@@ -1,6 +1,6 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { OkResponse } from '@/responses/ok-response';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
+import { OkResponse } from '@/responses/OkResponse';
 import validationService from '@/services/validation/validation.service';
 import { IsString } from 'class-validator';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -19,10 +19,10 @@ const GetAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const result = await photoAlbumService.getPhotoAlbum(albumId as string);
 
-    return new OkResponse(result).toResponse(res);
+    return OkResponse(res, result);
   } catch (error) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message).toResponse(res);
+      return BadRequestResponse(res, error.errors);
     }
   }
 };

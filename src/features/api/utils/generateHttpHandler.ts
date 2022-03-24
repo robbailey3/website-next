@@ -23,6 +23,6 @@ export function generateHttpHandler(cls: any) {
         return await methodFn.call(instance, req, res);
       }
     }
-    return new NotFoundResponse(res).send();
+    return NotFoundResponse(res);
   };
 }

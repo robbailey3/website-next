@@ -52,9 +52,8 @@ export async function runHttpHandler(
 
     return returnValue;
   } catch (e: any) {
-    console.log(`Caught exception ${e.message}`);
     if (e instanceof BadRequestException) {
-      return new BadRequestResponse(res, e.errors).send();
+      return BadRequestResponse(res, e.errors);
     }
     return res.status(500).json({ message: e.message });
   }

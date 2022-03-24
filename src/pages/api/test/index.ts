@@ -18,12 +18,11 @@ class TestBody {
 class HttpHandlers {
   @Get()
   public get(req: any, res: any) {
-    return new OkResponse(res).send();
+    return OkResponse(res, { method: 'GET' });
   }
 
   @Put()
   public put(req: any, res: any) {
-    console.log({ req, res });
     return Promise.resolve({ method: 'PUT' });
   }
 

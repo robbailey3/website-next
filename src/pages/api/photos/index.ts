@@ -4,7 +4,6 @@ import {
   withQueryValidation,
 } from '@/features/api/decorators/Validation';
 import { generateHttpHandler } from '@/features/api/utils/generateHttpHandler';
-import GetAlbums from '@/features/photos/controllers/album/GetAlbums';
 import photoController from '@/features/photos/controllers/photoController';
 import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
 import { CommonQuery } from '@/features/photos/queries/commonQuery';
@@ -18,7 +17,7 @@ class PhotoHandler {
   public async getAlbums(req: NextApiRequest, res: NextApiResponse) {
     const albums = await photoController.getAlbums(req, res);
 
-    return new OkResponse(res, albums).send();
+    return OkResponse(res, albums);
   }
 
   @Post()

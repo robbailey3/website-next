@@ -1,9 +1,8 @@
-import { BadRequestException } from '@/exceptions/BadRequestException';
 import { OkResponse } from '@/responses/OkResponse';
 import validationService from '@/services/validation/validation.service';
 import logger from '@/utils/logger';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsNumberString, ValidateIf } from 'class-validator';
+import { IsNumberString, ValidateIf } from 'class-validator';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 
@@ -32,7 +31,7 @@ const GetAlbums = async (
 
   const result = await photoAlbumService.getPhotoAlbums(limit, skip);
 
-  return new OkResponse(res, result).send();
+  return OkResponse(res, result);
 };
 
 export default GetAlbums;
