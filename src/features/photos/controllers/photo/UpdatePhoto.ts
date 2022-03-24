@@ -1,7 +1,7 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { OkResponse } from '@/responses/ok-response';
-import { ServerErrorResponse } from '@/responses/server-error-response';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
+import { OkResponse } from '@/responses/OkResponse';
+import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../../services/photo.service';
@@ -9,10 +9,10 @@ import photoService from '../../services/photo.service';
 const validateRequest = (req: NextApiRequest) => {
   const { photoId } = req.query;
   if (!photoId) {
-    throw new BadRequestException('Photo id is required');
+    throw new BadRequestException([{ photoId: ['Photo id is required'] }]);
   }
   if (Array.isArray(photoId)) {
-    throw new BadRequestException('Photo id must be a string');
+    throw new BadRequestException([{ photoId: ['Photo id must be a string'] }]);
   }
 };
 
@@ -26,12 +26,12 @@ const UpdatePhoto = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const result = await photoService.updatePhoto(photoId as string, caption);
 
-    return new OkResponse(result.value).toResponse(res);
+    return OkResponse(res, result.value);
   } catch (error: any) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message).toResponse(res);
+      return BadRequestResponse(res, error.errors);
     }
-    return new ServerErrorResponse(error).toResponse(res);
+    return ServerErrorResponse(res, error);
   }
 };
 

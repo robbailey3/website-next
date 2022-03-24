@@ -1,49 +1,42 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
-import { BadRequestResponse } from '@/responses/bad-request-response';
-import { OkResponse } from '@/responses/ok-response';
-import { ServerErrorResponse } from '@/responses/server-error-response';
+import { AcceptedResponse } from '@/responses/AcceptedResponse';
+import { BadRequestResponse } from '@/responses/BadRequestResponse';
+import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
+import validationService from '@/services/validation/validation.service';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { IsString } from 'class-validator';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoAlbumService from '../../services/photoAlbum.service';
 
-const validateRequest = (req: NextApiRequest) => {
-  const { albumId } = req.query;
-  if (!albumId) {
-    throw new BadRequestException('Id is required');
-  }
-  if (Array.isArray(albumId)) {
-    throw new BadRequestException('Multiple ids are not allowed');
-  }
-};
+class UpdateAlbumQuery {
+  @IsString()
+  public albumId!: string;
+}
+
+class UpdateAlbumBody {
+  @IsString()
+  public name!: string;
+
+  @IsString()
+  public coverImageId!: string;
+}
 
 const UpdateAlbum = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    validateRequest(req);
-    const { albumId } = req.query;
+    const query = await validationService.validateQuery(UpdateAlbumQuery, req);
 
-    const { name, coverImageId } = req.body;
+    const request = await validationService.validateBody(UpdateAlbumBody, req);
 
-    const updateRequest: { name?: string; coverImageId?: string } = {};
-
-    if (name) {
-      updateRequest['name'] = name;
-    }
-
-    if (coverImageId) {
-      updateRequest['coverImageId'] = coverImageId;
-    }
-
-    await photoAlbumService.updatePhotoAlbum(albumId as string, {
-      name,
-      coverImageId,
+    await photoAlbumService.updatePhotoAlbum(query.albumId, {
+      ...request,
     });
 
-    return new OkResponse({}).toResponse(res);
+    return AcceptedResponse(res);
   } catch (error: any) {
     if (error instanceof BadRequestException) {
-      return new BadRequestResponse(error.message).toResponse(res);
+      return BadRequestResponse(res, error.errors);
     }
-    return new ServerErrorResponse(error).toResponse(res);
+    return ServerErrorResponse(res, error);
   }
 };
 
