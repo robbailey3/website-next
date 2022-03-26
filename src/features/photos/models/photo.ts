@@ -1,10 +1,15 @@
 import { ObjectId } from 'mongodb';
+import * as vision from '@google-cloud/vision';
 
 export interface PhotoModel {
   _id?: ObjectId | string;
   caption: string;
   url: string;
   thumbnailUrl: string;
+  labels?: vision.protos.google.cloud.vision.v1.IEntityAnnotation[] | null;
+  object?:
+    | vision.protos.google.cloud.vision.v1.ILocalizedObjectAnnotation[]
+    | null;
   createdAt?: Date;
   updatedAt?: Date;
   albumId: string;
