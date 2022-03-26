@@ -12,6 +12,7 @@ import { OkResponse } from '@/responses/OkResponse';
 import { NotFoundResponse } from '@/responses/NotFoundResponse';
 import { BadRequestException } from '@/exceptions/BadRequestException';
 import { BadRequestResponse } from '@/responses/BadRequestResponse';
+import visionDetectionApi from '@/features/vision-detection/services/vision-detection-api';
 
 const UploadPhoto = async (
   req: NextApiRequest & {
@@ -51,6 +52,13 @@ const UploadPhoto = async (
 
     const photoExif = await photoUploadService.readExif(file);
 
+    await visionDetectionApi.init();
+
+    const visionResponse = await visionDetectionApi.annotate(file.buffer, [
+      { type: 'LABEL_DETECTION', maxResults: 50 },
+      { type: 'OBJECT_LOCALIZATION', maxResults: 50 },
+    ]);
+
     await photoUploadService.uploadToStorage(file, albumId);
 
     const insertedId = await photoService.createPhoto({
@@ -58,6 +66,8 @@ const UploadPhoto = async (
       url: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/${fileName}`,
       thumbnailUrl: `${process.env.GOOGLE_BUCKET_URL}/${albumId}/thumbnail_${fileName}`,
       albumId,
+      labels: visionResponse.labelAnnotations,
+      object: visionResponse.localizedObjectAnnotations,
       metadata: photoExif && {
         imageWidth: photoExif.ImageWidth,
         imageHeight: photoExif.ImageHeight,
@@ -86,6 +96,7 @@ const UploadPhoto = async (
       return BadRequestResponse(res, error.errors);
     }
     Sentry.captureException(error);
+    console.error(error);
     return ServerErrorResponse(res, error);
   }
 };
