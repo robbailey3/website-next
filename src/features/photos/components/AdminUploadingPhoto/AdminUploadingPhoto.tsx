@@ -1,4 +1,5 @@
 import Loader from '@/components/common/Loaders/Loader/Loader';
+import TaskQueue, { TaskItem } from '@/utils/TaskQueue';
 import axios from 'axios';
 import React from 'react';
 
@@ -14,12 +15,28 @@ const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const uploadPhoto = React.useCallback(async () => {
-    const formdata = new FormData();
+    const taskItem = new TaskItem(async () => {
+      const formdata = new FormData();
 
-    formdata.append('photo', file);
-    await axios.post(`/api/photos/${albumId}/upload`, formdata);
+      formdata.append('photo', file);
 
-    setIsLoading(false);
+      await axios.post(`/api/photos/${albumId}/upload`, formdata, {
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+
+          console.log({ percentCompleted });
+        },
+      });
+    });
+    taskItem.on('started', () => {
+      console.log('started', `${file.name} started`);
+    });
+    taskItem.on('completed', () => {
+      setIsLoading(false);
+    });
+    TaskQueue.addTask(taskItem);
   }, [file, albumId]);
 
   React.useEffect(() => {
