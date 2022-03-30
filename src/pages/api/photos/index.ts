@@ -4,6 +4,7 @@ import {
   withQueryValidation,
 } from '@/features/api/decorators/Validation';
 import { generateHttpHandler } from '@/features/api/utils/generateHttpHandler';
+import CreateAlbum from '@/features/photos/controllers/album/CreateAlbum';
 import photoController from '@/features/photos/controllers/photoController';
 import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
 import { CommonQuery } from '@/features/photos/queries/commonQuery';
@@ -23,7 +24,7 @@ class PhotoHandler {
   @Post()
   @withBodyValidation(PhotoAlbumModel)
   public createAlbum(req: NextApiRequest, res: NextApiResponse) {
-    // return CreateAlbum(req, res);
+    return CreateAlbum(req, res);
   }
 }
 
