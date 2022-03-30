@@ -35,6 +35,18 @@ class StravaController {
     const activities = await this.service.getActivities();
     return OkResponse(res, activities);
   }
+
+  public async getTrendData(req: NextApiRequest, res: NextApiResponse) {
+    const trendData = await this.service.getTrendData();
+
+    return OkResponse(res, trendData);
+  }
+
+  public async getTotals(req: NextApiRequest, res: NextApiResponse) {
+    const totals = await this.service.getTotals();
+
+    return OkResponse(res, totals);
+  }
 }
 
 export default new StravaController();
