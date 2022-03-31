@@ -26,6 +26,20 @@ const projects: Project[] = [
     slug: 'vision-detection',
     keywords: ['image analysis', 'Vision AI', 'image recognition', 'google'],
   },
+  {
+    id: '4',
+    title: 'Running Tracker',
+    description: 'A running tracker which tracks my running activities.',
+    slug: 'running-tracker',
+    keywords: [
+      'running',
+      'tracker',
+      'running tracker',
+      'strava',
+      'webhook',
+      'api',
+    ],
+  },
 ];
 
 export default projects;
