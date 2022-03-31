@@ -36,7 +36,7 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
           />
           <XAxis
             dataKey="date"
-            name="Total Distance"
+            name="Total Elevation Gain"
             reversed
             tickCount={5}
             tick={{ fontSize: '.75rem', fill: '#111827' }}
@@ -46,17 +46,17 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
           <YAxis
             scale={'linear'}
             tickCount={5}
-            unit="km"
+            unit="m"
             domain={[0, 'dataMax+20']}
             tick={{ fontSize: '.75rem', fill: '#111827' }}
             label={{
-              value: 'Distance (KM)',
+              value: 'Elevation Gain (m)',
               angle: -90,
               position: 'left',
             }}
           />
           <Tooltip
-            formatter={(value: any) => `${value}KM`}
+            formatter={(value: any) => `${value}m`}
             labelClassName="text-xs text-gray-700"
             wrapperClassName="shadow-md rounded bg-blue-200"
             contentStyle={{ color: '#111827' }}

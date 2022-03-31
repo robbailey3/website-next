@@ -20,15 +20,17 @@ const RunningDashboard = () => {
   const getElevationChartData = () => {
     return totals.map((total: TotalsData) => ({
       date: `${total._id.year}-${total._id.month}`,
-      totalElevation: parseInt(total.totalElevationGain.toFixed(1), 10),
+      totalElevationGain: parseInt(total.totalElevationGain.toFixed(1), 10),
     }));
   };
 
   return (
     <>
       <div className="flex">
-        <div className="w-full lg:w-1/3">
+        <div className="w-full lg:w-1/3 p-4">
           <DistanceTotalChart chartData={getDistanceChartData()} />
+        </div>
+        <div className="w-full lg:w-1/3 p-4">
           <TotalElevationGainChart chartData={getElevationChartData()} />
         </div>
       </div>
