@@ -12,7 +12,6 @@ export class CommonQuery {
   @IsNumber()
   @Transform((value) => (value ? parseInt(value.value, 10) : 10))
   @ValidateIf((o) => o.skip)
-  @Min(1)
-  @Max(100)
+  @Min(0)
   public skip!: number;
 }

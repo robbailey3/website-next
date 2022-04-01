@@ -1,15 +1,17 @@
+import { Get } from '@/features/api/decorators/HttpVerbs';
+import { withQueryValidation } from '@/features/api/decorators/Validation';
+import { generateHttpHandler } from '@/features/api/utils/generateHttpHandler';
+import { CommonQuery } from '@/features/photos/queries/commonQuery';
 import stravaController from '@/features/strava/controllers/strava.controller';
 import { withDatabase } from '@/services/database/database.service';
-import { logHttpRequest } from '@/utils/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  logHttpRequest(req);
-  try {
-    return await stravaController.getActivities(req, res);
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+class StravaHandler {
+  @Get()
+  @withQueryValidation(CommonQuery)
+  public async getActivities(req: NextApiRequest, res: NextApiResponse) {
+    return stravaController.getActivities(req, res);
   }
-};
+}
 
-export default withDatabase(Handler);
+export default withDatabase(generateHttpHandler(StravaHandler));
