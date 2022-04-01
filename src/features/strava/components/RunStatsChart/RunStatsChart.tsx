@@ -49,6 +49,14 @@ const RunStatsChart = (props: RunStatsChartProps) => {
           type="monotone"
           dataKey="averageSpeed"
           stroke="#34d399"
+          strokeWidth={2}
+          dot={false}
+        />
+        <Line
+          type="monotone"
+          dataKey="maxSpeed"
+          stroke="#8b5cf6"
+          strokeWidth={2}
           dot={false}
         />
         <XAxis

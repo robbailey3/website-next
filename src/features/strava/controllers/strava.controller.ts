@@ -32,7 +32,11 @@ class StravaController {
   }
 
   public async getActivities(req: NextApiRequest, res: NextApiResponse) {
-    const activities = await this.service.getActivities();
+    const { limit, skip } = req.query;
+    const activities = await this.service.getActivities(
+      limit as any as number,
+      skip as any as number
+    );
     return OkResponse(res, activities);
   }
 

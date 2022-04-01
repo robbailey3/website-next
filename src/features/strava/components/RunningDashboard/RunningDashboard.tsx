@@ -1,5 +1,7 @@
-import useStats from '../../hooks/useStats';
-import useTotals from '../../hooks/useTotals';
+import { useRouter } from 'next/router';
+import useRuns from '../../hooks/useRuns';
+import useRunStats from '../../hooks/useRunStats';
+import useStats from '../../hooks/useRunStats';
 import { RunStats } from '../../models/StatsData';
 import { TotalsData } from '../../models/TotalsData';
 import DistanceTotalChart from '../DistanceTotalChart/DistanceTotalChart';
@@ -8,40 +10,50 @@ import RunStatsChart from '../RunStatsChart/RunStatsChart';
 import TotalElevationGainChart from '../TotalElevationGainChart/TotalElevationGainChart';
 
 const RunningDashboard = () => {
-  const { totals, isLoading, error } = useTotals();
+  const router = useRouter();
 
-  const { stats, statsLoading, statsError } = useStats();
+  const { limit, skip } = router.query;
+
+  const { data, isLoading, error } = useRunStats();
+
+  const runData = useRuns(
+    parseInt(limit as string, 10) || 25,
+    parseInt(skip as string, 10) || 0
+  );
+
+  console.log(runData);
 
   if (isLoading) return <p>Loading...</p>;
 
   if (error) return <p>Error :(</p>;
 
   const getDistanceChartData = () => {
-    return totals.map((total: TotalsData) => ({
+    return data.totals.map((total: TotalsData) => ({
       date: `${total._id.year}-${total._id.month}`,
       totalDistance: parseInt((total.totalDistance / 1000).toFixed(1), 10),
     }));
   };
 
   const getElevationChartData = () => {
-    return totals.map((total: TotalsData) => ({
+    return data.totals.map((total: TotalsData) => ({
       date: `${total._id.year}-${total._id.month}`,
       totalElevationGain: parseInt(total.totalElevationGain.toFixed(1), 10),
     }));
   };
 
   const getCountChartData = () => {
-    return totals.map((total: TotalsData) => ({
+    return data.totals.map((total: TotalsData) => ({
       date: `${total._id.year}-${total._id.month}`,
       count: Number(total.count),
     }));
   };
 
   const getStatsChartData = () => {
-    return stats.map((stat: RunStats) => ({
+    return data.stats.map((stat: RunStats) => ({
       date: new Date(stat.start_date),
       averageSpeed: parseFloat((stat.average_speed * 3.6).toFixed(3)),
       distance: parseFloat((stat.distance / 1000).toFixed(1)),
+      maxSpeed: parseFloat((stat.max_speed * 3.6).toFixed(3)),
     }));
   };
 

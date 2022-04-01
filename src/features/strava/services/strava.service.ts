@@ -53,16 +53,13 @@ class StravaService {
   }
 
   public async getActivities(
-    perPage = 20,
-    page = 1
+    limit: number = 25,
+    skip: number = 0
   ): Promise<{ count: number; activities: GetActivityResponse[] }> {
     const collection = databaseService.getCollection('strava_activities');
     const count = await collection.countDocuments();
     const activities = await collection
-      .find<GetActivityResponse>(
-        {},
-        { sort: { start_date: -1 }, limit: perPage, skip: perPage * (page - 1) }
-      )
+      .find<GetActivityResponse>({}, { sort: { start_date: -1 }, limit, skip })
       .toArray();
 
     return { activities, count };
@@ -80,7 +77,13 @@ class StravaService {
       .find<GetActivityResponse>(
         {},
         {
-          projection: { average_speed: 1, start_date: 1, distance: 1, _id: 0 },
+          projection: {
+            average_speed: 1,
+            start_date: 1,
+            max_speed: 1,
+            distance: 1,
+            _id: 0,
+          },
           sort: { start_date: -1 },
           limit: 100,
         }
