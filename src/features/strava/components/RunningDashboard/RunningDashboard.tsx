@@ -1,27 +1,14 @@
-import { useRouter } from 'next/router';
-import useRuns from '../../hooks/useRuns';
 import useRunStats from '../../hooks/useRunStats';
-import useStats from '../../hooks/useRunStats';
 import { RunStats } from '../../models/StatsData';
 import { TotalsData } from '../../models/TotalsData';
 import DistanceTotalChart from '../DistanceTotalChart/DistanceTotalChart';
 import RunCountChart from '../RunCountChart/RunCountChart';
+import RunDataTable from '../RunDataTable/RunDataTable';
 import RunStatsChart from '../RunStatsChart/RunStatsChart';
 import TotalElevationGainChart from '../TotalElevationGainChart/TotalElevationGainChart';
 
 const RunningDashboard = () => {
-  const router = useRouter();
-
-  const { limit, skip } = router.query;
-
   const { data, isLoading, error } = useRunStats();
-
-  const runData = useRuns(
-    parseInt(limit as string, 10) || 25,
-    parseInt(skip as string, 10) || 0
-  );
-
-  console.log(runData);
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -90,6 +77,9 @@ const RunningDashboard = () => {
               <RunCountChart chartData={getCountChartData()} />
             </div>
           </div>
+        </section>
+        <section>
+          <RunDataTable />
         </section>
       </div>
     </>
