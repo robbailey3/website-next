@@ -1,4 +1,5 @@
 import Card from '@/components/common/Card/Card';
+import { DateTime } from '@/utils/dateTime';
 import {
   LineChart,
   Line,
@@ -7,44 +8,56 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
-export interface TotalElevationChartData {
-  date: string;
-  totalElevationGain: number;
+export interface RunStatsChartData {
+  date: Date;
+  distance: number;
+  average_speed: number;
 }
 
-export interface TotalElevationGainChartProps {
-  chartData: TotalElevationChartData[];
+export interface RunStatsChartProps {
+  chartData: RunStatsChartData[];
 }
 
-const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
+const RunStatsChart = (props: RunStatsChartProps) => {
   const { chartData } = props;
 
   return (
     <ResponsiveContainer width={'100%'} height={500}>
       <LineChart
+        width={1600}
+        height={800}
         data={chartData}
         margin={{ top: 32, bottom: 32, left: 32, right: 32 }}
       >
+        <Legend
+          verticalAlign="top"
+          wrapperStyle={{ fontSize: '0.75rem' }}
+          iconType="square"
+          iconSize={8}
+        />
         <Line
           type="monotone"
-          dataKey="totalElevationGain"
+          dataKey="distance"
           stroke="#22d3ee"
           strokeWidth={2}
           dot={false}
         />
+        <Line
+          type="monotone"
+          dataKey="averageSpeed"
+          stroke="#34d399"
+          dot={false}
+        />
         <XAxis
           dataKey="date"
-          name="Total Elevation Gain"
           reversed
           tickCount={5}
           axisLine={{ stroke: '#ccc' }}
           tick={{ fontSize: '.75rem', fill: '#aaa' }}
-          style={{
-            fontSize: '0.675rem',
-            fontStyle: 'italic',
-          }}
+          tickFormatter={(tick: Date) => DateTime.format(tick, 'en-GB')}
         >
           <Label
             value="Date"
@@ -59,28 +72,11 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
         <YAxis
           scale={'linear'}
           tickCount={5}
-          unit="m"
-          domain={[0, 'dataMax+20']}
           axisLine={{ stroke: '#ccc' }}
           tick={{ fontSize: '.75rem', fill: '#aaa' }}
-          style={{
-            fontSize: '0.675rem',
-            fontStyle: 'italic',
-          }}
-        >
-          <Label
-            value="Elevation Gain (m)"
-            offset={0}
-            angle={-90}
-            position="left"
-            style={{
-              fontSize: '0.675rem',
-              fontStyle: 'italic',
-            }}
-          />
-        </YAxis>
+        />
         <Tooltip
-          formatter={(value: any) => `${value}m`}
+          labelFormatter={(tick: Date) => DateTime.format(tick, 'en-GB')}
           labelClassName="text-xs text-gray-700"
           wrapperClassName="shadow-md rounded bg-blue-200"
           contentStyle={{ color: '#111827' }}
@@ -91,4 +87,4 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
   );
 };
 
-export default TotalElevationGainChart;
+export default RunStatsChart;

@@ -9,38 +9,39 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export interface TotalElevationChartData {
+export interface RunCountData {
   date: string;
-  totalElevationGain: number;
+  count: number;
 }
 
-export interface TotalElevationGainChartProps {
-  chartData: TotalElevationChartData[];
+export interface RunCountChartProps {
+  chartData: RunCountData[];
 }
 
-const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
+const RunCountChart = (props: RunCountChartProps) => {
   const { chartData } = props;
 
   return (
     <ResponsiveContainer width={'100%'} height={500}>
       <LineChart
+        width={1600}
+        height={800}
         data={chartData}
         margin={{ top: 32, bottom: 32, left: 32, right: 32 }}
       >
         <Line
           type="monotone"
-          dataKey="totalElevationGain"
+          dataKey="count"
           stroke="#22d3ee"
           strokeWidth={2}
           dot={false}
         />
         <XAxis
           dataKey="date"
-          name="Total Elevation Gain"
+          name="Count"
           reversed
           tickCount={5}
-          axisLine={{ stroke: '#ccc' }}
-          tick={{ fontSize: '.75rem', fill: '#aaa' }}
+          tick={{ fontSize: '.75rem', fill: '#ccc' }}
           style={{
             fontSize: '0.675rem',
             fontStyle: 'italic',
@@ -59,9 +60,6 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
         <YAxis
           scale={'linear'}
           tickCount={5}
-          unit="m"
-          domain={[0, 'dataMax+20']}
-          axisLine={{ stroke: '#ccc' }}
           tick={{ fontSize: '.75rem', fill: '#aaa' }}
           style={{
             fontSize: '0.675rem',
@@ -69,7 +67,7 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
           }}
         >
           <Label
-            value="Elevation Gain (m)"
+            value="Count"
             offset={0}
             angle={-90}
             position="left"
@@ -80,7 +78,6 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
           />
         </YAxis>
         <Tooltip
-          formatter={(value: any) => `${value}m`}
           labelClassName="text-xs text-gray-700"
           wrapperClassName="shadow-md rounded bg-blue-200"
           contentStyle={{ color: '#111827' }}
@@ -91,4 +88,4 @@ const TotalElevationGainChart = (props: TotalElevationGainChartProps) => {
   );
 };
 
-export default TotalElevationGainChart;
+export default RunCountChart;
