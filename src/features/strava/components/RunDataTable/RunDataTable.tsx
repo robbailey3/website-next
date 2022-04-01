@@ -1,6 +1,5 @@
 import Pagination from '@/components/common/Pagination/Pagination';
 import { DateTime } from '@/utils/dateTime';
-import { useRouter } from 'next/router';
 import React from 'react';
 import useRuns from '../../hooks/useRuns';
 
