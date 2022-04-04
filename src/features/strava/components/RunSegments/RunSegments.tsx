@@ -4,45 +4,37 @@ import TableCell from '@/components/common/Table/TableCell/TableCell';
 import TableHead from '@/components/common/Table/TableHead/TableHead';
 import TableHeader from '@/components/common/Table/TableHeader/TableHeader';
 import TableRow from '@/components/common/Table/TableRow/TableRow';
-import { Splits } from '../../responses/GetActivityResponse';
+import { TEffort } from '../../responses/GetActivityResponse';
 import { RunUtils } from '../../services/run-utils.service';
 
-export interface RunSplitsProps {
-  splits: Splits[];
+export interface RunSegmentsProps {
+  segments: TEffort[];
 }
 
-const RunSplits = (props: RunSplitsProps) => {
-  const { splits } = props;
+const RunSegments = (props: RunSegmentsProps) => {
+  const { segments } = props;
 
-  if (!splits || splits.length === 0) {
+  if (!segments || segments.length === 0) {
     return null;
   }
 
   return (
     <section className="my-4">
-      <h2 className="text-3xl my-2">Splits</h2>
+      <h2 className="text-3xl my-2">Segments</h2>
       <Table>
         <TableHead>
-          <TableHeader>Km</TableHeader>
+          <TableHeader>Name</TableHeader>
+          <TableHeader>Distance</TableHeader>
           <TableHeader>Time</TableHeader>
-          <TableHeader>Pace</TableHeader>
         </TableHead>
         <TableBody>
-          {splits.map((split, index) => (
+          {segments.map((segment, index) => (
             <TableRow key={index}>
-              <TableCell>
-                {Math.abs(split.distance - 1000) > 50
-                  ? (split.distance / 1000).toFixed(2)
-                  : (index + 1).toString()}
-              </TableCell>
+              <TableCell>{segment.name}</TableCell>
+              <TableCell>{(segment.distance / 1000).toFixed(2)}</TableCell>
               <TableCell>
                 {RunUtils.convertSecondsToHoursMinutesSeconds(
-                  split.moving_time
-                )}
-              </TableCell>
-              <TableCell>
-                {RunUtils.convertMetersPerSecondToMinutesPerKm(
-                  split.average_speed
+                  segment.moving_time
                 )}
               </TableCell>
             </TableRow>
@@ -53,4 +45,4 @@ const RunSplits = (props: RunSplitsProps) => {
   );
 };
 
-export default RunSplits;
+export default RunSegments;

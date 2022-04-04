@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 export interface RunMapProps {
   polyline: string;
   width: number;
@@ -11,8 +12,9 @@ const RunMap = (props: RunMapProps) => {
     return `https://maps.googleapis.com/maps/api/staticmap?size=${width}x${height}&maptype=satellite&path=color:0xc57b57CC|enc:${polyline}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
   };
 
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={getRunMapSrc()} alt="Map of run" className="block" />;
+  return (
+    <img src={getRunMapSrc()} alt="Map of run" className="block max-w-full" />
+  );
 };
 
 export default RunMap;
