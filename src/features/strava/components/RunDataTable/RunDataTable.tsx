@@ -1,5 +1,6 @@
 import Pagination from '@/components/common/Pagination/Pagination';
 import { DateTime } from '@/utils/dateTime';
+import Link from 'next/link';
 import React from 'react';
 import useRuns from '../../hooks/useRuns';
 
@@ -38,7 +39,11 @@ const RunDataTable = () => {
               <td className="p-2 border-b border-gray-200">
                 {DateTime.format(new Date(run.start_date), 'en-GB')}
               </td>
-              <td className="p-2 border-b border-gray-200">{run.name}</td>
+              <td className="p-2 border-b border-gray-200">
+                <Link href={`/projects/running-tracker/${run._id}`}>
+                  <a>{run.name}</a>
+                </Link>
+              </td>
               <td className="p-2 border-b border-gray-200">
                 {(run.distance / 1000).toPrecision(3)}km
               </td>

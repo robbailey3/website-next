@@ -40,6 +40,14 @@ class StravaController {
     return OkResponse(res, activities);
   }
 
+  public async getActivityById(req: NextApiRequest, res: NextApiResponse) {
+    const { id } = req.query;
+    console.log(id);
+    const activity = await this.service.getActivityById(id as any as string);
+
+    return OkResponse(res, activity);
+  }
+
   public async getTrendData(req: NextApiRequest, res: NextApiResponse) {
     const trendData = await this.service.getTrendData();
 
