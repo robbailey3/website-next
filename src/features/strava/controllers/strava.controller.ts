@@ -32,8 +32,32 @@ class StravaController {
   }
 
   public async getActivities(req: NextApiRequest, res: NextApiResponse) {
-    const activities = await this.service.getActivities();
+    const { limit, skip } = req.query;
+    const activities = await this.service.getActivities(
+      limit as any as number,
+      skip as any as number
+    );
     return OkResponse(res, activities);
+  }
+
+  public async getActivityById(req: NextApiRequest, res: NextApiResponse) {
+    const { id } = req.query;
+    console.log(id);
+    const activity = await this.service.getActivityById(id as any as string);
+
+    return OkResponse(res, activity);
+  }
+
+  public async getTrendData(req: NextApiRequest, res: NextApiResponse) {
+    const trendData = await this.service.getTrendData();
+
+    return OkResponse(res, trendData);
+  }
+
+  public async getTotals(req: NextApiRequest, res: NextApiResponse) {
+    const totals = await this.service.getTotals();
+
+    return OkResponse(res, totals);
   }
 }
 
