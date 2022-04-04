@@ -3,7 +3,7 @@ import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import useRun from '../../hooks/useRun';
-import runUtilsService, { RunUtils } from '../../services/run-utils.service';
+import { RunUtils } from '../../services/run-utils.service';
 import RunMap from '../RunMap/RunMap';
 import RunSegments from '../RunSegments/RunSegments';
 import RunSplits from '../RunSplits/RunSplits';
