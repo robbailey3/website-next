@@ -97,35 +97,23 @@ class PhotoUploadService {
     return file.originalname.split('.').pop().toLowerCase();
   }
 
-  public async uploadToStorage(file: any, albumId: string) {
+  public async uploadToStorage(file: any) {
     const bucket = this.getTempBucket();
 
-    const f = bucket.file(`${albumId}/${file.originalName}`);
+    const f = bucket.file(`${file.originalName}`);
 
     await f.save(file.buffer);
   }
 
-  public async deleteFromStorage(albumId: string, fileName: string) {
+  public async deleteFromStorage(fileName: string) {
     const bucket = this.getBucket();
 
-    const f = bucket.file(`${albumId}/${fileName}`);
+    const f = bucket.file(`${fileName}`);
 
     const [fileExists] = await f.exists();
 
     if (fileExists) {
       await f.delete();
-    }
-  }
-
-  public async deleteAlbum(albumId: string) {
-    logger.info(`Deleting album ${albumId}`);
-    const bucket = this.getBucket();
-    const [files] = await bucket.getFiles({ prefix: `${albumId}/` });
-    if (files.length > 0) {
-      const deletePromises = files.map((file) =>
-        file.delete({ ignoreNotFound: true })
-      );
-      await Promise.all(deletePromises);
     }
   }
 }

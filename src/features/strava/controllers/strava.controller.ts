@@ -42,7 +42,6 @@ class StravaController {
 
   public async getActivityById(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query;
-    console.log(id);
     const activity = await this.service.getActivityById(id as any as string);
 
     return OkResponse(res, activity);
