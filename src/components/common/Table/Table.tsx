@@ -1,5 +1,3 @@
-import * as objectHash from 'object-hash';
-
 export interface TableColumn {
   title: string;
   key: string;
