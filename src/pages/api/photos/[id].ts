@@ -1,4 +1,4 @@
-import { Get, Post } from '@/features/api/decorators/HttpVerbs';
+import { Delete, Get, Patch, Post } from '@/features/api/decorators/HttpVerbs';
 import {
   withBodyValidation,
   withQueryValidation,
@@ -20,6 +20,16 @@ class PhotoHandler {
   @withQueryValidation(GetPhotoQuery)
   public async getPhoto(req: NextApiRequest, res: NextApiResponse) {
     return await photoController.getPhoto(req, res);
+  }
+
+  @Patch()
+  public async updatePhoto(req: NextApiRequest, res: NextApiResponse) {
+    return await photoController.updatePhoto(req, res);
+  }
+
+  @Delete()
+  public async deletePhoto(req: NextApiRequest, res: NextApiResponse) {
+    return await photoController.deletePhoto(req, res);
   }
 }
 

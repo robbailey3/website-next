@@ -12,11 +12,6 @@ class PhotoIdHandler {
   public async getPhoto(req: NextApiRequest, res: NextApiResponse) {
     return await photoController.getPhotos(req, res);
   }
-
-  @Patch()
-  public async updatePhoto(req: NextApiRequest, res: NextApiResponse) {
-    return await photoController.updatePhoto(req, res);
-  }
 }
 
 export default withDatabase(generateHttpHandler(PhotoIdHandler));

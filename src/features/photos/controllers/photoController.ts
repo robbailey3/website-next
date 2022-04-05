@@ -3,17 +3,14 @@ import { BadRequestException } from '@/exceptions/BadRequestException';
 import visionDetectionApi from '@/features/vision-detection/services/vision-detection-api';
 import { AcceptedResponse } from '@/responses/AcceptedResponse';
 import { BadRequestResponse } from '@/responses/BadRequestResponse';
-import { NotFoundResponse } from '@/responses/NotFoundResponse';
 import { OkResponse } from '@/responses/OkResponse';
 import { ServerErrorResponse } from '@/responses/ServerErrorResponse';
 import { runMiddleware } from '@/utils/run-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 import photoService from '../services/photo.service';
-import photoAlbumService from '../services/photoAlbum.service';
 import photoUploadService from '../services/photoUpload.service';
 const upload = multer({ storage: multer.memoryStorage() });
 import * as Sentry from '@sentry/nextjs';
-import { ObjectID } from 'bson';
 
 class PhotoController {
   public async getPhotos(req: NextApiRequest, res: NextApiResponse) {

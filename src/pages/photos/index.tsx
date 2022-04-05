@@ -1,31 +1,36 @@
 import Container from '@/components/common/Container/Container';
 import PhotoAlbumList from '@/features/photos/components/PhotoAlbumList/PhotoAlbumList';
+import PhotoInfiniteLoad from '@/features/photos/components/PhotoInfiniteLoad/PhotoInfiniteLoad';
+import PhotoList from '@/features/photos/components/PhotoList/PhotoList';
 import PhotosNotFound from '@/features/photos/components/PhotosNoneFound/PhotosNoneFound';
-import { PhotoAlbumModel } from '@/features/photos/models/photoAlbum';
-import photoAlbumService from '@/features/photos/services/photoAlbum.service';
+import { PhotoModel } from '@/features/photos/models/photo';
+import photoService from '@/features/photos/services/photo.service';
 import databaseService from '@/services/database/database.service';
 import Head from 'next/head';
 
 export async function getServerSideProps() {
   try {
     await databaseService.connect();
-    const response = await photoAlbumService.getPhotoAlbums(100, 0);
+    const photos = await photoService.getPhotos(25, 0);
+    const totalCount = await photoService.getCount();
     return {
       props: {
-        albums: JSON.parse(JSON.stringify(response)),
+        photos: JSON.parse(JSON.stringify(photos)),
+        totalCount,
       },
     };
   } catch (error: any) {
     return {
       props: {
-        albums: [],
+        photos: [],
+        totalCount: 0,
       },
     };
   }
 }
 
-const PhotosPage = (props: { albums: PhotoAlbumModel[] }) => {
-  const { albums } = props;
+const PhotosPage = (props: { photos: PhotoModel[]; totalCount: number }) => {
+  const { photos, totalCount } = props;
 
   return (
     <>
@@ -37,10 +42,14 @@ const PhotosPage = (props: { albums: PhotoAlbumModel[] }) => {
         />
       </Head>
       <Container>
-        {albums.length > 0 ? (
-          <PhotoAlbumList albums={albums} />
+        {photos.length > 0 ? (
+          <PhotoInfiniteLoad
+            initialPhotos={photos}
+            pageSize={25}
+            total={totalCount}
+          ></PhotoInfiniteLoad>
         ) : (
-          <PhotosNotFound type="albums" />
+          <PhotosNotFound type="photos" />
         )}
       </Container>
     </>
