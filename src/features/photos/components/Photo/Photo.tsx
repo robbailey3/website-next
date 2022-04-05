@@ -12,8 +12,8 @@ const Photo = (props: PhotoProps) => {
   const { photo, onClick } = props;
 
   return (
-    <div className="w-full max-w-screen-md mr-4 mb-4 rounded shadow bg-slate-500 overflow-hidden relative">
-      <span onClick={onClick}>
+    <div className="mr-4 mb-4 rounded shadow bg-slate-500 overflow-hidden relative w-56 h-56">
+      <span onClick={onClick} className="cursor-pointer">
         <LazyImage
           src={photo.url}
           thumbnailSrc={photo.thumbnailUrl}

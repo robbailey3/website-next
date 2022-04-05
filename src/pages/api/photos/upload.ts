@@ -1,4 +1,4 @@
-import UploadPhoto from '@/features/photos/controllers/photo/UploadPhoto';
+import photoController from '@/features/photos/controllers/photoController';
 import { NotFoundResponse } from '@/responses/NotFoundResponse';
 import { withDatabase } from '@/services/database/database.service';
 import { logHttpRequest } from '@/utils/logger';
@@ -13,7 +13,7 @@ export const config = {
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   logHttpRequest(req);
   if (req.method === 'POST') {
-    return await UploadPhoto(req, res);
+    return await photoController.uploadPhoto(req, res);
   }
   return NotFoundResponse(res);
 };

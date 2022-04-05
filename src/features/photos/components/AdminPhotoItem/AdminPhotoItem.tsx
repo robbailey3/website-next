@@ -4,17 +4,15 @@ import OverflowMenu from '@/components/common/OverflowMenu/OverflowMenu';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { PhotoAlbumModel } from '../../models/photoAlbum';
 import { PhotoModel } from '../../models/photo';
 import AdminPhotoCaptionEditor from '../AdminPhotoCaptionEditor/AdminPhotoCaptionEditor';
 
 export interface AdminPhotoItemProps {
   photo: PhotoModel;
-  album: PhotoAlbumModel;
 }
 
 const AdminPhotoItem = (props: AdminPhotoItemProps) => {
-  const { photo, album } = props;
+  const { photo } = props;
 
   const { addToast } = useContext(ToastContext);
 
@@ -26,32 +24,9 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
     setMenuActive(!menuActive);
   };
 
-  const setImageAsAlbumCover = async () => {
-    try {
-      await axios.patch(`/api/photos/${photo.albumId}`, {
-        coverImageId: photo._id,
-        name: album.name,
-      });
-      addToast({
-        variant: 'success',
-        message: 'Cover image updated',
-        isActive: true,
-        duration: 5000,
-      });
-      toggleMenuActive();
-    } catch (error: any) {
-      addToast({
-        variant: 'error',
-        message: `Failed to set image as album cover: ${error.message}`,
-        isActive: true,
-        duration: 5000,
-      });
-    }
-  };
-
   const deletePhoto = async () => {
     try {
-      await axios.delete(`/api/photos/${photo.albumId}/${photo._id}`);
+      await axios.delete(`/api/photos/${photo._id}`);
       setIsDeleted(true);
     } catch (error: any) {
       addToast({
@@ -72,10 +47,6 @@ const AdminPhotoItem = (props: AdminPhotoItemProps) => {
       <div className="absolute top-4 right-4 z-20">
         <OverflowMenu
           actions={[
-            {
-              label: 'Set as album cover',
-              clickHandler: setImageAsAlbumCover,
-            },
             {
               label: 'Delete',
               clickHandler: deletePhoto,

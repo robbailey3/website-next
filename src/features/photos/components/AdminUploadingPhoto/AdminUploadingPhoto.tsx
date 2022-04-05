@@ -7,11 +7,10 @@ import React from 'react';
 export interface AdminUploadingPhotoProps {
   file: File;
   previewSrc: string;
-  albumId: string;
 }
 
 const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
-  const { file, previewSrc, albumId } = props;
+  const { file, previewSrc } = props;
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -27,7 +26,7 @@ const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
 
       formdata.append('photo', file);
 
-      await axios.post(`/api/photos/${albumId}/upload`, formdata, {
+      await axios.post(`/api/photos/upload`, formdata, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.min(
             95,
@@ -43,7 +42,7 @@ const AdminUploadingPhoto = (props: AdminUploadingPhotoProps) => {
       setTaskStatus(status);
     });
     TaskQueue.addTask(taskItem);
-  }, [file, albumId]);
+  }, [file]);
 
   React.useEffect(() => {
     setIsLoading(true);
