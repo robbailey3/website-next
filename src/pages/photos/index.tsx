@@ -1,7 +1,5 @@
 import Container from '@/components/common/Container/Container';
-import PhotoAlbumList from '@/features/photos/components/PhotoAlbumList/PhotoAlbumList';
 import PhotoInfiniteLoad from '@/features/photos/components/PhotoInfiniteLoad/PhotoInfiniteLoad';
-import PhotoList from '@/features/photos/components/PhotoList/PhotoList';
 import PhotosNotFound from '@/features/photos/components/PhotosNoneFound/PhotosNoneFound';
 import { PhotoModel } from '@/features/photos/models/photo';
 import photoService from '@/features/photos/services/photo.service';
