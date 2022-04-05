@@ -1,75 +1,82 @@
 import databaseService from '@/services/database/database.service';
 import { ObjectID } from 'bson';
-import { DeleteResult, ModifyResult } from 'mongodb';
 import { PhotoModel } from '../models/photo';
 
 class PhotoService {
-  public async getPhoto(photoId: string): Promise<PhotoModel | null> {
-    const photo = await databaseService
-      .getCollection<PhotoModel>('photos')
-      .findOne({ _id: new ObjectID(photoId) });
+  private readonly COLLECTION_NAME = 'photos';
 
-    return photo;
+  public async getCount(): Promise<number> {
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .countDocuments();
+
+    return result;
   }
 
-  public async getPhotos(
-    albumId: string,
-    limit: number,
-    skip: number
+  public async getPhotos(limit: number, skip: number): Promise<PhotoModel[]> {
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .find({}, { limit, skip, sort: { updatedAt: -1 } });
+
+    return result.toArray();
+  }
+
+  public async locationSearch(
+    lat: number,
+    lng: number,
+    radius: number
   ): Promise<PhotoModel[]> {
-    const collection = databaseService.getCollection('photos');
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .find({
+        location: {
+          $geoWithin: {
+            $centerSphere: [[lng, lat], radius / 6378.1],
+          },
+        },
+      });
 
-    const photos = await collection
-      .find<PhotoModel>({ albumId }, { limit, skip, sort: { updatedAt: -1 } })
-      .toArray();
-
-    return photos;
+    return result.toArray();
   }
 
-  public async createPhoto(photo: PhotoModel): Promise<string> {
-    const collection = databaseService.getCollection<PhotoModel>('photos');
+  public async getPhoto(id: string): Promise<PhotoModel | null> {
+    const objectId = ObjectID.createFromHexString(id);
 
-    const result = await collection.insertOne({
-      ...photo,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .findOne({ _id: objectId });
 
-    return (result.insertedId as ObjectID).toHexString();
+    return result;
   }
 
-  public async deletePhoto(photoId: string): Promise<DeleteResult> {
-    const collection = databaseService.getCollection('photos');
+  public async createPhoto(photo: PhotoModel): Promise<ObjectID | string> {
+    photo.createdAt = new Date();
+    photo.updatedAt = new Date();
 
-    return await collection.deleteOne({
-      _id: ObjectID.createFromHexString(photoId),
-    });
-  }
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .insertOne(photo);
 
-  public async deletePhotosInAlbum(albumId: string): Promise<DeleteResult> {
-    const collection = databaseService.getCollection('photos');
-
-    return await collection.deleteMany({ albumId });
+    return result.insertedId;
   }
 
   public async updatePhoto(
-    photoId: string,
-    caption: string
-  ): Promise<ModifyResult<PhotoModel>> {
-    const collection = databaseService.getCollection<PhotoModel>('photos');
+    id: string,
+    photo: PhotoModel
+  ): Promise<PhotoModel | null> {
+    photo.updatedAt = new Date();
 
-    return await collection.findOneAndUpdate(
-      { _id: ObjectID.createFromHexString(photoId) },
-      { $set: { updatedAt: new Date(), caption } }
-    );
+    const result = await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .findOneAndUpdate({ _id: id }, { $set: photo });
+
+    return result.value;
   }
 
-  public async getCount(albumId: string): Promise<number> {
-    const collection = databaseService.getCollection('photos');
-
-    const count = await collection.countDocuments({ albumId });
-
-    return count;
+  public async deletePhoto(id: string): Promise<void> {
+    await databaseService
+      .getCollection<PhotoModel>(this.COLLECTION_NAME)
+      .deleteOne({ _id: id });
   }
 }
 

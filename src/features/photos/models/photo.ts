@@ -12,7 +12,6 @@ export interface PhotoModel {
     | null;
   createdAt?: Date;
   updatedAt?: Date;
-  albumId: string;
   metadata?: PhotoMeta;
   location?: PhotoLocation;
 }

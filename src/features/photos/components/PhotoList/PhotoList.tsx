@@ -49,7 +49,7 @@ const PhotoList = (props: PhotoListProps) => {
   };
 
   return (
-    <div className="flex mt-8 flex-wrap justify-center md:justify-around">
+    <div className="flex mt-8 flex-wrap justify-between">
       {photos.map((photo) => (
         <Photo
           photo={photo}

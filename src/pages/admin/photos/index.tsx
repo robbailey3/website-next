@@ -7,9 +7,9 @@ import AdminPhotoUploadModal, {
   UploadFormResult,
 } from '@/features/photos/components/AdminPhotoUploadModal/AdminPhotoUploadModal';
 import AdminUploadingPhoto from '@/features/photos/components/AdminUploadingPhoto/AdminUploadingPhoto';
-import usePhotoAlbum from '@/features/photos/hooks/usePhotoAlbum';
 import usePhotos from '@/features/photos/hooks/usePhotos';
 import { PhotoModel } from '@/features/photos/models/photo';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -19,14 +19,9 @@ const PhotoAlbumPage = () => {
 
   const router = useRouter();
 
-  const { albumId } = router.query;
-
-  const albumsResponse = usePhotoAlbum(albumId as string);
-
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const photosResponse = usePhotos(
-    albumId as string,
     PHOTOS_PER_PAGE,
     (currentPage - 1) * PHOTOS_PER_PAGE
   );
@@ -43,7 +38,7 @@ const PhotoAlbumPage = () => {
 
   React.useEffect(() => {
     setUploadFormResults([]);
-  }, [albumsResponse.album, photosResponse.response]);
+  }, [photosResponse.response]);
 
   const handleUploadModalClose = () => {
     setIsUploadModalOpen(false);
@@ -57,7 +52,7 @@ const PhotoAlbumPage = () => {
     setUploadFormResults(uploadResults);
   };
 
-  if (albumsResponse.isLoading || photosResponse.isLoading) {
+  if (photosResponse.isLoading) {
     return (
       <Container>
         <div className="flex items-center justify-center p-16">
@@ -93,18 +88,13 @@ const PhotoAlbumPage = () => {
             <AdminUploadingPhoto
               previewSrc={upload.previewSrc!}
               key={`upload_${i}`}
-              albumId={albumId as string}
               file={upload.file}
             />
           ))}
         {photosResponse &&
           photosResponse.response.photos &&
           photosResponse.response.photos.map((photo: PhotoModel) => (
-            <AdminPhotoItem
-              photo={photo}
-              key={photo._id as string}
-              album={albumsResponse.album}
-            />
+            <AdminPhotoItem photo={photo} key={photo._id as string} />
           ))}
       </div>
       {photosResponse &&
@@ -121,4 +111,4 @@ const PhotoAlbumPage = () => {
   );
 };
 
-export default PhotoAlbumPage;
+export default withPageAuthRequired(PhotoAlbumPage);

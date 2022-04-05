@@ -6,9 +6,9 @@ export const BadRequestResponse = (
   res: NextApiResponse,
   errors: BadRequestError[]
 ) => {
-  return res.status(HttpStatus.CONFLICT).json({
+  return res.status(HttpStatus.BAD_REQUEST).json({
     errors,
     timestamp: Date.now(),
-    statusCode: HttpStatus.CONFLICT,
+    statusCode: HttpStatus.BAD_REQUEST,
   });
 };
