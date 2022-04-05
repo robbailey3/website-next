@@ -18,7 +18,7 @@ const AdminPhotoCaptionEditor = (props: AdminPhotoCaptionEditorProps) => {
 
   const submitChange = async () => {
     try {
-      await axios.patch(`/api/photos/${photo.albumId}/${photo._id}`, {
+      await axios.patch(`/api/photos/${photo._id}`, {
         caption,
       });
 

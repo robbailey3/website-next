@@ -99,7 +99,7 @@ class PhotoUploadService {
 
   public async uploadToStorage(file: any) {
     const bucket = this.getTempBucket();
-
+    console.log(file.originalName);
     const f = bucket.file(`${file.originalName}`);
 
     await f.save(file.buffer);

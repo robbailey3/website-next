@@ -1,14 +1,9 @@
 import { fetcher } from '@/utils/fetcher';
 import useSWR from 'swr';
 
-const usePhotos = (albumId: string, limit = 20, skip = 0) => {
-  const { data, error } = useSWR(
-    albumId
-      ? `/api/photos/${albumId}/photos?limit=${limit}&skip=${skip}`
-      : null,
-    fetcher
-  );
-
+const usePhotos = (limit = 20, skip = 0) => {
+  const { data, error } = useSWR(`/api/photos`, fetcher);
+  console.log({ data });
   return {
     response: data,
     error,
