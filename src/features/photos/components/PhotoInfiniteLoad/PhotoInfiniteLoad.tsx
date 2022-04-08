@@ -48,7 +48,6 @@ const PhotoInfiniteLoad = (props: PhotoInfiniteLoadProps) => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log('Intersecting', entry);
             if (isLoading) {
               return;
             }
