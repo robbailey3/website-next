@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import React from 'react';
 
 export interface AdminPhotoUploadPreviewItemProps {
@@ -13,7 +14,7 @@ const AdminPhotoUploadPreviewItem = (
 
   return (
     <div className="w-32 h-32 rounded overflow-hidden">
-      {isLoading && 'Loading...'}
+      {isLoading && <Loader />}
       {!isLoading && previewSrc && (
         <img
           src={previewSrc}

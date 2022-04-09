@@ -8,6 +8,7 @@ import { ClassifyResponse } from '../../models/classify-response';
 import { SentimentResponse } from '../../models/sentiment-response';
 import SentimentDiagram from '../SentimentDiagram/SentimentDiagram';
 import SentimentSentences from '../SentimentSentences/SentimentSentences';
+import Loader from '@/components/common/Loaders/Loader/Loader';
 
 export interface SentimentAnalysisResultProps {
   text: string;
@@ -76,7 +77,9 @@ const SentimentAnalysisResult = (props: SentimentAnalysisResultProps) => {
   if (!classification || !sentiment) {
     return (
       <div className="h-56 flex flex-wrap justify-center items-center">
-        <p className="w-full text-4xl text-bold text-center">Loading...</p>
+        <div className="text-center my-16">
+          <Loader />
+        </div>
         <Image src={loadingGif} alt=""></Image>
       </div>
     );

@@ -8,9 +8,7 @@ const Breadcrumbs = () => {
   const [segments, setSegments] = React.useState<string[]>([]);
 
   const getPathSegments = React.useCallback(() => {
-    const path = router.asPath;
-    const segments = path.split('/');
-    return segments.filter((segment) => segment !== '');
+    return router.asPath.split('/').filter((segment) => segment !== '');
   }, [router]);
 
   React.useEffect(() => {
