@@ -1,26 +1,15 @@
 import { IconButton } from '@/components/common/Buttons';
 import LazyImage from '@/components/common/LazyImage/LazyImage';
-import { faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faInfo,
+  faMagnifyingGlass,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { AnimatePresence, motion, LayoutGroup } from 'framer-motion';
 import React from 'react';
-import {
-  concatMap,
-  filter,
-  first,
-  fromEvent,
-  map,
-  mergeMap,
-  scan,
-  switchMap,
-  switchMapTo,
-  take,
-  takeLast,
-  takeUntil,
-  tap,
-  withLatestFrom,
-  zipWith,
-} from 'rxjs';
+import { fromEvent, map, switchMap, take } from 'rxjs';
 import { PhotoModel } from '../../models/photo';
+import PhotoAnalysis from '../PhotoAnalysis/PhotoAnalysis';
 import PhotoMetadata from '../PhotoMetadata/PhotoMetadata';
 
 export interface FullScreenPhotoProps {
@@ -37,12 +26,24 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
 
   const [metadataActive, setMetadataActive] = React.useState(false);
 
+  const [analysisState, setAnalysisState] = React.useState<'open' | 'closed'>(
+    'closed'
+  );
+
   const handleCloseClick = () => {
     onClose();
   };
 
   const handleInfoClick = () => {
     setMetadataActive(!metadataActive);
+  };
+
+  const handleAnalysisClick = () => {
+    setAnalysisState(analysisState === 'open' ? 'closed' : 'open');
+  };
+
+  const handleAnalysisStateChange = (state: 'open' | 'closed') => {
+    setAnalysisState(state);
   };
 
   React.useEffect(() => {
@@ -101,6 +102,14 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
           >
             <div className="absolute top-0 right-0 flex justify-end p-4 w-full bg-gradient-to-b from-black to-transparent space-x-2 z-30">
               <IconButton
+                onClick={handleAnalysisClick}
+                variant="ghost"
+                icon={faMagnifyingGlass}
+                label={'Analysis'}
+                size={'large'}
+                className="text-white"
+              />
+              <IconButton
                 onClick={handleInfoClick}
                 variant="ghost"
                 icon={faInfo}
@@ -137,6 +146,11 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
           </AnimatePresence>
         </LayoutGroup>
       </div>
+      <PhotoAnalysis
+        photo={photo}
+        openState={analysisState}
+        onOpenStateChange={handleAnalysisStateChange}
+      />
     </div>
   );
 };
