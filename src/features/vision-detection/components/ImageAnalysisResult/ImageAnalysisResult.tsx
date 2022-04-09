@@ -1,3 +1,4 @@
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import * as vision from '@google-cloud/vision';
 import FaceAnnotation from '../AnalysisResult/FaceAnnotation/FaceAnnotation';
 import LabelAnnotation from '../AnalysisResult/LabelAnnotation/LabelAnnotation';
@@ -43,7 +44,9 @@ const ImageAnalysisResult = (props: ImageAnalysisResultProps) => {
   if (isLoading) {
     return (
       <div className="p-8 m-4 text-center text-xl">
-        <p>Loading...</p>
+        <div className="text-center my-16">
+          <Loader />
+        </div>
       </div>
     );
   }

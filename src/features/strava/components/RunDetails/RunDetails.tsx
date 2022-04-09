@@ -1,3 +1,4 @@
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import { DateTime } from '@/utils/dateTime';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +19,11 @@ const RunDetails = (props: RunDetailsProps) => {
   const { run, isLoading, error } = useRun(id);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center my-16">
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
