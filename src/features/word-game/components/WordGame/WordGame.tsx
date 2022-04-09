@@ -8,6 +8,7 @@ import WordGameSuccess from '../WordGameSuccess/WordGameSuccess';
 import wordlist from '../../data/wordlist';
 import { ToastContext } from '@/context/ToastContext/ToastContext';
 import { ToastModel } from '@/models/ToastModel';
+import Loader from '@/components/common/Loaders/Loader/Loader';
 
 const WordGame = () => {
   const CONFIG = {
@@ -122,7 +123,11 @@ const WordGame = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center my-16">
+        <Loader />
+      </div>
+    );
   }
 
   return (

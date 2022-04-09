@@ -1,3 +1,4 @@
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import useRunStats from '../../hooks/useRunStats';
 import { RunStats } from '../../models/StatsData';
 import { TotalsData } from '../../models/TotalsData';
@@ -10,7 +11,12 @@ import TotalElevationGainChart from '../TotalElevationGainChart/TotalElevationGa
 const RunningDashboard = () => {
   const { data, isLoading, error } = useRunStats();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="text-center my-16">
+        <Loader />
+      </div>
+    );
 
   if (error) return <p>Error :(</p>;
 
