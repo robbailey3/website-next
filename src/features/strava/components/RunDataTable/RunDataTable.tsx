@@ -1,3 +1,4 @@
+import Loader from '@/components/common/Loaders/Loader/Loader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { DateTime } from '@/utils/dateTime';
 import Link from 'next/link';
@@ -16,7 +17,11 @@ const RunDataTable = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center my-16">
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
