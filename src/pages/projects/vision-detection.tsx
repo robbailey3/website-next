@@ -112,7 +112,7 @@ const VisionDetectionPage = () => {
               </p>
             </div>
             <div className="ml-auto">
-              <IconButton label="reset" icon={faSync} />
+              <IconButton label="reset" onClick={reset} icon={faSync} />
             </div>
           </div>
 
