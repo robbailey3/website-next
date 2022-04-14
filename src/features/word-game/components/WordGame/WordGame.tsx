@@ -20,7 +20,7 @@ const WordGame = () => {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [targetWord, setTargetWord] = React.useState('crane'.toUpperCase());
+  const [targetWord, setTargetWord] = React.useState('');
 
   const [currentGuess, setCurrentGuess] = React.useState<Guess>(
     new Guess(CONFIG.lettersPerWord)
@@ -115,6 +115,7 @@ const WordGame = () => {
         startTimer();
       } catch (e) {
         Sentry.captureException(e);
+        console.error(e);
       } finally {
         setIsLoading(false);
       }
