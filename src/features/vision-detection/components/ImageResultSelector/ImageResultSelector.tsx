@@ -1,4 +1,3 @@
-import * as vision from '@google-cloud/vision';
 import React from 'react';
 
 export interface ImageResultSelectorProps {
@@ -10,7 +9,11 @@ const ImageResultSelector = (props: ImageResultSelectorProps) => {
   const { categories, onActiveCategoryChange } = props;
 
   // Temporary variable so I can slowly add the different UIs for each category
-  const allowedCategories = ['faceAnnotations', 'labelAnnotations'];
+  const allowedCategories = [
+    'faceAnnotations',
+    'labelAnnotations',
+    'imagePropertiesAnnotation',
+  ];
 
   return categories.length > 0 ? (
     <div className="bg-white z-30">
