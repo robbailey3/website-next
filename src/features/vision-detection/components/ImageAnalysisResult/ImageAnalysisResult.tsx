@@ -1,6 +1,7 @@
 import Loader from '@/components/common/Loaders/Loader/Loader';
 import * as vision from '@google-cloud/vision';
 import FaceAnnotation from '../AnalysisResult/FaceAnnotation/FaceAnnotation';
+import ImagePropertiesAnnotation from '../AnalysisResult/ImagePropertiesAnnotation/ImagePropertiesAnnotation';
 import LabelAnnotation from '../AnalysisResult/LabelAnnotation/LabelAnnotation';
 
 export interface ImageAnalysisResultProps {
@@ -33,6 +34,14 @@ const ImageAnalysisResult = (props: ImageAnalysisResultProps) => {
           <LabelAnnotation
             file={file}
             labelAnnotations={result['labelAnnotations']!}
+            isLoading={isLoading}
+          />
+        );
+      case 'imagePropertiesAnnotation':
+        return (
+          <ImagePropertiesAnnotation
+            imagePropertiesAnnotation={result['imagePropertiesAnnotation']!}
+            file={file}
             isLoading={isLoading}
           />
         );
