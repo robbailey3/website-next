@@ -76,7 +76,7 @@ class PhotoService {
   public async deletePhoto(id: string): Promise<void> {
     await databaseService
       .getCollection<PhotoModel>(this.COLLECTION_NAME)
-      .deleteOne({ _id: id });
+      .deleteOne({ _id: ObjectID.createFromHexString(id) });
   }
 }
 

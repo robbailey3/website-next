@@ -93,11 +93,11 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
   });
 
   return (
-    <div className="fixed w-full h-full bg-black bg-opacity-75 top-0 left-0 z-40 max-h-screen">
-      <div className="flex h-full relative">
+    <div className="fixed w-full h-screen bg-black bg-opacity-75 top-0 left-0 z-40 max-h-screen">
+      <div className="flex h-full relative items-center">
         <LayoutGroup>
           <motion.div
-            className="flex p-4 justify-center items-center duration-500 md:relative grow"
+            className="flex p-4 justify-center items-center duration-500 grow"
             layout
           >
             <div className="absolute top-0 right-0 flex justify-end p-4 w-full bg-gradient-to-b from-black to-transparent space-x-2 z-30">
@@ -129,7 +129,7 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
               src={photo.url}
               thumbnailSrc={photo.thumbnailUrl}
               alt={photo.caption}
-              className="max-w-full max-h-full object-cover"
+              className="max-w-full max-h-screen object-cover"
             />
           </motion.div>
           <AnimatePresence>
