@@ -9,11 +9,11 @@ const Breadcrumbs = () => {
 
   const getPathSegments = React.useCallback(() => {
     return router.asPath.split('/').filter((segment) => segment !== '');
-  }, [router]);
+  }, [router.asPath]);
 
   React.useEffect(() => {
     setSegments([...getPathSegments()]);
-  }, [getPathSegments, router.pathname]);
+  }, [getPathSegments, router.asPath]);
 
   return (
     <div className="my-4">
