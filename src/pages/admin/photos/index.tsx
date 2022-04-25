@@ -11,14 +11,15 @@ import usePhotos from '@/features/photos/hooks/usePhotos';
 import { PhotoModel } from '@/features/photos/models/photo';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const PhotoAlbumPage = () => {
   const PHOTOS_PER_PAGE = 20;
 
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = React.useState('dog');
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const photosResponse = usePhotos(
     PHOTOS_PER_PAGE,

@@ -78,26 +78,6 @@ class PhotoService {
       .getCollection<PhotoModel>(this.COLLECTION_NAME)
       .deleteOne({ _id: ObjectID.createFromHexString(id) });
   }
-
-  public async keywordSearch(keyword: string): Promise<PhotoModel[]> {
-    const result = await databaseService
-      .getCollection<PhotoModel>(this.COLLECTION_NAME)
-      .aggregate<PhotoModel>([
-        {
-          $search: {
-            index: 'keywords',
-            text: {
-              query: keyword,
-              path: {
-                wildcard: '*',
-              },
-            },
-          },
-        },
-      ]);
-
-    return result.toArray();
-  }
 }
 
 export default new PhotoService();
