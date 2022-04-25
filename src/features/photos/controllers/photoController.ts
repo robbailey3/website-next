@@ -116,6 +116,22 @@ class PhotoController {
 
     return AcceptedResponse(res);
   }
+
+  public async search(req: NextApiRequest, res: NextApiResponse) {
+    const { query, type, location } = req.query;
+
+    if (type === 'keyword' && !query) {
+      throw new BadRequestException([{ query: ['Query is required'] }]);
+    }
+
+    if (type === 'location' && !location) {
+      throw new BadRequestException([{ location: ['Location is required'] }]);
+    }
+
+    const photos = await photoService.keywordSearch(query as string);
+
+    return OkResponse(res, photos);
+  }
 }
 
 export default new PhotoController();
