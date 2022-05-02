@@ -1,5 +1,5 @@
 import Container from '@/components/common/Container/Container';
-import SpeciesList from '@/features/pokemon/components/SpeciesList/SpeciesList';
+import PokemonList from '@/features/pokemon/components/PokemonList/PokemonList';
 import { Species } from '@/features/pokemon/models/species';
 import { SpeciesListing } from '@/features/pokemon/models/speciesListing';
 import React from 'react';
@@ -9,7 +9,7 @@ const PokemonPage = () => {
     <Container>
       <h1>Pokemon Page</h1>
       <p>This is the pokemon page.</p>
-      <SpeciesList />
+      <PokemonList />
     </Container>
   );
 };
