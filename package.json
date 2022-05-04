@@ -23,7 +23,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@google-cloud/language": "^4.3.2",
-    "@google-cloud/storage": "^5.18.2",
+    "@google-cloud/storage": "^5.19.1",
     "@google-cloud/vision": "^2.4.2",
     "@sentry/nextjs": "^6.17.3",
     "axios": "^0.26.1",
