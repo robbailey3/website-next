@@ -36,6 +36,13 @@ class PokemonService {
     return { count: result.data.count, data: species };
   }
 
+  public async getPokemonById(id: string): Promise<PokemonDefinition> {
+    const species = await this.getSpecies(id);
+    const pokemon = await this.getPokemon(species.name);
+
+    return { ...species, ...pokemon };
+  }
+
   private async getSpecies(id: string): Promise<Species> {
     const result = await this.axios.get<Species>(`pokemon-species/${id}`);
     return result.data;

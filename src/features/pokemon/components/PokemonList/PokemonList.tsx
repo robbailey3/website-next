@@ -41,11 +41,17 @@ const PokemonList = () => {
 
   return (
     <div className="flex flex-wrap">
-      {pokemonList &&
+      {}
+      {isLoading ? (
+        <div className="text-center w-full my-12">
+          <Loader />
+        </div>
+      ) : (
+        pokemonList &&
         pokemonList
           .sort((a, b) => a.id - b.id)
-          .map((poke) => <PokemonListItem pokemon={poke} key={poke.id} />)}
-      {isLoading && <Loader />}
+          .map((poke) => <PokemonListItem pokemon={poke} key={poke.id} />)
+      )}
       <div className="w-full mt-8">
         <Pagination
           totalItems={totalCount}
