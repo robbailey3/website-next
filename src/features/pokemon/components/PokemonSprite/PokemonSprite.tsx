@@ -18,7 +18,7 @@ const PokemonSprite = (props: PokemonSpriteProps) => {
   };
 
   return (
-    <div className="flex flex-wrap border rounded my-8">
+    <div className="flex flex-wrap border rounded my-8 shadow-sm">
       <div className="w-full flex">
         <button
           onClick={() => selectVariant('default')}

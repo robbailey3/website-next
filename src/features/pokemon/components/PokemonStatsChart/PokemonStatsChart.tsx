@@ -6,6 +6,7 @@ import {
   Radar,
   Legend,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
 import { Stat } from '../../models/pokemon';
 
@@ -27,23 +28,32 @@ const PokemonStatsChart = (props: PokemonStatsChartProps) => {
     <>
       <h2>Stats</h2>
       <ResponsiveContainer width={'100%'} height={500}>
-        <RadarChart data={data}>
+        <RadarChart
+          data={data}
+          margin={{ top: 0, bottom: 80, left: 80, right: 80 }}
+        >
           <PolarGrid />
-          <PolarAngleAxis dataKey="name" spacing={'20px'} />
-          <PolarRadiusAxis
-            angle={90}
-            domain={[0, Math.max(...data.map((d) => d.value))]}
+          <PolarAngleAxis
+            dataKey="name"
+            spacing={'20px'}
+            tick={{
+              style: {
+                fontSize: '.875rem',
+                fill: '#3f3f3f',
+              },
+            }}
           />
-          {data.map((stat) => (
-            <Radar
-              key={stat.name}
-              name={stat.name}
-              dataKey={'value'}
-              stroke="#E3350D"
-              fill="#E3350D"
-              fillOpacity={0.1}
-            />
-          ))}
+          <PolarRadiusAxis
+            angle={65}
+            domain={[0, Math.max(...data.map((d) => d.value))]}
+            tick={{ style: { fontSize: '.875rem', fill: '#3f3f3f' } }}
+          />
+          <Radar
+            dataKey={'value'}
+            stroke="#E3350D"
+            fill="#E3350D"
+            fillOpacity={0.5}
+          />
         </RadarChart>
       </ResponsiveContainer>
     </>

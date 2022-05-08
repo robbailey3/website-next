@@ -11,7 +11,7 @@ const PokemonListItem = (props: PokemonListItemProps) => {
 
   return (
     <div key={pokemon.id} className="w-1/5 p-4 ">
-      <div className="bg-white rounded-lg shadow-lg p-4 relative overflow-hidden">
+      <div className="bg-white rounded-lg shadow-lg p-4 relative overflow-hidden text-center">
         <Link href={`/projects/pokemon/${pokemon.id}`}>
           <a>
             <span className="absolute top-0 right-0 bg-gray-200 p-1 text-black rounded-bl-xl block text-xs font-bold">
