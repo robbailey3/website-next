@@ -40,6 +40,13 @@ const projects: Project[] = [
       'api',
     ],
   },
+  {
+    id: '5',
+    title: 'Pokedex',
+    description: 'A pokedex which shows you the pokemon you want.',
+    slug: 'pokemon',
+    keywords: ['pokedex', 'pokemon', 'api'],
+  },
 ];
 
 export default projects;
