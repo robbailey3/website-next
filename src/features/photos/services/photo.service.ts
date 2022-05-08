@@ -65,10 +65,14 @@ class PhotoService {
     photo: PhotoModel
   ): Promise<PhotoModel | null> {
     photo.updatedAt = new Date();
+    console.log({ photo });
 
     const result = await databaseService
       .getCollection<PhotoModel>(this.COLLECTION_NAME)
-      .findOneAndUpdate({ _id: id }, { $set: photo });
+      .findOneAndUpdate(
+        { _id: ObjectID.createFromHexString(id) },
+        { $set: photo }
+      );
 
     return result.value;
   }
