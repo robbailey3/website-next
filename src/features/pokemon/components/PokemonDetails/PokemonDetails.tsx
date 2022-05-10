@@ -78,6 +78,23 @@ const PokemonDetails = (props: PokemonDetailsProps) => {
               <span>{pokemonDefinition.base_happiness}</span>
             </p>
           </div>
+          <div>
+            <h3>Moves</h3>
+            <table className="border shadow-sm w-full">
+              <thead className="bg-teal-700 text-white text-left">
+                <tr>
+                  <th className="p-2">Move Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pokemonDefinition.moves.map((move) => (
+                  <tr key={move.move.name}>
+                    <td className="p-2">{move.move.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="w-full md:w-1/2">
           <PokemonSprite
@@ -85,25 +102,6 @@ const PokemonDetails = (props: PokemonDetailsProps) => {
             pokemonName={pokemonDefinition.name}
           />
           <PokemonStatsChart stats={pokemonDefinition.stats} />
-        </div>
-      </section>
-      <section className="w-full md:w-1/2">
-        <div>
-          <h3>Moves</h3>
-          <table className="border shadow-sm w-full">
-            <thead className="bg-teal-700 text-white text-left">
-              <tr>
-                <th className="p-2">Move Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pokemonDefinition.moves.map((move) => (
-                <tr key={move.move.name}>
-                  <td className="p-2">{move.move.name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </section>
     </>
