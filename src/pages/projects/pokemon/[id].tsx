@@ -1,5 +1,6 @@
 import Container from '@/components/common/Container/Container';
 import PokemonDetails from '@/features/pokemon/components/PokemonDetails/PokemonDetails';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const PokemonDetailsPage = () => {
@@ -16,9 +17,14 @@ const PokemonDetailsPage = () => {
   }
 
   return (
-    <Container>
-      <PokemonDetails id={id} />
-    </Container>
+    <>
+      <Head>
+        <title>Pokemon App / Projects / Rob Bailey</title>
+      </Head>
+      <Container>
+        <PokemonDetails id={id} />
+      </Container>
+    </>
   );
 };
 

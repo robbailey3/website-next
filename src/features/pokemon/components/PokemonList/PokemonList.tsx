@@ -7,7 +7,7 @@ import pokemon from '../../services/pokemon';
 import PokemonListItem from '../PokemonListItem/PokemonListItem';
 
 const PokemonList = () => {
-  const PAGE_SIZE = 25;
+  const PAGE_SIZE = 50;
 
   const [page, setPage] = React.useState(1);
 
