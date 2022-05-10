@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 import React from 'react';
 import { Sprites } from '../../models/pokemon';
@@ -18,22 +19,33 @@ const PokemonSprite = (props: PokemonSpriteProps) => {
   };
 
   return (
-    <div className="flex flex-wrap border rounded my-8 shadow-sm">
+    <div className="flex flex-wrap rounded my-8">
       <div className="w-full flex">
         <button
           onClick={() => selectVariant('default')}
-          className="grow py-2 bg-slate-100 border-r border-b"
+          className={clsx(
+            'w-1/2 py-2 focus:outline-none rounded-t-lg border-transparent',
+            {
+              'bg-slate-50 text-slate-800 shadow-lg font-bold':
+                selectedVariant === 'default',
+              'bg-gray-600 text-gray-400': selectedVariant !== 'default',
+            }
+          )}
         >
           Default
         </button>
         <button
           onClick={() => selectVariant('shiny')}
-          className="grow py-2 bg-slate-100 border-b"
+          className={clsx('w-1/2 py-2 focus:outline-none rounded-t-lg', {
+            'bg-slate-50 text-slate-800 shadow-lg font-bold':
+              selectedVariant === 'shiny',
+            'bg-gray-600 text-gray-400': selectedVariant !== 'shiny',
+          })}
         >
           Shiny
         </button>
       </div>
-      <div className="flex w-full">
+      <div className="flex w-full shadow bg-slate-50 rounded-b-lg">
         <div className="grow text-center">
           <Image
             src={sprites[`front_${selectedVariant}` as keyof Sprites] as string}
