@@ -29,7 +29,7 @@ const PokemonPageNav = (props: PokemonPageNavProps) => {
         <div className="flex justify-start items-center">
           {idAsNumber > 1 && (
             <Link href={`./${getPrevious()}`}>
-              <a className="bg-blue-400 rounded-full px-2 py-1 flex text-xs md:text-base shadow text-white hover:bg-blue-500 duration-200">
+              <a className="bg-blue-400 rounded-full px-2 py-1 flex text-xs md:text-base shadow text-white hover:bg-blue-500 duration-200 items-center">
                 <FontAwesomeIcon
                   icon={faArrowLeft}
                   className="mr-4 hover:mr-2 duration-300"
@@ -50,7 +50,7 @@ const PokemonPageNav = (props: PokemonPageNavProps) => {
         <div className="flex justify-end items-center">
           <div>
             <Link href={`./${getNext()}`}>
-              <a className="bg-blue-400 rounded-full px-2 py-1 text-xs md:text-base flex shadow text-white hover:bg-blue-500 duration-200">
+              <a className="bg-blue-400 rounded-full px-2 py-1 text-xs md:text-base flex shadow text-white hover:bg-blue-500 duration-200 items-center">
                 <span className="">Next</span>
                 <FontAwesomeIcon
                   icon={faArrowRight}
