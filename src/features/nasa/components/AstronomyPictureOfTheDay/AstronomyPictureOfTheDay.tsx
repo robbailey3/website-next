@@ -23,10 +23,10 @@ const AstronomyPictureOfTheDay = () => {
     <div className="w-full block relative">
       <Image
         src={potd.url}
-        width={800}
-        height={400}
         layout="responsive"
         alt={potd.title}
+        width={1024}
+        height={768}
       ></Image>
     </div>
   );
