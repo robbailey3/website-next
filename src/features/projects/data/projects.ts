@@ -47,6 +47,14 @@ const projects: Project[] = [
     slug: 'pokemon',
     keywords: ['pokedex', 'pokemon', 'api'],
   },
+  {
+    id: '6',
+    title: 'Nasa',
+    description:
+      'A nasa api which shows you the latest images from the nasa api.',
+    slug: 'nasa',
+    keywords: ['nasa', 'api'],
+  },
 ];
 
 export default projects;
