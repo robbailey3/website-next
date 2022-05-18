@@ -9,8 +9,6 @@ class PictureOfTheDayHandler {
   public async getPotd(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.NASA_API_KEY;
 
-    console.log({ API_KEY });
-
     const response = await axios.get('https://api.nasa.gov/planetary/apod', {
       params: {
         api_key: API_KEY,
