@@ -10,6 +10,7 @@ const moduleExports = {
       'i.scdn.co',
       'mosaic.scdn.co',
       'raw.githubusercontent.com',
+      'apod.nasa.gov',
     ],
   },
 };
