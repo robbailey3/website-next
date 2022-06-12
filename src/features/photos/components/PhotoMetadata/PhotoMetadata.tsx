@@ -11,7 +11,7 @@ const PhotoMetadata = (props: PhotoMetadataProps) => {
 
   return (
     <div className="bg-white shadow-xl h-full flex flex-col justify-between">
-      <div className="pr-4 pl-2 pt-12 md:pt-8">
+      <div className="pr-4 pl-2 pt-12 md:pt-32">
         <div>
           {photo.caption && <p className="p-4">{photo.caption}</p>}
           <div>
