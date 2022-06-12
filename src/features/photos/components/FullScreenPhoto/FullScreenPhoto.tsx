@@ -135,7 +135,7 @@ const FullScreenPhoto = (props: FullScreenPhotoProps) => {
           <AnimatePresence>
             {metadataActive && (
               <motion.div
-                className="h-full fixed md:relative top-0 right-0 md:top-auto md:right-auto"
+                className="h-full fixed md:relative top-0 right-0 md:top-auto md:right-auto flex-grow-0 flex-shrink-0"
                 initial={{ opacity: 0, width: 0, originX: 0 }}
                 animate={{ opacity: 1, width: 340, originX: 0 }}
                 exit={{ opacity: 0, width: 0, originX: 0 }}
