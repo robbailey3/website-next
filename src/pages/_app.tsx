@@ -36,3 +36,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   );
 }
 export default MyApp;
+
+export { reportWebVitals } from 'next-axiom';
